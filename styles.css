@@ -1,0 +1,348 @@
+
+/* styles.css */
+.text-container h1, .text-container p, .text-container img{
+  margin-left: 80px;
+}
+.social-buttons {
+  margin-top: 2rem;
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-left: 80px;
+}
+
+.btn-social {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  font-size: 16px;
+  font-weight: bold;
+  text-decoration: none;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+  color: white;
+  text-align: center;
+  background-color: #555;
+}
+
+.linkedin {
+  background-color: #0a66c2;
+}
+
+.github {
+  background-color: #333;
+}
+
+.email {
+  background-color: #d44638;
+}
+.phone {
+  background-color: #555;
+}
+
+.btn-social:hover {
+  transform: translateY(-3px);
+  opacity: 0.9;
+}
+
+
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #fff;
+}
+
+
+.site-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  background-color: #fff;
+  border-bottom: 1px solid #ddd;
+  position: relative;
+}
+
+.logo img {
+  height: 40px;
+}
+
+/* Style de base du menu principal */
+.main-nav {
+  position: relative;
+  margin-right: 350px;
+  animation: slideIn 1s ease-out forwards;
+  opacity: 0;
+  transform: translateX(100%);
+  overflow: visible;
+}
+
+.main-nav ul {
+  list-style: none;
+  display: flex;
+  gap: 60px;
+  background-color: #fff;
+}
+
+.main-nav ul li {
+  position: relative;
+}
+/* Liens du menu principal */
+.main-nav a {
+  text-decoration: none;
+  color: #333;
+  font-size: 16px;
+  padding: 10px 0;
+  transition: all 0.3s ease;
+  padding: 10px 0;
+  display: inline-block;      /* Assure la zone de clic */
+}
+.main-nav a::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0%;
+  height: 2px;
+  background-color: #333;
+  transition: width 0.3s ease;
+}
+
+.main-nav a:hover::after {
+  width: 100%;
+}
+/* Lien actif (page en cours) */
+.main-nav a.active,
+.main-nav a:focus {
+  color: #333;
+  font-weight: 600;
+}
+
+.main-nav a.active::after {
+  width: 100%;
+}
+
+/* Effet hover sur les liens principaux */
+.main-nav a:hover {
+  color: #333;
+}
+
+/*sous menu*/
+.SouMenu{
+  display: none;  
+  position: absolute;
+  left: 0;
+  background-color: white; /* optionnel */
+  z-index: 1000;
+
+}
+.projetMenu:hover .SouMenu {
+  display: block;
+}
+.SouMenu div{
+  padding: 5px;
+}
+
+
+/*gestion animation menu */
+
+.main-nav {
+  position: relative;
+  margin-right: 350px;
+  opacity: 0;
+  transform: translateX(100%);
+  animation: slideIn 1s ease-out forwards;
+}
+
+/* Espacement entre les éléments du menu */
+.main-nav ul {
+  display: flex;
+  gap: 60px;
+  list-style: none;
+}
+
+
+/* Animation */
+@keyframes slideIn {
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@media (min-width: 1024px) {
+  .main-nav {
+    position: relative;
+    margin-right: 350px;
+    opacity: 0;
+    transform: translateX(100%);
+    animation: slideIn 1s ease-out forwards;
+  }
+}
+
+
+/*animation logo*/ 
+.logo {
+  opacity: 0;
+  transform: translateX(-100%);
+  animation: logoSlideIn 1s ease-out forwards;
+}
+
+/* Animation pour le logo */
+@keyframes logoSlideIn {
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@media (min-width: 1024px) {
+  .logo {
+    opacity: 0;
+    transform: translateX(-100%);
+    animation: logoSlideIn 1s ease-out forwards;
+  }
+}
+
+
+
+/* Hamburger menu styles */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+}
+
+.hamburger span {
+  width: 25px;
+  height: 3px;
+  background-color: #333;
+  margin: 4px 0;
+  transition: all 0.3s ease;
+}
+
+.menu-toggle {
+  display: none;
+  flex-direction: column;
+  position: fixed;
+  top: 0;
+  right: -250px;
+  width: 250px;
+  height: 100%;
+  background-color: white;
+  box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
+  padding: 40px 20px;
+  transition: right 0.3s ease;
+  z-index: 1000;
+}
+
+.menu-toggle.open {
+  right: 0;
+  display: flex;
+}
+
+.menu-toggle .close-btn {
+  align-self: flex-end;
+  font-size: 24px;
+  cursor: pointer;
+  margin-bottom: 20px;
+}
+
+.overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 999;
+}
+
+
+.overlay.show {
+  display: block;
+}
+
+@media (max-width: 768px) {
+  .main-nav {
+    display: none;
+  }
+
+  .hamburger {
+    display: flex;
+  }
+}
+
+.btn-download img:hover {
+  transform: scale(1.05);
+}
+
+/* Footer */
+.site-footer {
+  text-align: center;
+  padding: 20px;
+  background-color: #f5f5f5;
+  color: #333;
+}
+
+/* Section d'accueil responsive */
+.home-section .container {
+  flex-wrap: wrap;
+  flex-direction: row;
+  gap: 2rem;
+}
+
+.home-section .text-container,
+.home-section .image-container {
+  flex: 1 1 100%;
+  text-align: center;
+  margin: 0;
+}
+
+
+.home-section .image-container img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 50%;
+}
+
+@media (min-width: 769px) {
+  .home-section .container {
+    flex-wrap: nowrap;
+    flex-direction: row;
+  }
+
+  .home-section .text-container {
+    flex: 1 1 50%;
+    text-align: left;
+    margin-left: 10%;
+  }
+
+  .home-section .image-container {
+    flex: 1 1 50%;
+    margin-right: 10%;
+  }
+
+  .home-section .image-container img {
+    width: 500px;
+    height: auto;
+  }
+ 
+}
+.responsive-photo {
+  width: 100%;
+  max-width: 400px;
+  height: auto;
+  border-radius: 50%;
+  display: block;
+  margin: 0 auto;
+}
+
+@media (min-width: 769px) {
+  .responsive-photo {
+    max-width: 500px;
+  }
+}

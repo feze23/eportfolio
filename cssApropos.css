@@ -1,0 +1,82 @@
+/* Section À propos */
+section {
+    padding: 3rem 1.5rem;
+    background-color: white;
+    max-width: 1400px;
+    margin: auto;
+  }
+  
+  .aproposDetails {
+    display: flex;
+    flex-direction: column;
+    gap: 4rem;
+  }
+  
+  /* Chaque bloc (vision, objectifs, valeurs) */
+  .aproposDetails > div {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+    gap: 2rem;
+  }
+  
+  .aproposDetails h2 {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    color: #222;
+  }
+  
+  .aproposDetails p,
+  .aproposDetails li {
+    font-size: 1.1rem;
+    line-height: 1.9;
+    max-width: 60ch;
+    color: #333;
+  }
+  
+  .aproposDetails img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+  }
+  
+  /* Pour les conteneurs texte */
+  .mavisontext,
+  .mesObjectifText,
+  .mesValeurTextr {
+    flex: 1 1 400px;
+  }
+  
+  .mavisionImage,
+  .mesObejectiImage,
+  .mesvaleurText {
+    flex: 1 1 400px;
+    text-align: center;
+  }
+  
+  /* Responsive layout */
+  @media (max-width: 768px) {
+    .aproposDetails > div {
+      flex-direction: column;
+      text-align: center;
+    }
+  
+    .mavisontext,
+    .mesObjectifText,
+    .mesValeurTextr {
+      text-align: left;
+      padding: 0 1rem;
+    }
+  
+    ul {
+      padding-left: 1.2rem;
+      text-align: left;
+    }
+  
+    h1 {
+      font-size: 2rem;
+      text-align: center;
+    }
+  }
+  
