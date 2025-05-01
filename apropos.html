@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>À propos</title>
+  <link rel="stylesheet" href="assets/css/styles.css">
+  <link rel="stylesheet" href="assets\css\cssApropos.css">
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  
+</head>
+<body>
+  
+<header class="site-header">
+  <div class="logo">
+    <img src="assets/images/logo-daniel-normand.png" alt="Logo Steve Edgar Feze Feugang">
+  </div>
+  <nav class="main-nav">
+    <ul>
+      <li><a href="index.html">Accueil</a></li>
+      <li><a href="apropos.html">À propos de moi</a></li>
+      <li class="projetMenu"><a href="projets.html">Mes projets</a></li>
+      <li><a href="cv.html">CV</a></li>
+    </ul>
+  </nav>
+  <div class="hamburger">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+  <div class="menu-toggle">
+    <div class="close-btn">&times;</div>
+    <ul>
+      <li><a href="index.html">Accueil</a></li>
+      <li><a href="apropos.html">À propos de moi</a></li>
+      <li><a href="projets.html">Mes projets</a></li>
+      <li><a href="projets.html">Mon parcours</a></li>
+      <li><a href="cv.html">CV</a></li>
+    </ul>
+  </div>
+</header>
+<div class="overlay"></div>
+
+  <main>
+    
+<section>
+
+  <h1>À propos de moi</h1>
+  <p style="font-size: 20px;">Technopédagogue, spécilaisé dans le conseil, la conception et l'implantation des projets de formaltion en ligne.</p>
+
+  <div class="aproposDetails">
+    <div class="maVision" style="display: flex; flex-direction: row; justify-content: space-around; ">
+      <div class="mavisontext" style=" width: 500px; font-size: 20px;" data-aos="fade-right" data-aos-offset="300"
+      data-aos-easing="ease-in-sine">
+        <h2>Ma vison en Technopédagogie</h2>
+        <p style="line-height: 2em;" >
+          La technopédagogie me passionne pour sa capacité à transformer les apprentissages. 
+          Je crois profondément au pouvoir des technologies numériques pour rendre la formation plus accessible,
+          engageante et personnalisée, que ce soit en milieu scolaire ou professionnel. Pour moi,
+          c’est une approche centrée sur l’apprenant, qui s’adapte à ses besoins et favorise le développement continu des compétences.
+        </p>
+      </div>
+      <div class="mavisionImage" data-aos="zoom-in-left" ata-aos-easing="ease-in-back"
+      data-aos-delay="300"
+      data-aos-offset="300">
+        <img src="maVisionImage.png" alt="Ma vision image">
+      </div>
+
+    </div>
+    <div class="mesObjectif" style="display: flex; flex-direction: row;flex-direction: row; justify-content: space-around;">
+      <div class="mesObejectiImage" data-aos="zoom-in-right" ata-aos-easing="ease-in-back"
+      data-aos-delay="300"
+      data-aos-offset="300">
+        <img src="MesObjectifsImg.png" alt="image des mes objectifs">
+      </div>
+      <div class="mesObjectifText" style=" width: 500px; font-size: 20px;" data-aos="fade-left" data-aos-offset="300" data-aos-easing="ease-in-sine">
+        <h2>Mes objectifs professionnels</h2>
+        <p style="line-height: 2em;">
+          Mon objectif est de concevoir des expériences d’apprentissage innovantes et efficaces, 
+          soutenues par des technologies adaptées aux réalités des apprenants. À court terme,
+           je souhaite contribuer à des projets technopédagogiques concrets. À long terme, 
+          je me vois comme conseiller technopédagogique ou concepteur pédagogique, impliqué dans des projets à fort impact.
+        </p>
+      </div>
+
+    </div>
+    <div class="mesvaleur" style="display: flex; flex-direction: row; flex-direction: row; justify-content: space-around; ">
+      <div class="mesValeurTextr" style=" width: 500px; font-size: 20px; width: 50%; " data-aos="fade-right"   data-aos-offset="300"    data-aos-easing="ease-in-sine">
+        <ul style="line-height: 2em;"><h2> Mes valeurs</h2>
+          <li><span style="font-weight: bold;">Engagement :</span> rigueur et implication dans tout ce que j’entreprends.</li>
+          <li><span style="font-weight: bold;">Innovation :</span> ouverture aux idées nouvelles et aux solutions créatives.</li>
+          <li><span style="font-weight: bold;">Empathie :</span> écoute active des besoins des apprenants.</li>
+          <li><span style="font-weight: bold;">Éthique :</span> respect, accessibilité et responsabilité dans l’usage des technologies.</li>
+          <li><span style="font-weight: bold;">Collaboration :</span> intelligence collective et partage des savoirs.</li>
+        </ul>
+      </div>
+      <div class="mesvaleurText" data-aos="zoom-in-left" ata-aos-easing="ease-in-back"
+      data-aos-delay="300"
+      data-aos-offset="0">
+        <img src="6_astuces_pour_faire_adopter_vos_valeurs_entreprise_1024.png" alt="image mes valeurs" >
+      </div>
+
+    </div>
+  </div>
+  
+</section>
+
+  </main>
+  
+<footer class="site-footer">
+  <p>&copy; 2025 steve Edgar Feze Feugang. Tous droits réservés.</p>
+</footer>
+
+  <script src="assets/js/main.js"></script>
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    AOS.init();
+</script>
+  
+<script>
+  // Met à jour automatiquement le lien actif dans le menu
+  document.addEventListener("DOMContentLoaded", () => {
+    const links = document.querySelectorAll(".main-nav a");
+    const currentURL = window.location.pathname;
+
+    links.forEach(link => {
+      if (link.getAttribute("href") === currentURL || currentURL.endsWith(link.getAttribute("href"))) {
+        link.classList.add("active");
+      }
+    });
+  });
+</script>
+</body>
+</html>
