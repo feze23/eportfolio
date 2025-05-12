@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Accueil</title>
+  <link rel="stylesheet" href="assets/css/styles.css">
+  <link rel="stylesheet" href="assets\css\cssProjetAccueil.css">
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+</head>
+<body>
+  
+<header class="site-header">
+  <div class="logo">
+    <p>Bienvenu dans mon E-portfolio</p>
+  </div>
+  <nav class="main-nav">
+    <ul >
+      <li><a href="index.html" class="active">Accueil</a></li>
+      <li><a href="apropos.html" >À propos de moi</a></li>
+      <li class="projetMenu" ><a href="projetAccueil.html">Mes projets</a></li>
+      <li><a href="cv.html">CV</a></li>
+    </ul>
+  </nav>
+  <div class="hamburger">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+  <div class="menu-toggle">
+    <div class="close-btn">&times;</div>
+    <ul>
+      <li><a href="index.html">Accueil</a></li>
+      <li><a href="apropos.html">À propos de moi</a></li>
+      <li><a href="projetAccueil.html">Mes projets</a></li>
+      <li><a href="cv.html">CV</a></li>
+    </ul>
+  </div>
+</header>
+<div class="overlay"></div>
+
+  <main>
+    
+
+    <section class="sectionProjets">
+    
+      <div class="carte-discipline" data-aos="fade-up" data-aos-delay="0">
+        <h2>Approche systémique et analyse de besoins</h2>
+        <ul>
+          <li><a href="planDirecteur.html">Conception d’un plan directeur</a></li>
+          <li><a href="RapportAnalyse.html">Rédaction d’un rapport d’analyse de besoins</a></li>
+          <li><a href="solutionPotentielles.html">Conception de solutions potentielles</a></li>
+        </ul>
+      </div>
+  
+      <div class="carte-discipline" data-aos="fade-up" data-aos-delay="100">
+        <h2>Design de l’expérience utilisateur</h2>
+        <ul>
+          <li><a href="experience-utilisateur.html">Amélioration de l’expérience utilisateur d’un site web existant</a></li>
+        </ul>
+      </div>
+  
+      <div class="carte-discipline" data-aos="fade-up" data-aos-delay="200">
+        <h2>E-formation en entreprise</h2>
+        <ul>
+          <li><a href="analyse-environnement.html">Analyse de l’environnement, de la GRH et des besoins</a></li>
+          <li><a href="solution-budget.html">Présentation de la solution, gestion du projet et budget</a></li>
+        </ul>
+      </div>
+  
+      <div class="carte-discipline vide" data-aos="fade-up" data-aos-delay="300">
+        <h2>Fondements de l’apprentissage à distance</h2>
+        <button class="btn-tooltip" aria-label="En cours – cette section sera mise à jour prochainement">
+          ?
+          <span class="tooltip">Cette discipline n’a pas encore de projet associé.</span>
+        </button>
+      </div>
+  
+    </section>
+
+  </main>
+  
+<footer class="site-footer" style="height: 100px;">
+  <p>&copy; 2025 Steve Edgar Feze Feugang. Tous droits réservés.</p>
+</footer>
+
+  <script src="assets/js/main.js"></script>
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    AOS.init();
+</script>
+<script>
+  // Met à jour automatiquement le lien actif dans le menu
+  document.addEventListener("DOMContentLoaded", () => {
+    const links = document.querySelectorAll(".main-nav a");
+    const currentURL = window.location.pathname;
+
+    links.forEach(link => {
+      if (link.getAttribute("href") === currentURL || currentURL.endsWith(link.getAttribute("href"))) {
+        link.classList.add("active");
+      }
+    });
+  });
+</script>
+<script>
+  const hamburger = document.querySelector('.hamburger');
+  const menuToggle = document.querySelector('.menu-toggle');
+  const overlay = document.querySelector('.overlay');
+  const closeBtn = document.querySelector('.close-btn');
+
+  hamburger.addEventListener('click', () => {
+    menuToggle.classList.add('open');
+    overlay.classList.add('show');
+  });
+
+  closeBtn.addEventListener('click', () => {
+    menuToggle.classList.remove('open');
+    overlay.classList.remove('show');
+  });
+
+  overlay.addEventListener('click', () => {
+    menuToggle.classList.remove('open');
+    overlay.classList.remove('show');
+  });
+</script>
+
+
+</body>
+</html>
