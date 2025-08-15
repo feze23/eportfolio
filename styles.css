@@ -59,10 +59,10 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px;
+  padding: 1rem 5%;
   background-color: #fff;
   border-bottom: 1px solid #ddd;
-  position: relative;
+  position: wrap;
 }
 
 .logo img {
@@ -82,7 +82,9 @@ body {
 .main-nav ul {
   list-style: none;
   display: flex;
-  gap: 60px;
+  gap: 2rem;
+  padding: 0;
+  margin: 0;
   background-color: #fff;
 }
 
@@ -93,11 +95,11 @@ body {
 .main-nav a {
   text-decoration: none;
   color: #333;
-  font-size: 16px;
-  padding: 10px 0;
+  font-size: 1rem;
+  padding: 0.5rem 0;
   transition: all 0.3s ease;
-  padding: 10px 0;
   display: inline-block;      /* Assure la zone de clic */
+  position: relative;        /* Nécessaire pour l'effet de soulignement */
 }
 .main-nav a::after {
   content: "";
@@ -318,12 +320,11 @@ body {
   .home-section .text-container {
     flex: 1 1 50%;
     text-align: left;
-    margin-left: 10%;
+  
   }
 
   .home-section .image-container {
     flex: 1 1 50%;
-    margin-right: 10%;
   }
 
   .home-section .image-container img {
