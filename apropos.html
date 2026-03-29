@@ -3,133 +3,787 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>À propos</title>
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="cssApropos.css">
-  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-  
+  <title>À propos — Steve Edgar Feze</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', 'Segoe UI', sans-serif;
+      font-size: 1.05rem;
+      line-height: 1.8;
+      color: #333;
+      background-color: #f9f9f9;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    /* ── HEADER ── */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2rem;
+      height: 64px;
+      background: #fff;
+      border-bottom: 2px solid #2c5f8a;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+
+    .logo {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #1a1a1a;
+    }
+
+    .logo span { color: #2c5f8a; }
+
+    .main-nav ul {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .main-nav a {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: #555;
+      transition: color 0.2s;
+      position: relative;
+      padding-bottom: 2px;
+    }
+
+    .main-nav a::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0;
+      width: 0; height: 2px;
+      background: #2c5f8a;
+      transition: width 0.2s;
+    }
+
+    .main-nav a:hover,
+    .main-nav a.active { color: #2c5f8a; }
+
+    .main-nav a:hover::after,
+    .main-nav a.active::after { width: 100%; }
+
+    /* ── HAMBURGER ── */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 4px;
+    }
+
+    .hamburger span {
+      display: block;
+      width: 24px; height: 2px;
+      background: #333;
+      border-radius: 2px;
+      transition: all 0.3s;
+    }
+
+    /* ── MENU MOBILE ── */
+    .menu-toggle {
+      display: none;
+      position: fixed;
+      top: 0; right: 0;
+      width: 75%;
+      max-width: 300px;
+      height: 100vh;
+      background: #fff;
+      border-left: 3px solid #2c5f8a;
+      z-index: 200;
+      flex-direction: column;
+      padding: 2rem 1.5rem;
+      gap: 1.5rem;
+      box-shadow: -4px 0 20px rgba(0,0,0,0.1);
+      transform: translateX(100%);
+      transition: transform 0.3s ease;
+    }
+
+    .menu-toggle.open {
+      display: flex;
+      transform: translateX(0);
+    }
+
+    .menu-toggle ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+      margin-top: 2rem;
+    }
+
+    .menu-toggle a {
+      font-size: 1.1rem;
+      font-weight: 500;
+      color: #333;
+      transition: color 0.2s;
+    }
+
+    .menu-toggle a:hover { color: #2c5f8a; }
+
+    .close-btn {
+      align-self: flex-end;
+      font-size: 2rem;
+      cursor: pointer;
+      background: none;
+      border: none;
+      color: #333;
+      line-height: 1;
+    }
+
+    .overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.4);
+      z-index: 150;
+    }
+
+    .overlay.show { display: block; }
+
+    /* ── LAYOUT PRINCIPAL ── */
+    .page-wrapper {
+      display: flex;
+      max-width: 1300px;
+      margin: 2.5rem auto;
+      padding: 0 1.5rem;
+      gap: 2.5rem;
+      align-items: flex-start;
+    }
+
+    /* ── MENU LATÉRAL ── */
+    .side-nav {
+      flex: 0 0 220px;
+      position: sticky;
+      top: 84px;
+    }
+
+    .side-nav-label {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #aaa;
+      margin-bottom: 1rem;
+      padding-left: 0.75rem;
+    }
+
+    .side-nav-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+
+    .side-nav-list li {
+      position: relative;
+    }
+
+    /* Barre de progression latérale */
+    .side-nav-list li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 3px;
+      height: 100%;
+      background: #e0e0e0;
+      border-radius: 2px;
+      transition: background 0.3s;
+    }
+
+    .side-nav-list li.visited::before {
+      background: #a8c8e8;
+    }
+
+    .side-nav-list li.active::before {
+      background: #2c5f8a;
+    }
+
+    .side-nav-btn {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      width: 100%;
+      padding: 0.65rem 0.75rem 0.65rem 1.1rem;
+      background: none;
+      border: none;
+      font-family: 'Inter', 'Segoe UI', sans-serif;
+      font-size: 0.88rem;
+      font-weight: 500;
+      color: #888;
+      text-align: left;
+      cursor: pointer;
+      border-radius: 0 8px 8px 0;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .side-nav-btn:hover {
+      background: #f0f5fa;
+      color: #2c5f8a;
+    }
+
+    .side-nav-list li.active .side-nav-btn {
+      color: #2c5f8a;
+      background: #eef4fb;
+      font-weight: 600;
+    }
+
+    .side-nav-list li.visited .side-nav-btn {
+      color: #666;
+    }
+
+    /* Pastille de progression */
+    .step-dot {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      font-size: 0.65rem;
+      font-weight: 700;
+      flex-shrink: 0;
+      border: 2px solid #ddd;
+      color: #bbb;
+      background: #fff;
+      transition: all 0.3s;
+    }
+
+    .side-nav-list li.visited .step-dot {
+      background: #a8c8e8;
+      border-color: #a8c8e8;
+      color: #fff;
+    }
+
+    .side-nav-list li.active .step-dot {
+      background: #2c5f8a;
+      border-color: #2c5f8a;
+      color: #fff;
+    }
+
+    /* ── CONTENU PRINCIPAL ── */
+    .main-content {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .page-title {
+      font-size: clamp(1.8rem, 3.5vw, 2.5rem);
+      font-weight: 600;
+      color: #1a1a1a;
+      margin-bottom: 0.4rem;
+    }
+
+    .page-subtitle {
+      font-size: 1.05rem;
+      color: #2c5f8a;
+      font-weight: 500;
+      margin-bottom: 2.5rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid #e8e8e8;
+    }
+
+    /* ── SECTIONS DE CONTENU ── */
+    .content-section {
+      display: none;
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity 0.45s ease, transform 0.45s ease;
+    }
+
+    .content-section.active {
+      display: block;
+    }
+
+    .content-section.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Bloc texte + image */
+    .section-block {
+      background: #fff;
+      border-radius: 12px;
+      padding: 2.5rem;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .section-block:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 20px rgba(44,95,138,0.10);
+    }
+
+    .section-block h2 {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: #1a1a1a;
+      margin-bottom: 1.2rem;
+      padding-bottom: 0.6rem;
+      border-bottom: 2px solid #eef4fb;
+    }
+
+    .block-inner {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      align-items: center;
+    }
+
+    .block-text {
+      flex: 1 1 340px;
+    }
+
+    .block-text p {
+      font-size: 1.05rem;
+      line-height: 1.9;
+      color: #444;
+      margin-bottom: 1rem;
+      max-width: 65ch;
+    }
+
+    .block-text p:last-child { margin-bottom: 0; }
+
+    .block-image {
+      flex: 0 1 280px;
+      text-align: center;
+    }
+
+    .block-image img {
+      width: 100%;
+      max-width: 260px;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      border: 2px solid #eef4fb;
+    }
+
+    /* Valeurs en grille */
+    .valeurs-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+
+    .valeur-card {
+      background: #f7fafd;
+      border: 1px solid #d8eaf7;
+      border-radius: 10px;
+      padding: 1.2rem 1.4rem;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .valeur-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 16px rgba(44,95,138,0.10);
+    }
+
+    .valeur-title {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #2c5f8a;
+      margin-bottom: 0.3rem;
+    }
+
+    .valeur-desc {
+      font-size: 0.88rem;
+      color: #666;
+      line-height: 1.7;
+    }
+
+    /* Navigation bas de page */
+    .section-nav-bottom {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 2rem;
+      gap: 1rem;
+    }
+
+    .btn-nav {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-size: 0.88rem;
+      font-weight: 500;
+      font-family: 'Inter', 'Segoe UI', sans-serif;
+      border: 2px solid #2c5f8a;
+      background: #fff;
+      color: #2c5f8a;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-nav:hover {
+      background: #2c5f8a;
+      color: #fff;
+      transform: translateY(-1px);
+    }
+
+    .btn-nav:disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    /* ── FOOTER ── */
+    .site-footer {
+      text-align: center;
+      padding: 1.5rem 1rem;
+      border-top: 2px solid #2c5f8a;
+      font-size: 0.88rem;
+      color: #888;
+      background: #fff;
+      margin-top: 3rem;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .site-header { padding: 0 1rem; }
+      .main-nav { display: none; }
+      .hamburger { display: flex; }
+    }
+
+    @media (max-width: 860px) {
+      .page-wrapper {
+        flex-direction: column;
+        gap: 1.5rem;
+      }
+
+      .side-nav {
+        flex: none;
+        width: 100%;
+        position: static;
+      }
+
+      .side-nav-list {
+        flex-direction: row;
+        gap: 0.5rem;
+      }
+
+      .side-nav-list li::before {
+        width: 100%;
+        height: 3px;
+        top: auto;
+        bottom: 0;
+        left: 0;
+      }
+
+      .side-nav-btn {
+        border-radius: 8px 8px 0 0;
+        padding: 0.6rem 0.9rem 0.8rem;
+        font-size: 0.82rem;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .block-inner { flex-direction: column; }
+      .block-image img { max-width: 100%; height: 180px; }
+      .valeurs-grid { grid-template-columns: 1fr; }
+
+      .side-nav-list {
+        flex-direction: column;
+      }
+
+      .side-nav-list li::before {
+        width: 3px;
+        height: 100%;
+        top: 0;
+        bottom: auto;
+      }
+    }
+
+  </style>
 </head>
 <body>
-  
+
+<!-- ── HEADER ── -->
 <header class="site-header">
-  <a href="index.html">
-    <div class="logo">
-    <p>Bienvenu dans mon e-portfolio</p>
-  </div>
-  </a>
-  <nav class="main-nav">
+  <a href="index.html" class="logo">SF — <span>e-portfolio</span></a>
+  <nav class="main-nav" aria-label="Navigation principale">
     <ul>
       <li><a href="index.html">Accueil</a></li>
-      <li><a href="apropos.html">À propos de moi</a></li>
+      <li><a href="apropos.html" class="active">À propos de moi</a></li>
       <li class="projetMenu"><a href="projetAccueil.html">Mes projets</a></li>
       <li><a href="cv.html">CV</a></li>
     </ul>
   </nav>
-  <div class="hamburger">
-    <span></span>
-    <span></span>
-    <span></span>
-  </div>
-  <div class="menu-toggle">
-    <div class="close-btn">&times;</div>
-    <ul>
-      <li><a href="index.html">Accueil</a></li>
-      <li><a href="apropos.html">À propos de moi</a></li>
-      <li><a href="projetAccueil.html">Mes projets</a></li>
-      <li><a href="cv.html">CV</a></li>
-    </ul>
-  </div>
+  <button class="hamburger" aria-label="Ouvrir le menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
 </header>
+
 <div class="overlay"></div>
+<div class="menu-toggle">
+  <button class="close-btn" aria-label="Fermer le menu">&times;</button>
+  <ul>
+    <li><a href="index.html">Accueil</a></li>
+    <li><a href="apropos.html">À propos de moi</a></li>
+    <li><a href="projetAccueil.html">Mes projets</a></li>
+    <li><a href="cv.html">CV</a></li>
+  </ul>
+</div>
 
-  <main>
-    
-<section>
+<!-- ── MAIN ── -->
+<main>
+  <div class="page-wrapper">
 
-  <h1>À propos de moi</h1>
-  <p style="font-size: 20px;">Technopédagogue, spécilaisé dans le conseil, la conception et l'implantation des projets de formation en ligne.</p>
+    <!-- MENU LATÉRAL -->
+    <aside class="side-nav" aria-label="Navigation de section">
+      <p class="side-nav-label">Sur cette page</p>
+      <ul class="side-nav-list" role="tablist">
+        <li class="active" data-section="vision">
+          <button class="side-nav-btn" role="tab" aria-selected="true" aria-controls="section-vision">
+            <span class="step-dot">1</span>
+            Ma vision technopédagogique
+          </button>
+        </li>
+        <li data-section="objectifs">
+          <button class="side-nav-btn" role="tab" aria-selected="false" aria-controls="section-objectifs">
+            <span class="step-dot">2</span>
+            Mes objectifs professionnels
+          </button>
+        </li>
+        <li data-section="valeurs">
+          <button class="side-nav-btn" role="tab" aria-selected="false" aria-controls="section-valeurs">
+            <span class="step-dot">3</span>
+            Mes valeurs
+          </button>
+        </li>
+      </ul>
+    </aside>
 
-  <div class="aproposDetails">
-    <div class="maVision" style="display: flex; flex-direction: row; justify-content: space-around; ">
-      <div class="mavisontext" style=" width: 500px; font-size: 20px;" data-aos="fade-right" data-aos-offset="300"
-      data-aos-easing="ease-in-sine">
-        <h2>Ma vison en Technopédagogie</h2>
-        <p style="line-height: 2em;" >
-          La technopédagogie me passionne pour sa capacité à transformer les apprentissages. 
-          Je crois profondément au pouvoir des technologies numériques pour rendre la formation plus accessible,
-          engageante et personnalisée, que ce soit en milieu scolaire ou professionnel. Pour moi,
-          c’est une approche centrée sur l’apprenant, qui s’adapte à ses besoins et favorise le développement continu des compétences.
-        </p>
+    <!-- CONTENU -->
+    <div class="main-content">
+      <h1 class="page-title">À propos de moi</h1>
+      <p class="page-subtitle">Conseiller pédagogique · Technopédagogue · Concepteur de formation</p>
+
+      <!-- Section 1 : Vision -->
+      <div class="content-section active" id="section-vision" role="tabpanel">
+        <div class="section-block">
+          <h2>Ma vision technopédagogique</h2>
+          <div class="block-inner">
+            <div class="block-text">
+              <p>
+                La technopédagogie est pour moi bien plus qu'un domaine d'expertise — c'est une conviction
+                profonde que les technologies numériques, lorsqu'elles sont intégrées avec intention, ont le
+                pouvoir de transformer en profondeur la manière dont les individus apprennent et se développent.
+              </p>
+              <p>
+                Je crois en une formation résolument centrée sur l'apprenant : accessible, engageante et
+                adaptée à ses contextes de vie, qu'il s'agisse du milieu scolaire, de l'entreprise ou de la
+                formation continue. Mon approche vise à réduire les obstacles à l'apprentissage tout en
+                maximisant l'impact des dispositifs mis en place, grâce à des choix pédagogiques éclairés
+                et des outils numériques judicieusement sélectionnés.
+              </p>
+              <p>
+                C'est cette vision — alliant rigueur andragogique, design pédagogique et culture numérique —
+                qui guide chacun de mes mandats au Cégep de Rimouski et dans mes projets de recherche à
+                l'Université Laval.
+              </p>
+            </div>
+            <div class="block-image">
+              <img src="maVisionImage.png" alt="Illustration de ma vision technopédagogique">
+            </div>
+          </div>
+        </div>
+        <div class="section-nav-bottom">
+          <button class="btn-nav" disabled>← Précédent</button>
+          <button class="btn-nav" id="next-1">Suivant →</button>
+        </div>
       </div>
-      <div class="mavisionImage" data-aos="zoom-in-left" ata-aos-easing="ease-in-back"
-      data-aos-delay="300"
-      data-aos-offset="300">
-        <img src="maVisionImage.png" alt="Ma vision image">
+
+      <!-- Section 2 : Objectifs -->
+      <div class="content-section" id="section-objectifs" role="tabpanel">
+        <div class="section-block">
+          <h2>Mes objectifs professionnels</h2>
+          <div class="block-inner">
+            <div class="block-image">
+              <img src="MesObjectifsImg.png" alt="Illustration de mes objectifs professionnels">
+            </div>
+            <div class="block-text">
+              <p>
+                Mon ambition est de concevoir des expériences d'apprentissage qui ont un impact mesurable
+                et durable — des formations qui ne se contentent pas de transmettre des contenus, mais qui
+                transforment réellement les pratiques et développent les compétences dans la durée.
+              </p>
+              <p>
+                À court terme, je souhaite approfondir mon rôle de conseiller pédagogique au sein des
+                Services aux entreprises du Cégep de Rimouski, en accompagnant davantage d'organisations
+                dans l'analyse de leurs besoins de formation et la mise en œuvre de solutions pédagogiques
+                sur mesure, intégrant les meilleures pratiques en e-formation et en apprentissage hybride.
+              </p>
+              <p>
+                À plus long terme, je me projette comme expert-conseil en technopédagogie, contribuant à des
+                projets d'envergure qui repensent les modèles de formation professionnelle à l'ère du numérique,
+                en lien étroit avec les milieux académiques et les organisations du travail.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="section-nav-bottom">
+          <button class="btn-nav" id="prev-2">← Précédent</button>
+          <button class="btn-nav" id="next-2">Suivant →</button>
+        </div>
       </div>
 
-    </div>
-    <div class="mesObjectif" style="display: flex; flex-direction: row;flex-direction: row; justify-content: space-around;">
-      <div class="mesObejectiImage" data-aos="zoom-in-right" ata-aos-easing="ease-in-back"
-      data-aos-delay="300"
-      data-aos-offset="300">
-        <img src="MesObjectifsImg.png" alt="image des mes objectifs">
-      </div>
-      <div class="mesObjectifText" style=" width: 500px; font-size: 20px;" data-aos="fade-left" data-aos-offset="300" data-aos-easing="ease-in-sine">
-        <h2>Mes objectifs professionnels</h2>
-        <p style="line-height: 2em;">
-          Mon objectif est de concevoir des expériences d’apprentissage innovantes et efficaces, 
-          soutenues par des technologies adaptées aux réalités des apprenants. À court terme,
-           je souhaite contribuer à des projets technopédagogiques concrets. À long terme, 
-          je me vois comme conseiller technopédagogique ou concepteur pédagogique, impliqué dans des projets à fort impact.
-        </p>
+      <!-- Section 3 : Valeurs -->
+      <div class="content-section" id="section-valeurs" role="tabpanel">
+        <div class="section-block">
+          <h2>Mes valeurs</h2>
+          <div class="block-inner" style="margin-bottom: 1.5rem;">
+            <div class="block-text">
+              <p>
+                Mon travail est ancré dans des valeurs fondamentales qui guident mes décisions pédagogiques
+                et mes relations professionnelles. Ces principes ne sont pas de simples mots : ils se
+                traduisent concrètement dans chaque formation que je conçois et chaque accompagnement
+                que j'offre.
+              </p>
+            </div>
+            <div class="block-image">
+              <img src="6_astuces_pour_faire_adopter_vos_valeurs_entreprise_1024.png" alt="Illustration de mes valeurs">
+            </div>
+          </div>
+          <div class="valeurs-grid">
+            <div class="valeur-card">
+              <div class="valeur-title">Engagement</div>
+              <div class="valeur-desc">Rigueur et implication totale dans chaque projet, du cadrage à la livraison.</div>
+            </div>
+            <div class="valeur-card">
+              <div class="valeur-title">Innovation</div>
+              <div class="valeur-desc">Ouverture permanente aux nouvelles approches et aux solutions créatives adaptées au contexte.</div>
+            </div>
+            <div class="valeur-card">
+              <div class="valeur-title">Empathie</div>
+              <div class="valeur-desc">Écoute active des apprenants et des partenaires pour concevoir des formations qui répondent vraiment à leurs besoins.</div>
+            </div>
+            <div class="valeur-card">
+              <div class="valeur-title">Éthique</div>
+              <div class="valeur-desc">Respect de la diversité, accessibilité universelle et usage responsable des technologies éducatives.</div>
+            </div>
+            <div class="valeur-card">
+              <div class="valeur-title">Collaboration</div>
+              <div class="valeur-desc">Intelligence collective et co-construction du savoir comme leviers de performance durable.</div>
+            </div>
+          </div>
+        </div>
+        <div class="section-nav-bottom">
+          <button class="btn-nav" id="prev-3">← Précédent</button>
+          <button class="btn-nav" disabled>Fin ✓</button>
+        </div>
       </div>
 
-    </div>
-    <div class="mesvaleur" style="display: flex; flex-direction: row; flex-direction: row; justify-content: space-around; ">
-      <div class="mesValeurTextr" style=" width: 500px; font-size: 20px; width: 50%; " data-aos="fade-right"   data-aos-offset="300"    data-aos-easing="ease-in-sine">
-        <ul style="line-height: 2em;"><h2> Mes valeurs</h2>
-          <li><span style="font-weight: bold;">Engagement :</span> rigueur et implication dans tout ce que j’entreprends.</li>
-          <li><span style="font-weight: bold;">Innovation :</span> ouverture aux idées nouvelles et aux solutions créatives.</li>
-          <li><span style="font-weight: bold;">Empathie :</span> écoute active des besoins des apprenants.</li>
-          <li><span style="font-weight: bold;">Éthique :</span> respect, accessibilité et responsabilité dans l’usage des technologies.</li>
-          <li><span style="font-weight: bold;">Collaboration :</span> intelligence collective et partage des savoirs.</li>
-        </ul>
-      </div>
-      <div class="mesvaleurText" data-aos="zoom-in-left" ata-aos-easing="ease-in-back"
-      data-aos-delay="300"
-      data-aos-offset="0">
-        <img src="6_astuces_pour_faire_adopter_vos_valeurs_entreprise_1024.png" alt="image mes valeurs" >
-      </div>
+    </div><!-- /.main-content -->
+  </div><!-- /.page-wrapper -->
+</main>
 
-    </div>
-  </div>
-  
-</section>
-
-  </main>
-  
+<!-- ── FOOTER ── -->
 <footer class="site-footer">
-  <p>&copy; 2025 steve Edgar Feze Feugang. Tous droits réservés.</p>
+  <p>&copy; 2025 Steve Edgar Feze Feugang. Tous droits réservés.</p>
 </footer>
 
-  <script src="assets/js/main.js"></script>
-  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-  <script>
-    AOS.init();
-</script>
-  
 <script>
-  // Met à jour automatiquement le lien actif dans le menu
-  document.addEventListener("DOMContentLoaded", () => {
-    const links = document.querySelectorAll(".main-nav a");
-    const currentURL = window.location.pathname;
+  /* ── NAVIGATION PRINCIPALE MOBILE ── */
+  const hamburger  = document.querySelector('.hamburger');
+  const menuToggle = document.querySelector('.menu-toggle');
+  const overlay    = document.querySelector('.overlay');
+  const closeBtn   = document.querySelector('.close-btn');
 
-    links.forEach(link => {
-      if (link.getAttribute("href") === currentURL || currentURL.endsWith(link.getAttribute("href"))) {
-        link.classList.add("active");
+  hamburger.addEventListener('click', () => {
+    menuToggle.classList.add('open');
+    overlay.classList.add('show');
+    hamburger.setAttribute('aria-expanded', 'true');
+  });
+
+  function closeMenu() {
+    menuToggle.classList.remove('open');
+    overlay.classList.remove('show');
+    hamburger.setAttribute('aria-expanded', 'false');
+  }
+
+  closeBtn.addEventListener('click', closeMenu);
+  overlay.addEventListener('click', closeMenu);
+  menuToggle.querySelectorAll('a').forEach(l => l.addEventListener('click', closeMenu));
+
+  /* ── MENU LATÉRAL AVEC PROGRESSION ── */
+  const sideItems   = document.querySelectorAll('.side-nav-list li');
+  const sections    = document.querySelectorAll('.content-section');
+  const visited     = new Set(['vision']); // première section visitée dès le chargement
+
+  function showSection(targetId) {
+    // Masquer toutes les sections
+    sections.forEach(sec => {
+      sec.classList.remove('active', 'visible');
+    });
+
+    // Afficher la cible avec animation douce
+    const target = document.getElementById('section-' + targetId);
+    if (!target) return;
+    target.classList.add('active');
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        target.classList.add('visible');
+      });
+    });
+
+    // Marquer comme visitée
+    visited.add(targetId);
+
+    // Mettre à jour les états du menu latéral
+    sideItems.forEach(item => {
+      const id = item.dataset.section;
+      item.classList.remove('active');
+      if (id === targetId) {
+        item.classList.add('active');
+        item.querySelector('.side-nav-btn').setAttribute('aria-selected', 'true');
+      } else {
+        item.querySelector('.side-nav-btn').setAttribute('aria-selected', 'false');
+        if (visited.has(id)) {
+          item.classList.add('visited');
+        } else {
+          item.classList.remove('visited');
+        }
       }
     });
+  }
+
+  // Attacher les clics du menu latéral
+  sideItems.forEach(item => {
+    item.querySelector('.side-nav-btn').addEventListener('click', () => {
+      showSection(item.dataset.section);
+    });
   });
+
+  // Boutons de navigation bas de page
+  document.getElementById('next-1').addEventListener('click', () => showSection('objectifs'));
+  document.getElementById('prev-2').addEventListener('click', () => showSection('vision'));
+  document.getElementById('next-2').addEventListener('click', () => showSection('valeurs'));
+  document.getElementById('prev-3').addEventListener('click', () => showSection('objectifs'));
+
+  // Initialisation : afficher la première section
+  showSection('vision');
 </script>
+
 </body>
 </html>
