@@ -3,179 +3,873 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Accueil</title>
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="cssProjetAccueil.css">
-  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <title>Mes projets — Steve Edgar Feze</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', 'Segoe UI', sans-serif;
+      font-size: 1.05rem;
+      line-height: 1.8;
+      color: #333;
+      background-color: #f9f9f9;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    /* ── HEADER ── */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2rem;
+      height: 64px;
+      background: #fff;
+      border-bottom: 2px solid #2c5f8a;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+
+    .logo { font-size: 1rem; font-weight: 600; color: #1a1a1a; }
+    .logo span { color: #2c5f8a; }
+
+    .main-nav ul { display: flex; gap: 2rem; list-style: none; }
+
+    .main-nav a {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: #555;
+      transition: color 0.2s;
+      position: relative;
+      padding-bottom: 2px;
+    }
+
+    .main-nav a::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0;
+      width: 0; height: 2px;
+      background: #2c5f8a;
+      transition: width 0.2s;
+    }
+
+    .main-nav a:hover,
+    .main-nav a.active { color: #2c5f8a; }
+
+    .main-nav a:hover::after,
+    .main-nav a.active::after { width: 100%; }
+
+    /* ── HAMBURGER ── */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 4px;
+    }
+
+    .hamburger span {
+      display: block;
+      width: 24px; height: 2px;
+      background: #333;
+      border-radius: 2px;
+      transition: all 0.3s;
+    }
+
+    /* ── MENU MOBILE ── */
+    .menu-toggle {
+      display: none;
+      position: fixed;
+      top: 0; right: 0;
+      width: 75%;
+      max-width: 300px;
+      height: 100vh;
+      background: #fff;
+      border-left: 3px solid #2c5f8a;
+      z-index: 200;
+      flex-direction: column;
+      padding: 2rem 1.5rem;
+      gap: 1.5rem;
+      box-shadow: -4px 0 20px rgba(0,0,0,0.1);
+      transform: translateX(100%);
+      transition: transform 0.3s ease;
+    }
+
+    .menu-toggle.open { display: flex; transform: translateX(0); }
+
+    .menu-toggle ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+      margin-top: 2rem;
+    }
+
+    .menu-toggle a {
+      font-size: 1.1rem;
+      font-weight: 500;
+      color: #333;
+      transition: color 0.2s;
+    }
+
+    .menu-toggle a:hover { color: #2c5f8a; }
+
+    .close-btn {
+      align-self: flex-end;
+      font-size: 2rem;
+      cursor: pointer;
+      background: none;
+      border: none;
+      color: #333;
+      line-height: 1;
+    }
+
+    .overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.4);
+      z-index: 150;
+    }
+
+    .overlay.show { display: block; }
+
+    /* ── PAGE HERO ── */
+    .page-hero {
+      max-width: 1200px;
+      margin: 2.5rem auto 0;
+      padding: 0 2rem;
+    }
+
+    .page-hero h1 {
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      font-weight: 600;
+      color: #1a1a1a;
+      margin-bottom: 0.4rem;
+    }
+
+    .page-hero p {
+      font-size: 0.95rem;
+      color: #666;
+      max-width: 62ch;
+      line-height: 1.75;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid #e8e8e8;
+      margin-bottom: 0;
+    }
+
+    /* ── LÉGENDE ── */
+    .legende {
+      max-width: 1200px;
+      margin: 1rem auto 0;
+      padding: 0 2rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.2rem;
+      align-items: center;
+    }
+
+    .legende-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.8rem;
+      color: #777;
+    }
+
+    .leg-dots { display: flex; gap: 3px; }
+
+    .leg-dot {
+      width: 9px; height: 9px;
+      border-radius: 50%;
+    }
+
+    .leg-dot.equipe { background: #2c5f8a; }
+    .leg-dot.solo   { background: #1D9E75; }
+
+    /* ── FILTRES ── */
+    .filtres {
+      max-width: 1200px;
+      margin: 1.2rem auto 0;
+      padding: 0 2rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .filter-btn {
+      font-size: 0.8rem;
+      font-weight: 500;
+      font-family: 'Inter', sans-serif;
+      padding: 0.4rem 1rem;
+      border-radius: 20px;
+      border: 1.5px solid #ddd;
+      background: #fff;
+      color: #666;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .filter-btn:hover { border-color: #2c5f8a; color: #2c5f8a; }
+
+    .filter-btn.actif {
+      background: #2c5f8a;
+      color: #fff;
+      border-color: #2c5f8a;
+    }
+
+    /* ── GRILLE ── */
+    .grille-projets {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+      gap: 1.25rem;
+      max-width: 1200px;
+      margin: 1.5rem auto 0;
+      padding: 0 2rem 3rem;
+    }
+
+    /* ── CARTE PROJET ── */
+    .carte {
+      background: #fff;
+      border-radius: 12px;
+      border: 1px solid #e8e8e8;
+      padding: 1.4rem;
+      cursor: pointer;
+      transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .carte:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(44, 95, 138, 0.12);
+      border-color: #b8d4ed;
+    }
+
+    .carte-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 0.5rem;
+      margin-bottom: 0.9rem;
+    }
+
+    .tag-domaine {
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.25rem 0.7rem;
+      border-radius: 20px;
+      white-space: nowrap;
+    }
+
+    .tag-sys   { background: #eef4fb; color: #2c5f8a; }
+    .tag-ux    { background: #edf8f3; color: #0f6e56; }
+    .tag-eform { background: #faeeda; color: #854f0b; }
+    .tag-web   { background: #eeedfe; color: #534ab7; }
+    .tag-fad   { background: #f1efe8; color: #5f5e5a; }
+
+    /* Badge participants */
+    .badge-participants {
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-size: 0.72rem;
+      color: #999;
+      font-weight: 500;
+      white-space: nowrap;
+    }
+
+    .dots-wrap { display: flex; gap: 3px; align-items: center; }
+
+    .dot-p {
+      width: 9px; height: 9px;
+      border-radius: 50%;
+      background: #2c5f8a;
+      opacity: 0.7;
+    }
+
+    .dot-p.solo { background: #1D9E75; opacity: 0.85; }
+
+    .carte h3 {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #1a1a1a;
+      margin-bottom: 0.5rem;
+      line-height: 1.35;
+    }
+
+    .carte-desc {
+      font-size: 0.82rem;
+      color: #666;
+      line-height: 1.65;
+      margin-bottom: 1rem;
+      flex: 1;
+    }
+
+    .carte-skills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+      margin-bottom: 1rem;
+    }
+
+    .skill-pill {
+      font-size: 0.68rem;
+      padding: 0.2rem 0.55rem;
+      border-radius: 4px;
+      background: #f4f4f4;
+      color: #555;
+      font-weight: 500;
+    }
+
+    .carte-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 0.8rem;
+      border-top: 1px solid #f0f0f0;
+      margin-top: auto;
+    }
+
+    .lien-detail {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #2c5f8a;
+      transition: opacity 0.2s;
+    }
+
+    .carte:hover .lien-detail { opacity: 0.7; }
+
+    .badge-ext {
+      font-size: 0.7rem;
+      color: #aaa;
+    }
+
+    /* ── PANNEAU LATÉRAL ── */
+    .overlay-detail {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.38);
+      z-index: 300;
+    }
+
+    .overlay-detail.show { display: block; }
+
+    .panneau-detail {
+      position: fixed;
+      top: 0; right: 0;
+      width: 440px;
+      max-width: 95vw;
+      height: 100vh;
+      background: #fff;
+      z-index: 301;
+      padding: 2rem;
+      overflow-y: auto;
+      transform: translateX(100%);
+      transition: transform 0.35s ease;
+      box-shadow: -4px 0 28px rgba(0,0,0,0.1);
+    }
+
+    .panneau-detail.ouvert { transform: translateX(0); }
+
+    .panneau-fermer {
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: #555;
+      display: block;
+      margin-bottom: 1.5rem;
+      padding: 0;
+      transition: color 0.2s;
+    }
+
+    .panneau-fermer:hover { color: #1a1a1a; }
+
+    .panneau-tag {
+      display: inline-block;
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.25rem 0.7rem;
+      border-radius: 20px;
+      margin-bottom: 1rem;
+    }
+
+    .panneau-titre {
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: #1a1a1a;
+      margin-bottom: 0.8rem;
+      line-height: 1.3;
+    }
+
+    .panneau-meta {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.2rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid #f0f0f0;
+      font-size: 0.82rem;
+      color: #888;
+    }
+
+    .panneau-desc {
+      font-size: 0.9rem;
+      color: #444;
+      line-height: 1.85;
+      margin-bottom: 1.2rem;
+    }
+
+    .panneau-skills-titre {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #aaa;
+      margin-bottom: 0.6rem;
+    }
+
+    .panneau-skills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-bottom: 1.8rem;
+    }
+
+    .panneau-skill {
+      font-size: 0.75rem;
+      padding: 0.25rem 0.65rem;
+      border-radius: 4px;
+      background: #eef4fb;
+      color: #2c5f8a;
+      font-weight: 500;
+    }
+
+    .panneau-actions { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+
+    .btn-action {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.7rem 1.4rem;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      font-family: 'Inter', sans-serif;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-decoration: none;
+      border: none;
+    }
+
+    .btn-primaire {
+      background: #2c5f8a;
+      color: #fff;
+    }
+
+    .btn-primaire:hover { background: #1e4a6e; }
+
+    .btn-secondaire {
+      background: #fff;
+      color: #2c5f8a;
+      border: 1.5px solid #2c5f8a;
+    }
+
+    .btn-secondaire:hover { background: #2c5f8a; color: #fff; }
+
+    /* ── FOOTER ── */
+    .site-footer {
+      text-align: center;
+      padding: 1.5rem 1rem;
+      border-top: 2px solid #2c5f8a;
+      font-size: 0.88rem;
+      color: #888;
+      background: #fff;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .site-header { padding: 0 1rem; }
+      .main-nav { display: none; }
+      .hamburger { display: flex; }
+    }
+
+    @media (max-width: 640px) {
+      .page-hero, .filtres, .legende { padding: 0 1rem; }
+      .grille-projets { padding: 0 1rem 3rem; grid-template-columns: 1fr; }
+    }
+
+  </style>
 </head>
 <body>
-  
+
+<!-- ── HEADER ── -->
 <header class="site-header">
-  <div class="logo">
-    <p>Bienvenu dans mon E-portfolio</p>
-  </div>
-  <nav class="main-nav">
-    <ul >
-      <li><a href="index.html" class="active">Accueil</a></li>
-      <li><a href="apropos.html" >À propos de moi</a></li>
-      <li class="projetMenu" ><a href="projetAccueil.html">Mes projets</a></li>
-      <li><a href="cv.html">CV</a></li>
-    </ul>
-  </nav>
-  <div class="hamburger">
-    <span></span>
-    <span></span>
-    <span></span>
-  </div>
-  <div class="menu-toggle">
-    <div class="close-btn">&times;</div>
+  <a href="index.html" class="logo">SF — <span>e-portfolio</span></a>
+  <nav class="main-nav" aria-label="Navigation principale">
     <ul>
       <li><a href="index.html">Accueil</a></li>
       <li><a href="apropos.html">À propos de moi</a></li>
-      <li><a href="projetAccueil.html">Mes projets</a></li>
+      <li><a href="projetAccueil.html" class="active">Mes projets</a></li>
       <li><a href="cv.html">CV</a></li>
     </ul>
-  </div>
+  </nav>
+  <button class="hamburger" aria-label="Ouvrir le menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
 </header>
+
 <div class="overlay"></div>
+<div class="menu-toggle">
+  <button class="close-btn" aria-label="Fermer le menu">&times;</button>
+  <ul>
+    <li><a href="index.html">Accueil</a></li>
+    <li><a href="apropos.html">À propos de moi</a></li>
+    <li><a href="projetAccueil.html">Mes projets</a></li>
+    <li><a href="cv.html">CV</a></li>
+  </ul>
+</div>
 
-  <main>
-    
+<!-- ── MAIN ── -->
+<main>
 
-    <section class="sectionProjets">
-    
-      <div class="carte-discipline" data-aos="fade-up" data-aos-delay="0">
-        <div class="illustration">
-          <div class="circle team dots-3">
-            <div class="dot"></div>
-            <div class="dot"></div>
-            <div class="dot"></div>
-          </div>
-        </div>
-        <h2>Approche systémique et analyse de besoins</h2>
-        <ul>
-          <li><a href="planDirecteur.html">Conception d’un plan directeur</a></li>
-          <li><a href="RapportAnalyse.html">Rédaction d’un rapport d’analyse de besoins</a></li>
-          <li><a href="solutionPotentielles.html">Conception de solutions potentielles</a></li>
-          <li><a href="portfolio.html">E-portfolio</a></li>
-        </ul>
-      </div>
-  
-      <div class="carte-discipline" data-aos="fade-up" data-aos-delay="100">
-        <div class="illustration">
-          <div class="circle team  dots-5">
-            <div class="dot"></div>
-            <div class="dot"></div>
-            <div class="dot"></div>
-            <div class="dot"></div>
-            <div class="dot"></div>
-          </div>
-        </div>
-        <h2>Design de l’expérience utilisateur</h2>
-        <ul>
-          <li><a href="experience-utilisateur.html">Amélioration de l’expérience utilisateur d’un site web existant</a></li>
-        </ul>
-      </div>
-  
-      <div class="carte-discipline" data-aos="fade-up" data-aos-delay="200">
-        <div class="illustration">
-          <div class="circle team dots-5">
-            <div class="dot"></div>
-            <div class="dot"></div>
-            <div class="dot"></div>
-            <div class="dot"></div>
-            <div class="dot"></div>
-          </div>
-        </div>
-        <h2>E-formation en entreprise</h2>
-        <ul>
-          <li><a href="analyse-environnement.html">Analyse de l’environnement, de la GRH et des besoins</a></li>
-          <li><a href="solution-budget.html">Présentation de la solution, gestion du projet et budget</a></li>
-        </ul>
-      </div>
+  <div class="page-hero">
+    <h1>Mes projets</h1>
+    <p>
+      Projets académiques réalisés dans le cadre de ma maîtrise en technologie éducative —
+      individuellement et en équipe — illustrant mes compétences en conception pédagogique,
+      design UX et développement web sur des mandats authentiques.
+    </p>
+  </div>
 
-      <div class="carte-discipline" data-aos="fade-up" data-aos-delay="200">
-        <div class="illustration">
-          <div class="circle team dots-0">
-            <div class="dot"></div>
-          </div>
-        </div>
-        <h2>prommation des interfaces web</h2>
-        <ul>
-          <li><a href="https://rute23.github.io/feze.portfolio.com/Multi-step-form/Multi-step-form.html" target="_blank">Formulaire interactif à plusieurs étapes</a></li>
-          <li><a href="https://rute23.github.io/feze.portfolio.com/HomePage/HomePage.html"target="_blank">Page d'accueil de presse</a></li>
-          <li><a href="https://rute23.github.io/feze.portfolio.com/Space%20tourism%20multi-page%20website/space_tourism.html" target="_blank">Site web à multi-page</a></li>
-          <li><a href="https://rute23.github.io/feze.portfolio.com/countriesDescription/countries.html" target="_blank">page web de description des pays</a></li>
-        </ul>
+  <!-- Légende -->
+  <div class="legende" aria-label="Légende des badges">
+    <div class="legende-item">
+      <div class="leg-dots">
+        <div class="leg-dot equipe"></div>
+        <div class="leg-dot equipe"></div>
+        <div class="leg-dot equipe"></div>
       </div>
-  
-      <div class="carte-discipline vide" data-aos="fade-up" data-aos-delay="300">
-        <div class="illustration">
-          <div class="circle team dots-3">
-           <!--<div class="dot"></div><div class="dot"></div><div class="dot"></div>-->
-           <div class="dot"></div>
-           <div class="dot"></div>
-           <div class="dot"></div>
-          </div>
-        </div>
-        <h2>Fondements de l’apprentissage à distance</h2>
-        <!--<button class="btn-tooltip" aria-label="En cours – cette section sera mise à jour prochainement">-->
-          
-            <p><a href="https://www.canva.com/design/DAGurhuizQg/paufXdGLQVpIMZz3Txaj_w/view?utm_content=DAGurhuizQg&utm_campaign=designshare&utm_medium=link&utm_source=recording_view" target="_blank">Conception d'un cours de formation à distance</a></p>
-          
-          <!--<span class="tooltip">Cette discipline n’a pas encore de projet associé.</span>-->
-        <!--</button>-->
+      <span>Travail d'équipe (nombre de participants)</span>
+    </div>
+    <div class="legende-item">
+      <div class="leg-dots">
+        <div class="leg-dot solo"></div>
       </div>
-  
-    </section>
+      <span>Travail individuel</span>
+    </div>
+  </div>
 
-  </main>
-  
-<footer class="site-footer" style="height: 100px;">
+  <!-- Filtres -->
+  <div class="filtres" id="filtres" role="group" aria-label="Filtrer par domaine">
+    <button class="filter-btn actif" data-filtre="tous">Tous les projets</button>
+    <button class="filter-btn" data-filtre="sys">Approche systémique</button>
+    <button class="filter-btn" data-filtre="ux">Design UX</button>
+    <button class="filter-btn" data-filtre="eform">E-formation</button>
+    <button class="filter-btn" data-filtre="web">Développement web</button>
+    <button class="filter-btn" data-filtre="fad">Formation à distance</button>
+  </div>
+
+  <!-- Grille -->
+  <div class="grille-projets" id="grille" role="list"></div>
+
+</main>
+
+<!-- Overlay + Panneau détail -->
+<div class="overlay-detail" id="overlayDetail" role="presentation"></div>
+<aside class="panneau-detail" id="panneau" aria-label="Détail du projet" aria-hidden="true">
+  <button class="panneau-fermer" id="panneauFermer" aria-label="Fermer le panneau">✕</button>
+  <span class="panneau-tag" id="panneauTag"></span>
+  <h2 class="panneau-titre" id="panneauTitre"></h2>
+  <div class="panneau-meta" id="panneauMeta"></div>
+  <p class="panneau-desc" id="panneauDesc"></p>
+  <p class="panneau-skills-titre">Compétences mobilisées</p>
+  <div class="panneau-skills" id="panneauSkills"></div>
+  <div class="panneau-actions" id="panneauActions"></div>
+</aside>
+
+<!-- ── FOOTER ── -->
+<footer class="site-footer">
   <p>&copy; 2025 Steve Edgar Feze Feugang. Tous droits réservés.</p>
 </footer>
 
-  <script src="assets/js/main.js"></script>
-  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-  <script>
-    AOS.init();
-</script>
 <script>
-  // Met à jour automatiquement le lien actif dans le menu
-  document.addEventListener("DOMContentLoaded", () => {
-    const links = document.querySelectorAll(".main-nav a");
-    const currentURL = window.location.pathname;
+  /* ── DONNÉES PROJETS ── */
+  const projets = [
+    {
+      id: 1, domaine: 'sys',
+      titre: 'Plan directeur — YWCA de Québec',
+      desc: 'Conception d\'un plan directeur pour améliorer l\'autonomie numérique des clientes de 50 ans et plus sur la plateforme Qidigo.',
+      long: 'Ce plan directeur documente la démarche systémique menée à la YWCA de Québec. Il couvre l\'identification du besoin, la collecte de données via entretiens, questionnaires et observation directe, l\'analyse SWOT, PESTEL et Swanson, ainsi que la proposition de solutions adaptées. Mené en équipe de trois, ce projet a été l\'occasion de maîtriser les outils de gestion de projet (Monday.com, Gantt) et les méthodes d\'analyse organisationnelle.',
+      participants: 3,
+      tag: 'tag-sys', tagLabel: 'Approche systémique',
+      skills: ['SWOT', 'PESTEL', 'Swanson', 'Gestion de projet', 'Monday.com', 'Analyse de besoins'],
+      lien: 'planDirecteur.html', ext: false,
+      pdf: 'Plandirecteur_Équipe4_Diallo_Feze Feugang_Neunreuther_20250427.pdf'
+    },
+    {
+      id: 2, domaine: 'sys',
+      titre: 'Rapport d\'analyse de besoins',
+      desc: 'Rapport complet analysant les besoins des préposé·e·s à l\'accueil pour améliorer le service numérique aux clientes de la YWCA.',
+      long: 'Analyse approfondie mobilisant entretiens semi-dirigés, questionnaires et observation directe auprès des préposé·e·s à l\'accueil. Trois personas ont été modélisés pour représenter la diversité des profils. Le rapport débouche sur des objectifs d\'apprentissage structurés et une évaluation à quatre niveaux selon le modèle de Kirkpatrick. Un diagnostic des facteurs d\'influence a été réalisé via la matrice de Swanson.',
+      participants: 3,
+      tag: 'tag-sys', tagLabel: 'Approche systémique',
+      skills: ['Kirkpatrick', 'Entretiens', 'Personas', 'Questionnaire', 'Observation directe', 'Rapport'],
+      lien: 'RapportAnalyse.html', ext: false,
+      pdf: 'Rapport de l\'analyse de besoin_Équipe4_Feze_Feugang_Diallo_Neunreuther_20250427.pdf'
+    },
+    {
+      id: 3, domaine: 'sys',
+      titre: 'Conception de solutions potentielles',
+      desc: 'Six axes de solutions interconnectées pour autonomiser les préposé·e·s et les clientes dans la gestion des inscriptions sur Qidigo.',
+      long: 'Conception de six solutions systémiques articulées : réaménagement de l\'espace d\'accueil, ressources technologiques additionnelles, création d\'outils pédagogiques (tutoriels, guides, aide-mémoires), e-formation mobile, optimisation de la plateforme Qidigo, et automatisation des tâches répétitives. Chaque solution est ancrée dans les résultats de l\'analyse et vise des indicateurs de performance mesurables.',
+      participants: 3,
+      tag: 'tag-sys', tagLabel: 'Approche systémique',
+      skills: ['Design de solution', 'E-formation', 'Swanson', 'UX pédagogique', 'Indicateurs de performance'],
+      lien: 'solutionPotentielles.html', ext: false,
+      pdf: 'Solutions potentielles_équipe 4_Diallo_Feze Feugang_Neunreuther_20250427.pdf'
+    },
+    {
+      id: 4, domaine: 'sys',
+      titre: 'E-portfolio réflexif',
+      desc: 'Conception et développement d\'un e-portfolio personnel documentant les apprentissages réalisés tout au long de la maîtrise.',
+      long: 'Portfolio numérique développé de A à Z en HTML, CSS et JavaScript, hébergé sur GitHub Pages. Chaque projet est documenté avec une réflexion sur les compétences développées, les défis surmontés et les apprentissages retenus. Ce portfolio constitue lui-même une démonstration des compétences en développement web et en communication professionnelle.',
+      participants: 1,
+      tag: 'tag-sys', tagLabel: 'Approche systémique',
+      skills: ['HTML', 'CSS', 'JavaScript', 'Réflexivité', 'GitHub Pages', 'Communication'],
+      lien: 'portfolio.html', ext: false, pdf: null
+    },
+    {
+      id: 5, domaine: 'ux',
+      titre: 'Amélioration UX d\'un site web existant',
+      desc: 'Analyse critique et redesign de l\'expérience utilisateur d\'un site existant : personas, wireframes et tests d\'utilisabilité.',
+      long: 'Démarche complète de design UX appliquée à un site réel : analyse des tâches utilisateurs, construction de personas à partir d\'entretiens, création de wireframes basse et haute fidélité, puis réalisation de tests d\'utilisabilité pour valider les choix de design. Le projet démontre une approche centrée sur l\'utilisateur rigoureuse et documentée.',
+      participants: 1,
+      tag: 'tag-ux', tagLabel: 'Design UX',
+      skills: ['Personas', 'Wireframe', 'Tests utilisateurs', 'Accessibilité', 'Analyse de tâches'],
+      lien: 'experience-utilisateur.html', ext: false, pdf: null
+    },
+    {
+      id: 6, domaine: 'eform',
+      titre: 'Analyse environnement, GRH et besoins',
+      desc: 'Analyse macro-environnementale et des ressources humaines pour concevoir une stratégie de formation en entreprise.',
+      long: 'Analyse combinant le cadre PESTEL, l\'audit des ressources humaines et une étude des besoins de formation d\'une organisation partenaire. Le rapport aboutit à des recommandations stratégiques alignées sur les objectifs d\'affaires de l\'entreprise et les réalités de ses employés.',
+      participants: 3,
+      tag: 'tag-eform', tagLabel: 'E-formation',
+      skills: ['PESTEL', 'GRH', 'Analyse de besoins', 'Formation entreprise', 'Stratégie'],
+      lien: 'analyse-environnement.html', ext: false, pdf: null
+    },
+    {
+      id: 7, domaine: 'eform',
+      titre: 'Solution, gestion de projet et budget',
+      desc: 'Présentation de la solution de formation retenue, planification détaillée du projet et estimation budgétaire.',
+      long: 'Document de synthèse présentant la solution pédagogique choisie avec son plan de déploiement, les jalons du projet, les ressources nécessaires et une analyse coût-bénéfice. Le livrable comprend un calendrier de réalisation et une grille d\'évaluation de l\'efficacité de la formation.',
+      participants: 3,
+      tag: 'tag-eform', tagLabel: 'E-formation',
+      skills: ['Gestion de projet', 'Budget', 'Planification', 'Kirkpatrick', 'Coût-bénéfice'],
+      lien: 'solution-budget.html', ext: false, pdf: null
+    },
+    {
+      id: 8, domaine: 'web',
+      titre: 'Formulaire interactif multi-étapes',
+      desc: 'Développement d\'un formulaire à plusieurs étapes avec validation en temps réel, barre de progression et transitions fluides.',
+      long: 'Formulaire à étapes multiples avec barre de progression visuelle, validation côté client à chaque étape et transitions animées entre les panneaux. Le projet démontre la maîtrise de la manipulation du DOM en JavaScript pur, sans framework. Réalisé dans le cadre d\'un défi Frontend Mentor.',
+      participants: 1,
+      tag: 'tag-web', tagLabel: 'Développement web',
+      skills: ['HTML', 'CSS', 'JavaScript', 'Validation formulaire', 'DOM', 'UX'],
+      lien: 'https://rute23.github.io/feze.portfolio.com/Multi-step-form/Multi-step-form.html',
+      ext: true, pdf: null
+    },
+    {
+      id: 9, domaine: 'web',
+      titre: 'Page d\'accueil de site de presse',
+      desc: 'Intégration pixel-perfect d\'une page d\'accueil pour un site d\'actualités avec grille CSS complexe et hiérarchie typographique.',
+      long: 'Page d\'accueil d\'un site de presse avec mise en page en grille CSS complexe, adaptation mobile-first et respect strict de la maquette fournie. Le projet met en valeur la maîtrise de CSS Grid, de la typographie responsive et des bonnes pratiques HTML sémantique.',
+      participants: 1,
+      tag: 'tag-web', tagLabel: 'Développement web',
+      skills: ['CSS Grid', 'Responsive design', 'Typographie', 'HTML sémantique', 'Mobile-first'],
+      lien: 'https://rute23.github.io/feze.portfolio.com/HomePage/HomePage.html',
+      ext: true, pdf: null
+    },
+    {
+      id: 10, domaine: 'web',
+      titre: 'Site multi-page — tourisme spatial',
+      desc: 'Site web complet sur le tourisme spatial : navigation entre pages, animations CSS et design immersif responsive.',
+      long: 'Site multi-page avec navigation par onglets, transitions animées et design adapté à trois breakpoints (mobile, tablette, desktop). Le projet démontre la maîtrise de l\'architecture d\'un site multi-pages en HTML/CSS/JS natif, sans framework, avec une attention particulière portée à l\'accessibilité et aux performances.',
+      participants: 1,
+      tag: 'tag-web', tagLabel: 'Développement web',
+      skills: ['HTML', 'CSS', 'JavaScript', 'Navigation', 'Animation', 'Accessibilité'],
+      lien: 'https://rute23.github.io/feze.portfolio.com/Space%20tourism%20multi-page%20website/space_tourism.html',
+      ext: true, pdf: null
+    },
+    {
+      id: 11, domaine: 'web',
+      titre: 'Application — pays du monde',
+      desc: 'Application web listant les pays du monde avec recherche dynamique, filtres par région et mode sombre via une API REST.',
+      long: 'Application consommant l\'API REST Countries pour afficher, filtrer et rechercher les pays du monde en temps réel. Inclut un mode sombre basculable, une page de détail par pays avec informations clés et pays frontaliers cliquables. Le projet démontre la maîtrise de la consommation d\'API, de la manipulation asynchrone de données et du design responsive avancé.',
+      participants: 1,
+      tag: 'tag-web', tagLabel: 'Développement web',
+      skills: ['REST API', 'Fetch / Async', 'Filtres dynamiques', 'Dark mode', 'Responsive'],
+      lien: 'https://rute23.github.io/feze.portfolio.com/countriesDescription/countries.html',
+      ext: true, pdf: null
+    },
+    {
+      id: 12, domaine: 'fad',
+      titre: 'Conception d\'un cours de formation à distance',
+      desc: 'Scénarisation et production d\'un cours complet de FAD sur Canva, avec objectifs, activités, évaluation et supports multimédias.',
+      long: 'Conception d\'un cours de formation à distance structuré selon les principes de l\'approche ADDIE : analyse des besoins, design pédagogique, développement des ressources, mise en œuvre et évaluation. Le cours inclut des objectifs d\'apprentissage formulés selon la taxonomie de Bloom, des activités variées (quiz, mises en situation, ressources multimédias) et des outils d\'évaluation formative et sommative.',
+      participants: 1,
+      tag: 'tag-fad', tagLabel: 'Formation à distance',
+      skills: ['ADDIE', 'Bloom', 'Scénarisation', 'Canva', 'Évaluation', 'FAD'],
+      lien: 'https://www.canva.com/design/DAGurhuizQg/paufXdGLQVpIMZz3Txaj_w/view?utm_content=DAGurhuizQg&utm_campaign=designshare&utm_medium=link&utm_source=recording_view',
+      ext: true, pdf: null
+    }
+  ];
 
-    links.forEach(link => {
-      if (link.getAttribute("href") === currentURL || currentURL.endsWith(link.getAttribute("href"))) {
-        link.classList.add("active");
-      }
+  /* ── HELPERS ── */
+  const tagStyles = {
+    'tag-sys':   'background:#eef4fb;color:#2c5f8a',
+    'tag-ux':    'background:#edf8f3;color:#0f6e56',
+    'tag-eform': 'background:#faeeda;color:#854f0b',
+    'tag-web':   'background:#eeedfe;color:#534ab7',
+    'tag-fad':   'background:#f1efe8;color:#5f5e5a'
+  };
+
+  function badgeParticipants(n) {
+    if (n === 1) {
+      return `<div class="dots-wrap"><div class="dot-p solo"></div></div><span>Individuel</span>`;
+    }
+    let dots = '';
+    for (let i = 0; i < n; i++) dots += `<div class="dot-p"></div>`;
+    return `<div class="dots-wrap">${dots}</div><span>${n} participants</span>`;
+  }
+
+  /* ── RENDU GRILLE ── */
+  function renderGrille(filtre) {
+    const grille = document.getElementById('grille');
+    grille.innerHTML = '';
+    const liste = filtre === 'tous' ? projets : projets.filter(p => p.domaine === filtre);
+
+    liste.forEach(p => {
+      const carte = document.createElement('article');
+      carte.className = 'carte';
+      carte.setAttribute('role', 'listitem');
+      carte.setAttribute('tabindex', '0');
+      carte.setAttribute('aria-label', p.titre);
+
+      carte.innerHTML = `
+        <div class="carte-top">
+          <span class="tag-domaine ${p.tag}">${p.tagLabel}</span>
+          <div class="badge-participants">${badgeParticipants(p.participants)}</div>
+        </div>
+        <h3>${p.titre}</h3>
+        <p class="carte-desc">${p.desc}</p>
+        <div class="carte-skills">
+          ${p.skills.map(s => `<span class="skill-pill">${s}</span>`).join('')}
+        </div>
+        <div class="carte-footer">
+          <span class="lien-detail">Voir le détail →</span>
+          ${p.ext ? '<span class="badge-ext">↗ lien externe</span>' : ''}
+        </div>`;
+
+      carte.addEventListener('click', () => ouvrirPanneau(p));
+      carte.addEventListener('keydown', e => { if (e.key === 'Enter') ouvrirPanneau(p); });
+      grille.appendChild(carte);
     });
+  }
+
+  /* ── PANNEAU DÉTAIL ── */
+  function ouvrirPanneau(p) {
+    document.getElementById('panneauTag').textContent = p.tagLabel;
+    document.getElementById('panneauTag').style = tagStyles[p.tag];
+    document.getElementById('panneauTitre').textContent = p.titre;
+    document.getElementById('panneauMeta').innerHTML = `
+      <div class="badge-participants">${badgeParticipants(p.participants)}</div>
+      <span>${p.domaine === 'web' || p.ext ? 'Projet personnel' : 'Projet académique'}</span>`;
+    document.getElementById('panneauDesc').textContent = p.long;
+    document.getElementById('panneauSkills').innerHTML =
+      p.skills.map(s => `<span class="panneau-skill">${s}</span>`).join('');
+
+    let actions = '';
+    if (p.pdf) {
+      actions += `<a href="${p.pdf}" download class="btn-action btn-primaire">⬇ Télécharger le PDF</a>`;
+    }
+    if (p.lien) {
+      actions += `<a href="${p.lien}" ${p.ext ? 'target="_blank" rel="noopener"' : ''}
+        class="btn-action btn-secondaire">Voir le projet →</a>`;
+    }
+    document.getElementById('panneauActions').innerHTML = actions;
+
+    document.getElementById('panneau').classList.add('ouvert');
+    document.getElementById('panneau').setAttribute('aria-hidden', 'false');
+    document.getElementById('overlayDetail').classList.add('show');
+  }
+
+  function fermerPanneau() {
+    document.getElementById('panneau').classList.remove('ouvert');
+    document.getElementById('panneau').setAttribute('aria-hidden', 'true');
+    document.getElementById('overlayDetail').classList.remove('show');
+  }
+
+  document.getElementById('panneauFermer').addEventListener('click', fermerPanneau);
+  document.getElementById('overlayDetail').addEventListener('click', fermerPanneau);
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') fermerPanneau(); });
+
+  /* ── FILTRES ── */
+  document.getElementById('filtres').addEventListener('click', e => {
+    if (!e.target.classList.contains('filter-btn')) return;
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('actif'));
+    e.target.classList.add('actif');
+    renderGrille(e.target.dataset.filtre);
   });
-</script>
-<script>
-  const hamburger = document.querySelector('.hamburger');
+
+  /* ── MENU MOBILE ── */
+  const hamburger  = document.querySelector('.hamburger');
   const menuToggle = document.querySelector('.menu-toggle');
-  const overlay = document.querySelector('.overlay');
-  const closeBtn = document.querySelector('.close-btn');
+  const overlay    = document.querySelector('.overlay');
+  const closeBtn   = document.querySelector('.close-btn');
 
   hamburger.addEventListener('click', () => {
     menuToggle.classList.add('open');
     overlay.classList.add('show');
+    hamburger.setAttribute('aria-expanded', 'true');
   });
 
-  closeBtn.addEventListener('click', () => {
+  function fermerMenu() {
     menuToggle.classList.remove('open');
     overlay.classList.remove('show');
+    hamburger.setAttribute('aria-expanded', 'false');
+  }
+
+  closeBtn.addEventListener('click', fermerMenu);
+  overlay.addEventListener('click', fermerMenu);
+  menuToggle.querySelectorAll('a').forEach(l => l.addEventListener('click', fermerMenu));
+
+  /* ── LIEN ACTIF ── */
+  document.querySelectorAll('.main-nav a').forEach(link => {
+    if (window.location.pathname.endsWith(link.getAttribute('href'))) {
+      document.querySelectorAll('.main-nav a').forEach(l => l.classList.remove('active'));
+      link.classList.add('active');
+    }
   });
 
-  overlay.addEventListener('click', () => {
-    menuToggle.classList.remove('open');
-    overlay.classList.remove('show');
-  });
+  /* ── INITIALISATION ── */
+  renderGrille('tous');
 </script>
-
 
 </body>
 </html>
-
