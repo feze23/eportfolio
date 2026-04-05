@@ -443,6 +443,8 @@
     .tag-eform { background: #faeeda; color: #854f0b; }
     .tag-web   { background: #eeedfe; color: #534ab7; }
     .tag-fad   { background: #f1efe8; color: #5f5e5a; }
+    .tag-dsef  { background: #fbeaf0; color: #993556; }
+    .tag-dsf   { background: #e6f5e9; color: #2e7d32; }
 
     /* Badge participants */
     .badge-p {
@@ -776,7 +778,7 @@
     <div class="hero-top">
       <h1>Mes projets</h1>
       <div class="hero-stats">
-        <span class="stat-pill" id="statTotal">12 projets</span>
+        <span class="stat-pill" id="statTotal">16 projets</span>
         <span class="stat-pill">5 domaines</span>
         <span class="stat-pill">Maîtrise · Université Laval</span>
       </div>
@@ -844,7 +846,7 @@
   <div class="filtres-wrap">
     <div class="filtres" id="filtres" role="group" aria-label="Filtrer par domaine">
       <button class="filter-btn actif" data-filtre="tous">
-        Tous <span class="cnt">(12)</span>
+        Tous <span class="cnt">(16)</span>
       </button>
       <button class="filter-btn" data-filtre="sys">
         Approche systémique <span class="cnt">(4)</span>
@@ -861,7 +863,13 @@
       <button class="filter-btn" data-filtre="fad">
         Formation à distance <span class="cnt">(1)</span>
       </button>
-      <span class="filtre-count" id="filtreCount" aria-live="polite">12 projets affichés</span>
+      <button class="filter-btn" data-filtre="dsef">
+        Design des systèmes d'enseignement <span class="cnt">(2)</span>
+      </button>
+      <button class="filter-btn" data-filtre="dsf">
+        Développement des systèmes de formation <span class="cnt">(2)</span>
+      </button>
+      <span class="filtre-count" id="filtreCount" aria-live="polite">16 projets affichés</span>
     </div>
   </div>
 
@@ -1031,6 +1039,48 @@
       skills: ['ADDIE', 'Bloom', 'Scénarisation', 'Canva', 'Évaluation formative', 'FAD'],
       lien: 'https://www.canva.com/design/DAGurhuizQg/paufXdGLQVpIMZz3Txaj_w/view?utm_content=DAGurhuizQg&utm_campaign=designshare&utm_medium=link&utm_source=recording_view',
       ext: true, pdf: null
+    },
+    {
+      id: 13, domaine: 'dsef',
+      titre: 'Modèle logique et pitch de solution',
+      desc: 'Conception d\'un modèle logique structurant une solution de formation mobile innovante, accompagné d\'un pitch convaincant présenté à une clientèle cible.',
+      long: 'Ancré dans l\'analyse de besoins réalisée dans le cadre du cours TEN7001, ce projet se déploie en deux volets complémentaires. Le premier consiste en l\'élaboration d\'un modèle logique détaillant la structure, les composantes et les résultats attendus d\'une solution de formation mobile. Le second volet prend la forme d\'un pitch structuré et convaincant, conçu pour présenter la solution à une clientèle cible avec clarté et impact. Ce travail mobilise des compétences en pensée systémique, en argumentation pédagogique et en communication professionnelle.',
+      participants: 1,
+      tag: 'tag-dsef', tagLabel: 'Design des systèmes d\'enseignement',
+      skills: ['Modèle logique', 'Pitch', 'Éthique', 'Communication', 'Pensée systémique', 'TEN7001'],
+      lien: null, ext: false, pdf: null
+    },
+    {
+      id: 14, domaine: 'dsef',
+      titre: 'Document technique de conception détaillée',
+      desc: 'Conception détaillée de l\'expérience d\'apprentissage et production de l\'ensemble des documents techniques guidant une équipe de production.',
+      long: 'Ce projet consiste à traduire une vision pédagogique en spécifications opérationnelles concrètes. Il s\'agit de concevoir en profondeur l\'expérience d\'apprentissage proposée dans la solution développée, puis de produire l\'ensemble des documents techniques nécessaires pour qu\'une équipe de production puisse en assurer le développement de façon autonome et fidèle. Ce livrable exige une rigueur de conception alliant clarté rédactionnelle, cohérence pédagogique et précision technique.',
+      participants: 1,
+      tag: 'tag-dsef', tagLabel: 'Design des systèmes d\'enseignement',
+      skills: ['Document technique', 'Éthique', 'Scénarisation', 'Rédaction professionnelle', 'Design pédagogique'],
+      lien: null, ext: false, pdf: null
+    },
+    {
+      id: 15, domaine: 'dsf',
+      titre: 'Production multimédia — Articulate Rise',
+      desc: 'Développement en équipe d\'expériences de formation interactives avec Articulate Rise, en respectant les normes techniques, éthiques et juridiques.',
+      long: 'Dans le cadre d\'une équipe de production de cinq personnes, ce projet vise à développer des expériences de formation interactives et multimédias en intégrant des outils numériques avancés. En adoptant le rôle d\'une véritable équipe de production, nous avons conçu et développé des modules e-learning avec Articulate Rise, en veillant au respect des normes techniques, éthiques et juridiques applicables, et en optimisant l\'expérience des apprenants dans divers environnements numériques d\'apprentissage. Contenu en cours de développement.',
+      participants: 5,
+      tag: 'tag-dsf', tagLabel: 'Développement des systèmes de formation',
+      skills: ['Articulate Rise', 'E-learning', 'Production multimédia', 'Travail d\'équipe', 'Normes éthiques'],
+      lien: null, ext: false, pdf: null,
+      enCours: true
+    },
+    {
+      id: 16, domaine: 'dsf',
+      titre: 'Production multimédia — Articulate Storyline & Adobe Illustrator',
+      desc: 'Création d\'expériences d\'apprentissage interactives et illustrées avec Articulate Storyline et Adobe Illustrator dans un contexte de production en équipe.',
+      long: 'Toujours au sein de la même équipe de production, ce projet approfondit le développement multimédia en intégrant Articulate Storyline pour des interactions avancées et Adobe Illustrator pour la création de ressources visuelles sur mesure. L\'accent est mis sur la qualité de l\'expérience apprenant, la cohérence graphique et le respect des standards de production en technologie éducative. Contenu en cours de développement.',
+      participants: 5,
+      tag: 'tag-dsf', tagLabel: 'Développement des systèmes de formation',
+      skills: ['Articulate Storyline', 'Adobe Illustrator', 'Expérience d\'apprentissage', 'Design graphique', 'Production multimédia'],
+      lien: null, ext: false, pdf: null,
+      enCours: true
     }
   ];
 
@@ -1042,7 +1092,9 @@
     'tag-ux':    { style: 'background:#edf8f3;color:#0f6e56' },
     'tag-eform': { style: 'background:#faeeda;color:#854f0b' },
     'tag-web':   { style: 'background:#eeedfe;color:#534ab7' },
-    'tag-fad':   { style: 'background:#f1efe8;color:#5f5e5a' }
+    'tag-fad':   { style: 'background:#f1efe8;color:#5f5e5a' },
+    'tag-dsef':  { style: 'background:#fbeaf0;color:#993556' },
+    'tag-dsf':   { style: 'background:#e6f5e9;color:#2e7d32' }
   };
 
   /* ════════════════════════════════════
@@ -1103,7 +1155,7 @@
           ${p.skills.length > 4 ? `<span class="skill-pill">+${p.skills.length - 4}</span>` : ''}
         </div>
         <div class="carte-footer">
-          <span class="lien-detail">Voir le détail →</span>
+          <span class="lien-detail">${p.enCours ? '⏳ En cours de développement' : 'Voir le détail →'}</span>
           ${p.ext ? '<span class="badge-ext">↗ lien externe</span>' : ''}
         </div>`;
 
