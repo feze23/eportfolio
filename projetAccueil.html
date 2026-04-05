@@ -425,6 +425,8 @@
       justify-content: space-between;
       gap: 0.5rem;
       margin-bottom: 0.75rem;
+      flex-wrap: wrap;
+      row-gap: 0.4rem;
     }
 
     /* Tags domaine */
@@ -435,7 +437,10 @@
       text-transform: uppercase;
       padding: 0.22rem 0.65rem;
       border-radius: 20px;
-      white-space: nowrap;
+      white-space: normal;
+      flex: 1 1 auto;
+      min-width: 0;
+      line-height: 1.4;
     }
 
     .tag-sys   { background: #eef4fb; color: #2c5f8a; }
@@ -455,6 +460,7 @@
       color: #aaa;
       font-weight: 500;
       white-space: nowrap;
+      flex-shrink: 0;
     }
 
     .dots-wrap { display: flex; gap: 3px; align-items: center; }
@@ -778,7 +784,7 @@
     <div class="hero-top">
       <h1>Mes projets</h1>
       <div class="hero-stats">
-        <span class="stat-pill" id="statTotal">16 projets</span>
+        <span class="stat-pill" id="statTotal">18 projets</span>
         <span class="stat-pill">5 domaines</span>
         <span class="stat-pill">Maîtrise · Université Laval</span>
       </div>
@@ -846,7 +852,7 @@
   <div class="filtres-wrap">
     <div class="filtres" id="filtres" role="group" aria-label="Filtrer par domaine">
       <button class="filter-btn actif" data-filtre="tous">
-        Tous <span class="cnt">(16)</span>
+        Tous <span class="cnt">(18)</span>
       </button>
       <button class="filter-btn" data-filtre="sys">
         Approche systémique <span class="cnt">(4)</span>
@@ -864,12 +870,12 @@
         Formation à distance <span class="cnt">(1)</span>
       </button>
       <button class="filter-btn" data-filtre="dsef">
-        Design des systèmes d'enseignement <span class="cnt">(2)</span>
+        Design de systèmes d'enseignement et de formation <span class="cnt">(3)</span>
       </button>
       <button class="filter-btn" data-filtre="dsf">
-        Développement des systèmes de formation <span class="cnt">(2)</span>
+        Développement des systèmes de formation <span class="cnt">(3)</span>
       </button>
-      <span class="filtre-count" id="filtreCount" aria-live="polite">16 projets affichés</span>
+      <span class="filtre-count" id="filtreCount" aria-live="polite">18 projets affichés</span>
     </div>
   </div>
 
@@ -1046,7 +1052,7 @@
       desc: 'Conception d\'un modèle logique structurant une solution de formation mobile innovante, accompagné d\'un pitch convaincant présenté à une clientèle cible.',
       long: 'Ancré dans l\'analyse de besoins réalisée dans le cadre du cours TEN7001, ce projet se déploie en deux volets complémentaires. Le premier consiste en l\'élaboration d\'un modèle logique détaillant la structure, les composantes et les résultats attendus d\'une solution de formation mobile. Le second volet prend la forme d\'un pitch structuré et convaincant, conçu pour présenter la solution à une clientèle cible avec clarté et impact. Ce travail mobilise des compétences en pensée systémique, en argumentation pédagogique et en communication professionnelle.',
       participants: 1,
-      tag: 'tag-dsef', tagLabel: 'Design des systèmes d\'enseignement',
+      tag: 'tag-dsef', tagLabel: 'Design de systèmes d\'enseignement et de formation',
       skills: ['Modèle logique', 'Pitch', 'Éthique', 'Communication', 'Pensée systémique', 'TEN7001'],
       lien: null, ext: false, pdf: null
     },
@@ -1056,31 +1062,49 @@
       desc: 'Conception détaillée de l\'expérience d\'apprentissage et production de l\'ensemble des documents techniques guidant une équipe de production.',
       long: 'Ce projet consiste à traduire une vision pédagogique en spécifications opérationnelles concrètes. Il s\'agit de concevoir en profondeur l\'expérience d\'apprentissage proposée dans la solution développée, puis de produire l\'ensemble des documents techniques nécessaires pour qu\'une équipe de production puisse en assurer le développement de façon autonome et fidèle. Ce livrable exige une rigueur de conception alliant clarté rédactionnelle, cohérence pédagogique et précision technique.',
       participants: 1,
-      tag: 'tag-dsef', tagLabel: 'Design des systèmes d\'enseignement',
+      tag: 'tag-dsef', tagLabel: 'Design de systèmes d\'enseignement et de formation',
       skills: ['Document technique', 'Éthique', 'Scénarisation', 'Rédaction professionnelle', 'Design pédagogique'],
       lien: null, ext: false, pdf: null
     },
     {
-      id: 15, domaine: 'dsf',
-      titre: 'Production multimédia — Articulate Rise',
-      desc: 'Développement en équipe d\'expériences de formation interactives avec Articulate Rise, en respectant les normes techniques, éthiques et juridiques.',
-      long: 'Dans le cadre d\'une équipe de production de cinq personnes, ce projet vise à développer des expériences de formation interactives et multimédias en intégrant des outils numériques avancés. En adoptant le rôle d\'une véritable équipe de production, nous avons conçu et développé des modules e-learning avec Articulate Rise, en veillant au respect des normes techniques, éthiques et juridiques applicables, et en optimisant l\'expérience des apprenants dans divers environnements numériques d\'apprentissage. Contenu en cours de développement.',
-      participants: 5,
-      tag: 'tag-dsf', tagLabel: 'Développement des systèmes de formation',
-      skills: ['Articulate Rise', 'E-learning', 'Production multimédia', 'Travail d\'équipe', 'Normes éthiques'],
-      lien: null, ext: false, pdf: null,
-      enCours: true
+      id: 17, domaine: 'dsef',
+      titre: 'Restez à jour — article d\'opinion',
+      desc: 'Rédaction d\'un article d\'opinion sur l\'innovation pédagogique et andragogique à l\'ère de l\'intelligence artificielle et du numérique.',
+      long: 'Ce projet a consisté à rédiger un article d\'opinion rigoureux et engagé sur les transformations que l\'intelligence artificielle et le numérique imposent aux pratiques pédagogiques et andragogiques contemporaines. En prenant position sur les enjeux d\'innovation en formation, l\'article mobilise des références académiques et des exemples concrets pour nourrir une réflexion critique sur l\'avenir de l\'apprentissage à l\'ère numérique. Il témoigne d\'une veille active et d\'une capacité à articuler des idées complexes de façon accessible et convaincante.',
+      participants: 1,
+      tag: 'tag-dsef', tagLabel: 'Design de systèmes d\'enseignement et de formation',
+      skills: ['Rédaction académique', 'Veille technologique', 'IA en éducation', 'Andragogie', 'Pensée critique'],
+      lien: null, ext: false, pdf: null
     },
     {
-      id: 16, domaine: 'dsf',
-      titre: 'Production multimédia — Articulate Storyline & Adobe Illustrator',
-      desc: 'Création d\'expériences d\'apprentissage interactives et illustrées avec Articulate Storyline et Adobe Illustrator dans un contexte de production en équipe.',
-      long: 'Toujours au sein de la même équipe de production, ce projet approfondit le développement multimédia en intégrant Articulate Storyline pour des interactions avancées et Adobe Illustrator pour la création de ressources visuelles sur mesure. L\'accent est mis sur la qualité de l\'expérience apprenant, la cohérence graphique et le respect des standards de production en technologie éducative. Contenu en cours de développement.',
-      participants: 5,
+      id: 18, domaine: 'dsf',
+      titre: 'Vlog d\'autoformation aux outils numériques',
+      desc: 'Exploration et documentation de trois logiciels de création — Articulate Rise, Articulate Storyline et NotebookLM — à travers un vlog d\'autoformation de 15 à 20 minutes.',
+      long: 'Ce projet d\'autoformation dirigée a consisté à explorer de manière autonome trois outils de création numérique incontournables en technologie éducative : Articulate Rise, Articulate Storyline et NotebookLM. L\'ensemble du processus d\'apprentissage — découvertes, obstacles, stratégies et artefacts produits — a été documenté sous forme d\'un vlog structuré de 15 à 20 minutes. Ce format de restitution reflète une capacité à apprendre en autonomie, à verbaliser sa démarche réflexive et à valoriser des compétences numériques nouvellement acquises.',
+      participants: 1,
       tag: 'tag-dsf', tagLabel: 'Développement des systèmes de formation',
-      skills: ['Articulate Storyline', 'Adobe Illustrator', 'Expérience d\'apprentissage', 'Design graphique', 'Production multimédia'],
-      lien: null, ext: false, pdf: null,
-      enCours: true
+      skills: ['Articulate Rise', 'Articulate Storyline', 'NotebookLM', 'Autoformation', 'Vlog réflexif'],
+      lien: null, ext: false, pdf: null
+    },
+    {
+      id: 19, domaine: 'dsf',
+      titre: 'Prototype de formation mobile',
+      desc: 'Développement de dix minutes complètes d\'une expérience d\'apprentissage interactive, entièrement fonctionnelle et accessible en ligne.',
+      long: 'Ce projet a consisté à développer un prototype complet de dix minutes d\'expérience d\'apprentissage interactive, conçu pour être parcouru comme une véritable expérience numérique. Accessible en ligne, ce module de formation mobile illustre la maîtrise des principes de l\'UX pédagogique, de l\'interactivité et de l\'accessibilité numérique. Chaque écran, activité et rétroaction a été pensé pour placer l\'apprenant au cœur d\'un parcours engageant, cohérent et techniquement irréprochable.',
+      participants: 1,
+      tag: 'tag-dsf', tagLabel: 'Développement des systèmes de formation',
+      skills: ['Formation mobile', 'UX pédagogique', 'Interactivité', 'Accessibilité', 'Prototype fonctionnel'],
+      lien: null, ext: false, pdf: null
+    },
+    {
+      id: 20, domaine: 'dsf',
+      titre: 'Conception et facilitation d\'un atelier Adobe Illustrator',
+      desc: 'Conception et animation d\'un atelier en ligne de 75 minutes sur Adobe Illustrator, alliant design pédagogique et facilitation active.',
+      long: 'Ce projet a requis de concevoir de A à Z un atelier de formation en ligne de 75 minutes centré sur Adobe Illustrator, puis de l\'animer en direct. La démarche a mobilisé des compétences en design pédagogique — définition des objectifs, structuration des activités, sélection des outils de facilitation — ainsi qu\'en animation de groupe en contexte numérique. L\'atelier a été conçu pour favoriser l\'engagement actif des participants et l\'acquisition immédiate de compétences pratiques en design graphique vectoriel.',
+      participants: 1,
+      tag: 'tag-dsf', tagLabel: 'Développement des systèmes de formation',
+      skills: ['Adobe Illustrator', 'Facilitation', 'Design pédagogique', 'Formation en ligne', 'Animation de groupe'],
+      lien: null, ext: false, pdf: null
     }
   ];
 
