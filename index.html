@@ -1,386 +1,531 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Steve Edgar Feze Feugang — Portfolio</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-  <style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Steve Edgar Feze Feugang &#8212; e-portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
 
-    *, *::before, *::after {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+/* ─────────────────────────────
+   PALETTE & TOKENS
+───────────────────────────── */
+:root {
+  /* Fond */
+  --bg-page   : #F4F7FB;   /* bleu-gris très clair, reposant */
+  --bg-card   : #FFFFFF;
+  --bg-accent : #EBF3FC;   /* bleu pâle pour pills et hover */
 
-    body {
-      font-family: 'Inter', 'Segoe UI', sans-serif;
-      font-size: 1.05rem;
-      line-height: 1.8;
-      color: #333;
-      background-color: #f9f9f9;
-    }
+  /* Texte */
+  --txt-primary   : #1C2B3A; /* marine foncé, moins agressif que #000 */
+  --txt-secondary : #4A6070; /* bleu-gris moyen */
+  --txt-muted     : #8A9DB0; /* discret */
 
-    a { color: inherit; text-decoration: none; }
+  /* Accent */
+  --accent        : #3B7EC8; /* bleu calmant principal */
+  --accent-dark   : #2A6097;
+  --accent-light  : #C5DCF5;
 
-    /* HEADER */
-    .site-header {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 2rem;
-      height: 64px;
-      background: #fff;
-      border-bottom: 2px solid #2c5f8a;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-    }
+  /* Bordures */
+  --border-light  : #DDE8F2;
+  --border-medium : #B8CDE0;
 
-    .logo {
-      font-size: 1rem;
-      font-weight: 600;
-      color: #1a1a1a;
-    }
+  /* Ombres */
+  --shadow-sm : 0 1px 4px rgba(59,126,200,0.07);
+  --shadow-md : 0 4px 16px rgba(59,126,200,0.10);
 
-    .logo span { color: #2c5f8a; }
+  /* Typographie */
+  --font : 'Inter', 'Segoe UI', system-ui, sans-serif;
+  --size-xs  : 11px;
+  --size-sm  : 13px;
+  --size-base: 15px;
+  --size-md  : 17px;
+  --size-lg  : 22px;
+  --size-xl  : 36px;
+  --size-2xl : 48px;
+  --leading   : 1.85;
+  --leading-tight : 1.2;
 
-    .main-nav ul {
-      display: flex;
-      gap: 2rem;
-      list-style: none;
-    }
+  /* Espacements */
+  --space-xs : 6px;
+  --space-sm : 12px;
+  --space-md : 24px;
+  --space-lg : 48px;
+  --space-xl : 80px;
 
-    .main-nav a {
-      font-size: 0.9rem;
-      font-weight: 500;
-      color: #555;
-      transition: color 0.2s;
-      position: relative;
-      padding-bottom: 2px;
-    }
+  /* Rayons */
+  --radius-sm : 8px;
+  --radius-md : 12px;
+  --radius-lg : 18px;
+  --radius-pill : 999px;
+}
 
-    .main-nav a::after {
-      content: '';
-      position: absolute;
-      bottom: 0; left: 0;
-      width: 0; height: 2px;
-      background: #2c5f8a;
-      transition: width 0.2s;
-    }
+/* ─────────────────────────────
+   RESET & BASE
+───────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-    .main-nav a:hover,
-    .main-nav a.active { color: #2c5f8a; }
+html { scroll-behavior: smooth; }
 
-    .main-nav a:hover::after,
-    .main-nav a.active::after { width: 100%; }
+body {
+  font-family: var(--font);
+  font-size: var(--size-base);
+  line-height: var(--leading);
+  color: var(--txt-primary);
+  background: var(--bg-page);
+  -webkit-font-smoothing: antialiased;
+}
 
-    /* HAMBURGER */
-    .hamburger {
-      display: none;
-      flex-direction: column;
-      gap: 5px;
-      cursor: pointer;
-      background: none;
-      border: none;
-      padding: 4px;
-    }
+a { color: inherit; text-decoration: none; }
+img { display: block; max-width: 100%; }
 
-    .hamburger span {
-      display: block;
-      width: 24px; height: 2px;
-      background: #333;
-      border-radius: 2px;
-      transition: all 0.3s;
-    }
+/* ─────────────────────────────
+   HEADER
+───────────────────────────── */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 2.5rem;
+  height: 68px;
+  background: rgba(255,255,255,0.92);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border-light);
+  box-shadow: var(--shadow-sm);
+}
 
-    /* MENU MOBILE */
-    .menu-toggle {
-      display: none;
-      position: fixed;
-      top: 0; right: 0;
-      width: 75%;
-      max-width: 300px;
-      height: 100vh;
-      background: #fff;
-      border-left: 3px solid #2c5f8a;
-      z-index: 200;
-      flex-direction: column;
-      padding: 2rem 1.5rem;
-      gap: 1.5rem;
-      box-shadow: -4px 0 20px rgba(0,0,0,0.1);
-      transform: translateX(100%);
-      transition: transform 0.3s ease;
-    }
+.logo {
+  font-size: var(--size-base);
+  font-weight: 500;
+  color: var(--txt-primary);
+  letter-spacing: -0.01em;
+}
 
-    .menu-toggle.open {
-      display: flex;
-      transform: translateX(0);
-    }
+.logo em { color: var(--accent); font-style: normal; }
 
-    .menu-toggle ul {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 1.2rem;
-      margin-top: 2rem;
-    }
+.main-nav ul { display: flex; gap: 2rem; list-style: none; }
 
-    .menu-toggle a {
-      font-size: 1.1rem;
-      font-weight: 500;
-      color: #333;
-      transition: color 0.2s;
-    }
+.main-nav a {
+  font-size: var(--size-sm);
+  font-weight: 500;
+  color: var(--txt-secondary);
+  padding-bottom: 3px;
+  border-bottom: 2px solid transparent;
+  transition: color 0.2s, border-color 0.2s;
+}
 
-    .menu-toggle a:hover { color: #2c5f8a; }
+.main-nav a:hover,
+.main-nav a.active {
+  color: var(--accent);
+  border-color: var(--accent);
+}
 
-    .close-btn {
-      align-self: flex-end;
-      font-size: 2rem;
-      cursor: pointer;
-      background: none;
-      border: none;
-      color: #333;
-      line-height: 1;
-    }
+/* ─────────────────────────────
+   HAMBURGER
+───────────────────────────── */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 4px;
+}
 
-    .overlay {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.4);
-      z-index: 150;
-    }
+.hamburger span {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: var(--txt-primary);
+  border-radius: 2px;
+  transition: all 0.3s;
+}
 
-    .overlay.show { display: block; }
+/* ─────────────────────────────
+   MENU MOBILE
+───────────────────────────── */
+.menu-toggle {
+  display: none;
+  position: fixed;
+  top: 0; right: 0;
+  width: 75%; max-width: 300px;
+  height: 100vh;
+  background: var(--bg-card);
+  border-left: 2px solid var(--border-light);
+  z-index: 200;
+  flex-direction: column;
+  padding: 2rem 1.5rem;
+  gap: 1.5rem;
+  box-shadow: -4px 0 24px rgba(0,0,0,0.08);
+  transform: translateX(100%);
+  transition: transform 0.3s ease;
+}
 
-    /* HERO */
-    .home-section {
-      max-width: 1200px;
-      margin: 3rem auto;
-      padding: 0 1rem;
-    }
+.menu-toggle.open { display: flex; transform: translateX(0); }
 
-    .container {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 2rem;
-      align-items: center;
-      justify-content: space-between;
-    }
+.menu-toggle ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 1.4rem;
+  margin-top: 2rem;
+}
 
-    .text-container {
-      flex: 1 1 50%;
-      min-width: 280px;
-    }
+.menu-toggle a {
+  font-size: var(--size-md);
+  font-weight: 500;
+  color: var(--txt-primary);
+  transition: color 0.2s;
+}
 
-    .text-container h1 {
-      font-size: clamp(1.8rem, 4vw, 2.6rem);
-      font-weight: 600;
-      color: #1a1a1a;
-      line-height: 1.2;
-      margin-bottom: 0.5rem;
-    }
+.menu-toggle a:hover { color: var(--accent); }
 
-    .hero-role {
-      font-size: 1.05rem;
-      font-weight: 500;
-      color: #2c5f8a;
-      margin-bottom: 0.2rem;
-    }
+.close-btn {
+  align-self: flex-end;
+  font-size: 2rem;
+  cursor: pointer;
+  background: none;
+  border: none;
+  color: var(--txt-secondary);
+  line-height: 1;
+}
 
-    .hero-org {
-      font-size: 0.95rem;
-      color: #666;
-      margin-bottom: 0.1rem;
-    }
+.overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(28,43,58,0.35);
+  z-index: 150;
+  backdrop-filter: blur(2px);
+}
 
-    .hero-desc {
-      font-size: 1rem;
-      line-height: 1.9;
-      color: #555;
-      max-width: 65ch;
-      margin: 1.2rem 0 1.5rem;
-      padding-left: 1rem;
-      border-left: 3px solid #2c5f8a;
-    }
+.overlay.show { display: block; }
 
-    .hero-logo {
-      width: 180px;
-      margin-bottom: 1.5rem;
-      display: block;
-    }
+/* ─────────────────────────────
+   HERO
+───────────────────────────── */
+.hero {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: var(--space-xl) 2.5rem;
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: 5rem;
+  align-items: center;
+}
 
-    /* BOUTONS SOCIAUX */
-    .social-buttons {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.75rem;
-    }
+/* Colonne texte */
+.hero-text {}
 
-    .btn-social {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 10px 16px;
-      border-radius: 8px;
-      font-size: 0.88rem;
-      font-weight: 500;
-      font-family: 'Inter', 'Segoe UI', sans-serif;
-      transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
-      border: 2px solid transparent;
-      cursor: pointer;
-    }
+.hero-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: var(--size-xs);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+  background: var(--bg-accent);
+  border: 1px solid var(--accent-light);
+  padding: 5px 14px;
+  border-radius: var(--radius-pill);
+  margin-bottom: 1.6rem;
+}
 
-    .btn-social:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(0,0,0,0.12);
-    }
+.hero-tag-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  flex-shrink: 0;
+}
 
-    .btn-social svg {
-      width: 18px; height: 18px;
-      flex-shrink: 0;
-      vertical-align: middle;
-      fill: currentColor;
-    }
+.hero-name {
+  font-size: var(--size-2xl);
+  font-weight: 500;
+  line-height: var(--leading-tight);
+  letter-spacing: -0.025em;
+  color: var(--txt-primary);
+  margin-bottom: 1rem;
+}
 
-    .btn-social.linkedin  { background: #0a66c2; color: #fff; }
-    .btn-social.linkedin:hover  { background: #0854a0; }
-    .btn-social.github    { background: #1a1a1a; color: #fff; }
-    .btn-social.github:hover    { background: #333; }
-    .btn-social.email     { background: #fff; color: #2c5f8a; border-color: #2c5f8a; }
-    .btn-social.email:hover     { background: #2c5f8a; color: #fff; }
-    .btn-social.phone     { background: #fff; color: #333; border-color: #ddd; }
-    .btn-social.phone:hover     { border-color: #2c5f8a; color: #2c5f8a; }
+.hero-role {
+  font-size: var(--size-md);
+  font-weight: 500;
+  color: var(--accent);
+  margin-bottom: 0.3rem;
+  line-height: 1.4;
+}
 
-    /* BOUTONS CTA */
-    .hero-cta {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1rem;
-      margin-top: 1.8rem;
-    }
+.hero-org {
+  font-size: var(--size-sm);
+  color: var(--txt-secondary);
+  line-height: 1.65;
+  margin-bottom: 0.15rem;
+}
 
-    #btn-voir-projets,
-    #btn-telecharger-cv {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 12px 24px;
-      border-radius: 8px;
-      font-size: 0.95rem;
-      font-weight: 500;
-      font-family: 'Inter', 'Segoe UI', sans-serif;
-      cursor: pointer;
-      transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
-      border: 2px solid transparent;
-    }
+.hero-sep {
+  width: 44px;
+  height: 2px;
+  background: var(--accent);
+  border-radius: 2px;
+  margin: 2.2rem 0;
+}
 
-    #btn-voir-projets {
-      background: #2c5f8a;
-      color: #fff;
-      border-color: #2c5f8a;
-    }
+.hero-desc {
+  font-size: var(--size-base);
+  line-height: 1.95;
+  color: var(--txt-secondary);
+  max-width: 56ch;
+}
 
-    #btn-voir-projets:hover {
-      background: #1e4a6e;
-      transform: translateY(-2px);
-      box-shadow: 0 4px 14px rgba(44,95,138,0.3);
-    }
+/* ULaval badge */
+.ulaval-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 1.8rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-sm);
+  padding: 7px 14px;
+  font-size: var(--size-sm);
+  font-weight: 500;
+  color: var(--txt-secondary);
+}
 
-    #btn-telecharger-cv {
-      background: #fff;
-      color: #2c5f8a;
-      border-color: #2c5f8a;
-    }
+.ulaval-badge img {
+  height: 28px;
+  width: auto;
+}
 
-    #btn-telecharger-cv:hover {
-      background: #2c5f8a;
-      color: #fff;
-      transform: translateY(-2px);
-      box-shadow: 0 4px 14px rgba(44,95,138,0.2);
-    }
+/* Boutons sociaux */
+.socials {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+  margin-top: 2rem;
+}
 
-    /* PHOTO */
-    .image-container {
-      flex: 1 1 38%;
-      min-width: 220px;
-      display: flex;
-      justify-content: center;
-    }
+.soc {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: var(--size-sm);
+  font-weight: 500;
+  font-family: var(--font);
+  padding: 9px 16px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-medium);
+  background: var(--bg-card);
+  color: var(--txt-secondary);
+  cursor: pointer;
+  transition: all 0.2s;
+  line-height: 1;
+}
 
-    .responsive-photo {
-      width: 100%;
-      max-width: 380px;
-      height: auto;
-      border-radius: 16px;
-      border: 3px solid #2c5f8a;
-      box-shadow: 0 8px 24px rgba(44,95,138,0.15);
-      object-fit: cover;
-      object-position: top center;
-    }
+.soc:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: var(--bg-accent);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-sm);
+}
 
-    /* FOOTER */
-    .site-footer {
-      text-align: center;
-      padding: 1.5rem 1rem;
-      border-top: 2px solid #2c5f8a;
-      font-size: 0.88rem;
-      color: #888;
-      background: #fff;
-      margin-top: 3rem;
-    }
+.soc svg { width: 14px; height: 14px; fill: currentColor; flex-shrink: 0; }
 
-    /* RESPONSIVE */
-    @media (max-width: 900px) {
-      .site-header { padding: 0 1rem; }
-      .main-nav { display: none; }
-      .hamburger { display: flex; }
-    }
+.soc.li  { background: #0A66C2; color: #fff; border-color: #0A66C2; }
+.soc.li:hover  { background: #084fa0; border-color: #084fa0; color: #fff; }
+.soc.gh  { background: var(--txt-primary); color: var(--bg-card); border-color: var(--txt-primary); }
+.soc.gh:hover  { background: #2d3f52; border-color: #2d3f52; color: #fff; }
 
-    @media (max-width: 768px) {
-      .container { flex-direction: column; }
+/* CTA */
+.hero-cta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 2.2rem;
+}
 
-      .text-container,
-      .image-container {
-        flex: 1 1 100%;
-        min-width: unset;
-      }
+.cta-prim {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 13px 28px;
+  border-radius: var(--radius-sm);
+  background: var(--accent);
+  color: #fff;
+  font-size: var(--size-base);
+  font-weight: 500;
+  font-family: var(--font);
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+  text-decoration: none;
+}
 
-      .image-container { order: -1; }
+.cta-prim:hover {
+  background: var(--accent-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(59,126,200,0.28);
+}
 
-      .responsive-photo { max-width: 260px; }
-      .hero-logo { width: 140px; }
-      .social-buttons { justify-content: center; }
-      .hero-cta { justify-content: center; }
-    }
+.cta-sec {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 26px;
+  border-radius: var(--radius-sm);
+  background: var(--bg-card);
+  color: var(--txt-primary);
+  font-size: var(--size-base);
+  font-weight: 500;
+  font-family: var(--font);
+  border: 1px solid var(--border-medium);
+  cursor: pointer;
+  transition: all 0.2s;
+  text-decoration: none;
+}
 
-    @media (max-width: 480px) {
-      .btn-social { font-size: 0.82rem; padding: 8px 12px; }
+.cta-sec:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
+}
 
-      #btn-voir-projets,
-      #btn-telecharger-cv {
-        width: 100%;
-        justify-content: center;
-      }
-    }
+/* Colonne photo */
+.hero-visual { display: flex; flex-direction: column; gap: 1rem; }
 
-  </style>
+.photo-frame {
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 1px solid var(--border-light);
+  box-shadow: var(--shadow-md);
+  aspect-ratio: 3/4;
+  background: var(--bg-accent);
+}
+
+.photo-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  display: block;
+}
+
+/* Mini-stats */
+.stats-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.6rem;
+}
+
+.stat-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+  padding: 0.9rem 1.1rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.stat-val {
+  font-size: 22px;
+  font-weight: 500;
+  color: var(--txt-primary);
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+
+.stat-lbl {
+  font-size: var(--size-xs);
+  color: var(--txt-muted);
+  margin-top: 5px;
+  letter-spacing: 0.02em;
+  line-height: 1.4;
+}
+
+.stat-wide { grid-column: 1 / -1; }
+
+/* ─────────────────────────────
+   FOOTER
+───────────────────────────── */
+.site-footer {
+  background: var(--bg-card);
+  border-top: 1px solid var(--border-light);
+  padding: 1.6rem 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+}
+
+.foot-copy {
+  font-size: var(--size-xs);
+  color: var(--txt-muted);
+}
+
+.foot-links {
+  display: flex;
+  gap: 1.8rem;
+}
+
+.foot-links a {
+  font-size: var(--size-xs);
+  color: var(--txt-muted);
+  transition: color 0.2s;
+}
+
+.foot-links a:hover { color: var(--accent); }
+
+/* ─────────────────────────────
+   RESPONSIVE
+───────────────────────────── */
+@media (max-width: 960px) {
+  .hero { grid-template-columns: 1fr; gap: 3rem; padding: 4rem 2rem; }
+  .hero-visual { order: -1; }
+  .photo-frame { aspect-ratio: 4/3; max-height: 280px; }
+  .hero-name { font-size: 38px; }
+}
+
+@media (max-width: 768px) {
+  .site-header { padding: 0 1.5rem; }
+  .main-nav { display: none; }
+  .hamburger { display: flex; }
+  .hero { padding: 3rem 1.5rem; }
+  .hero-name { font-size: 32px; }
+  .hero-desc { max-width: 100%; }
+  .site-footer { padding: 1.2rem 1.5rem; }
+}
+
+@media (max-width: 480px) {
+  .hero { padding: 2.5rem 1.2rem; }
+  .hero-name { font-size: 28px; }
+  .cta-prim, .cta-sec { width: 100%; justify-content: center; }
+  .socials { gap: 0.4rem; }
+  .soc { font-size: 12px; padding: 8px 12px; }
+}
+
+</style>
 </head>
 <body>
 
 <!-- HEADER -->
 <header class="site-header">
-  <a href="index.html" class="logo">Steve Edgar Feze - <span>e-portfolio</span></a>
+  <a href="index.html" class="logo">SF &#8212; <em>e-portfolio</em></a>
   <nav class="main-nav" aria-label="Navigation principale">
     <ul>
       <li><a href="index.html" class="active">Accueil</a></li>
-      <li><a href="apropos.html">À propos de moi</a></li>
-      <li class="projetMenu"><a href="projetAccueil.html">Mes projets</a></li>
+      <li><a href="apropos.html">&#192; propos de moi</a></li>
+      <li><a href="projetAccueil.html">Mes projets</a></li>
       <li><a href="cv.html">CV</a></li>
     </ul>
   </nav>
@@ -391,10 +536,10 @@
 
 <div class="overlay"></div>
 <div class="menu-toggle">
-  <button class="close-btn" aria-label="Fermer le menu">&times;</button>
+  <button class="close-btn" aria-label="Fermer le menu">&#215;</button>
   <ul>
     <li><a href="index.html">Accueil</a></li>
-    <li><a href="apropos.html">À propos de moi</a></li>
+    <li><a href="apropos.html">&#192; propos de moi</a></li>
     <li><a href="projetAccueil.html">Mes projets</a></li>
     <li><a href="cv.html">CV</a></li>
   </ul>
@@ -402,90 +547,133 @@
 
 <!-- MAIN -->
 <main>
-  <section class="home-section">
-    <div class="container">
+<section class="hero" aria-label="Pr&#233;sentation">
 
-      <div class="text-container">
-        <h1>Steve Edgar Feze Feugang</h1>
-        <p class="hero-role">Conseiller pédagogique</p>
-        <p class="hero-org">Cégep de Rimouski · Formation continue / Services aux entreprises</p>
-        <p class="hero-org">Étudiant à la maîtrise en technologie éducative · Université Laval</p>
+  <!-- TEXTE -->
+  <div class="hero-text">
+    <span class="hero-tag">
+      <span class="hero-tag-dot"></span>
+      Conseiller p&#233;dagogique &nbsp;&middot;&nbsp; Technop&#233;dagogue
+    </span>
 
-        <p class="hero-desc">
-          Spécialisé en conception pédagogique et en intégration des technologies éducatives, j'accompagne
-          les organisations dans le développement de formations qui transforment réellement les pratiques.
-          Au Cégep de Rimouski, je traduis les besoins des entreprises en parcours d'apprentissage structurés,
-          mobilisant des approches éprouvées — ADDIE, APC, Kirkpatrick — et des outils numériques adaptés
-          aux réalités des apprenants adultes. En parallèle, ma maîtrise en technologie éducative à
-          l'Université Laval nourrit continuellement ma pratique d'une rigueur scientifique et d'une
-          veille active sur les innovations pédagogiques.
-        </p>
+    <h1 class="hero-name">
+      Steve Edgar<br>Feze Feugang
+    </h1>
 
-        <img src="logo ulaval.png" alt="Logo Université Laval" class="hero-logo">
+    <p class="hero-role">Conseiller p&#233;dagogique</p>
+    <p class="hero-org">C&#233;gep de Rimouski &nbsp;&middot;&nbsp; Formation continue / Services aux entreprises</p>
+    <p class="hero-org">Ma&#238;trise en technologie &#233;ducative &nbsp;&middot;&nbsp; Universit&#233; Laval (en cours)</p>
 
-        <div class="social-buttons">
-          <a href="https://www.linkedin.com/in/stevefeze" target="_blank" rel="noopener"
-             class="btn-social linkedin" aria-label="LinkedIn">
-            <svg viewBox="0 0 24 24"><path d="M4.98 3.5C4.98 4.88 3.86 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1 4.98 2.12 4.98 3.5zM0 8h5v16H0V8zm7.5 0h4.7v2.3h.1c.6-1.1 2-2.3 4.1-2.3 4.4 0 5.2 2.9 5.2 6.7V24h-5V14.4c0-2.3-.1-5.3-3.2-5.3-3.2 0-3.7 2.5-3.7 5.1V24h-5V8z"/></svg>
-            LinkedIn
-          </a>
-          <a href="https://github.com/Rute23" target="_blank" rel="noopener"
-             class="btn-social github" aria-label="GitHub">
-            <svg viewBox="0 0 24 24"><path d="M12 0C5.38 0 0 5.38 0 12c0 5.3 3.44 9.8 8.2 11.39.6.1.8-.3.8-.6v-2.1c-3.34.7-4-1.5-4-1.5-.5-1.1-1.2-1.4-1.2-1.4-1-.6.1-.6.1-.6 1.1.1 1.6 1.1 1.6 1.1 1 1.7 2.5 1.2 3.2.9.1-.7.4-1.2.7-1.5-2.5-.3-5.2-1.3-5.2-5.7 0-1.3.5-2.4 1.2-3.2-.1-.3-.5-1.5.1-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0c2.3-1.5 3.3-1.2 3.3-1.2.6 1.7.2 2.9.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.5-2.7 5.4-5.3 5.7.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6C20.6 21.8 24 17.3 24 12 24 5.38 18.6 0 12 0z"/></svg>
-            GitHub
-          </a>
-          <a href="/cdn-cgi/l/email-protection#9eedeafbe8fbf8fbe4fbdef1ebeaf2f1f1f5b0fdf1f3" class="btn-social email" aria-label="Courriel">
-            <svg viewBox="0 0 24 24"><path d="M1.5 4.5h21v15h-21v-15zm10.5 7.5l10.5-7.5h-21l10.5 7.5zm0 1.5l-10.5-7.5v12h21v-12l-10.5 7.5z"/></svg>
-            Courriel
-          </a>
-          <a href="tel:+14188684233"
-             class="btn-social phone" aria-label="Téléphone">
-            <svg viewBox="0 0 24 24"><path d="M6.62 10.79a15.91 15.91 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1-.24 12.36 12.36 0 0 0 3.89.62 1 1 0 0 1 1 1v3.45a1 1 0 0 1-1 1A17 17 0 0 1 3 5a1 1 0 0 1 1-1h3.44a1 1 0 0 1 1 1 12.36 12.36 0 0 0 .63 3.89 1 1 0 0 1-.25 1z"/></svg>
-            +1 418 868-4233
-          </a>
-        </div>
+    <div class="hero-sep"></div>
 
-        <div class="hero-cta">
-          <a href="projetAccueil.html" id="btn-voir-projets">Voir mes projets →</a>
-          <a href="cv.html" id="btn-telecharger-cv">Télécharger le CV</a>
-        </div>
-      </div>
+    <p class="hero-desc">
+      Sp&#233;cialis&#233; en conception p&#233;dagogique et en int&#233;gration des technologies &#233;ducatives,
+      j&#8217;accompagne les organisations dans le d&#233;veloppement de formations qui transforment
+      r&#233;ellement les pratiques. Au C&#233;gep de Rimouski, je traduis les besoins des entreprises en
+      parcours d&#8217;apprentissage structur&#233;s, mobilisant des approches &#233;prouv&#233;es &#8212; ADDIE, APC,
+      Kirkpatrick &#8212; et des outils num&#233;riques adapt&#233;s aux r&#233;alit&#233;s des apprenants adultes.
+      Ma ma&#238;trise en technologie &#233;ducative &#224; l&#8217;Universit&#233; Laval nourrit continuellement
+      ma pratique d&#8217;une rigueur scientifique et d&#8217;une veille active sur les innovations p&#233;dagogiques.
+    </p>
 
-      <div class="image-container">
-        <img src="Foto_Feze.png" alt="Steve Edgar Feze Feugang" class="responsive-photo">
-      </div>
-
+    <!-- Badge ULaval -->
+    <div class="ulaval-badge">
+      <img src="logo ulaval.png" alt="Logo Universit&#233; Laval">
+      <span>Universit&#233; Laval &mdash; M.&#201;d. en cours</span>
     </div>
-  </section>
+
+    <!-- Contacts sociaux -->
+    <div class="socials">
+      <a href="https://www.linkedin.com/in/stevefeze" target="_blank" rel="noopener" class="soc li" aria-label="LinkedIn">
+        <svg viewBox="0 0 24 24"><path d="M4.98 3.5C4.98 4.88 3.86 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1 4.98 2.12 4.98 3.5zM0 8h5v16H0V8zm7.5 0h4.7v2.3h.1c.6-1.1 2-2.3 4.1-2.3 4.4 0 5.2 2.9 5.2 6.7V24h-5V14.4c0-2.3-.1-5.3-3.2-5.3-3.2 0-3.7 2.5-3.7 5.1V24h-5V8z"/></svg>
+        LinkedIn
+      </a>
+      <a href="https://github.com/Rute23" target="_blank" rel="noopener" class="soc gh" aria-label="GitHub">
+        <svg viewBox="0 0 24 24"><path d="M12 0C5.38 0 0 5.38 0 12c0 5.3 3.44 9.8 8.2 11.39.6.1.8-.3.8-.6v-2.1c-3.34.7-4-1.5-4-1.5-.5-1.1-1.2-1.4-1.2-1.4-1-.6.1-.6.1-.6 1.1.1 1.6 1.1 1.6 1.1 1 1.7 2.5 1.2 3.2.9.1-.7.4-1.2.7-1.5-2.5-.3-5.2-1.3-5.2-5.7 0-1.3.5-2.4 1.2-3.2-.1-.3-.5-1.5.1-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0c2.3-1.5 3.3-1.2 3.3-1.2.6 1.7.2 2.9.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.5-2.7 5.4-5.3 5.7.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6C20.6 21.8 24 17.3 24 12 24 5.38 18.6 0 12 0z"/></svg>
+        GitHub
+      </a>
+      <a href="mailto:stevefeze@outlook.com" class="soc" aria-label="Courriel">
+        <svg viewBox="0 0 24 24"><path d="M1.5 4.5h21v15h-21v-15zm10.5 7.5l10.5-7.5h-21l10.5 7.5zm0 1.5l-10.5-7.5v12h21v-12l-10.5 7.5z"/></svg>
+        Courriel
+      </a>
+      <a href="tel:+14188684233" class="soc" aria-label="T&#233;l&#233;phone">
+        <svg viewBox="0 0 24 24"><path d="M6.62 10.79a15.91 15.91 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1-.24 12.36 12.36 0 0 0 3.89.62 1 1 0 0 1 1 1v3.45a1 1 0 0 1-1 1A17 17 0 0 1 3 5a1 1 0 0 1 1-1h3.44a1 1 0 0 1 1 1 12.36 12.36 0 0 0 .63 3.89 1 1 0 0 1-.25 1z"/></svg>
+        +1 418 868-4233
+      </a>
+    </div>
+
+    <!-- CTA -->
+    <div class="hero-cta">
+      <a href="projetAccueil.html" class="cta-prim">Voir mes projets &rarr;</a>
+      <a href="CV_Steve_Edgar_Feze_Feugang.pdf" download class="cta-sec">&#11015; T&#233;l&#233;charger le CV</a>
+    </div>
+  </div>
+
+  <!-- VISUEL -->
+  <div class="hero-visual">
+    <div class="photo-frame">
+      <img src="Foto_Feze.png" alt="Steve Edgar Feze Feugang &#8212; Conseiller p&#233;dagogique">
+    </div>
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-val">M.&#201;d.</div>
+        <div class="stat-lbl">En cours &middot; Universit&#233; Laval</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-val">5+</div>
+        <div class="stat-lbl">Domaines de projets</div>
+      </div>
+      <div class="stat-card stat-wide">
+        <div class="stat-val" style="font-size:16px">C&#233;gep de Rimouski</div>
+        <div class="stat-lbl">Services aux entreprises &middot; depuis oct. 2025</div>
+      </div>
+    </div>
+  </div>
+
+</section>
 </main>
 
 <!-- FOOTER -->
 <footer class="site-footer">
-  <p>&copy; 2025 Steve Edgar Feze Feugang. Tous droits réservés.</p>
+  <span class="foot-copy">&copy; 2025 Steve Edgar Feze Feugang. Tous droits r&#233;serv&#233;s.</span>
+  <div class="foot-links">
+    <a href="https://www.linkedin.com/in/stevefeze" target="_blank" rel="noopener">LinkedIn</a>
+    <a href="https://github.com/Rute23" target="_blank" rel="noopener">GitHub</a>
+    <a href="mailto:stevefeze@outlook.com">Courriel</a>
+  </div>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-  const hamburger = document.querySelector('.hamburger');
-  const menuToggle = document.querySelector('.menu-toggle');
-  const overlay    = document.querySelector('.overlay');
-  const closeBtn   = document.querySelector('.close-btn');
+<script>
+var hamburger  = document.querySelector('.hamburger');
+var menuToggle = document.querySelector('.menu-toggle');
+var overlay    = document.querySelector('.overlay');
+var closeBtn   = document.querySelector('.close-btn');
 
-  hamburger.addEventListener('click', () => {
-    menuToggle.classList.add('open');
-    overlay.classList.add('show');
-    hamburger.setAttribute('aria-expanded', 'true');
-  });
+hamburger.addEventListener('click', function() {
+  menuToggle.classList.add('open');
+  overlay.classList.add('show');
+  hamburger.setAttribute('aria-expanded', 'true');
+});
 
-  function closeMenu() {
-    menuToggle.classList.remove('open');
-    overlay.classList.remove('show');
-    hamburger.setAttribute('aria-expanded', 'false');
+function closeMenu() {
+  menuToggle.classList.remove('open');
+  overlay.classList.remove('show');
+  hamburger.setAttribute('aria-expanded', 'false');
+}
+
+closeBtn.addEventListener('click', closeMenu);
+overlay.addEventListener('click', closeMenu);
+menuToggle.querySelectorAll('a').forEach(function(l) {
+  l.addEventListener('click', closeMenu);
+});
+
+document.querySelectorAll('.main-nav a').forEach(function(link) {
+  if (window.location.pathname.endsWith(link.getAttribute('href'))) {
+    document.querySelectorAll('.main-nav a').forEach(function(l) { l.classList.remove('active'); });
+    link.classList.add('active');
   }
+});
+</script>
 
-  closeBtn.addEventListener('click', closeMenu);
-  overlay.addEventListener('click', closeMenu);
-  menuToggle.querySelectorAll('a').forEach(l => l.addEventListener('click', closeMenu));
-
-  document.querySelectorAll('.main-nav a').forEach(link => {
-    if (window.location.pathname.endsWith(link.getAttribute('href'))) {
-      document.querySelecto
+</body>
+</html>
