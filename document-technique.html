@@ -305,7 +305,7 @@
   menuToggle.querySelectorAll('a').forEach(l => l.addEventListener('click', fermerMenu));
 
   window.addEventListener('load', () => {
-    pdfjsLib.getDocument('Document_technique.pdf').promise.then(doc => {
+    pdfjsLib.getDocument('document_technique.pdf').promise.then(doc => {
       pdfDoc = doc; renderPage(1);
     }).catch(() => {
       document.getElementById('pdf-container').innerHTML = '<div style="color:#f88;font-size:0.85rem;margin:auto;padding:2rem;text-align:center;">Impossible de charger le PDF.<br>Vérifiez que le fichier est bien uploadé sur GitHub.</div>';
