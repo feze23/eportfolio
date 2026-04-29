@@ -1,137 +1,90 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Modèle logique et pitch — Steve Edgar Feze</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding:<!DOCTYPE html>
-<html lang="fr">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Modèle logique et pitch — Steve Edgar Feze</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: 'Inter', 'Segoe UI', sans-serif; font-size: 1rem; line-height: 1.8; color: #333; background: #f9f9f9; }
-    a { color: inherit; text-decoration: none; }
-
-    /* HEADER */
-    .site-header { position: sticky; top: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 0 2rem; height: 64px; background: #fff; border-bottom: 2px solid #2c5f8a; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
-    .logo { font-size: 1rem; font-weight: 600; color: #1a1a1a; }
-    .logo span { color: #2c5f8a; }
-    .main-nav ul { display: flex; gap: 2rem; list-style: none; }
-    .main-nav a { font-size: 0.9rem; font-weight: 500; color: #555; transition: color 0.2s; position: relative; padding-bottom: 2px; }
-    .main-nav a::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 2px; background: #2c5f8a; transition: width 0.2s; }
-    .main-nav a:hover, .main-nav a.active { color: #2c5f8a; }
-    .main-nav a:hover::after, .main-nav a.active::after { width: 100%; }
-
-    /* HAMBURGER */
-    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 4px; }
-    .hamburger span { display: block; width: 24px; height: 2px; background: #333; border-radius: 2px; }
-
-    /* MENU MOBILE */
-    .menu-toggle { display: none; position: fixed; top: 0; right: 0; width: 75%; max-width: 300px; height: 100vh; background: #fff; border-left: 3px solid #2c5f8a; z-index: 200; flex-direction: column; padding: 2rem 1.5rem; gap: 1.5rem; box-shadow: -4px 0 20px rgba(0,0,0,0.1); transform: translateX(100%); transition: transform 0.3s ease; }
-    .menu-toggle.open { display: flex; transform: translateX(0); }
-    .menu-toggle ul { list-style: none; display: flex; flex-direction: column; gap: 1.2rem; margin-top: 2rem; }
-    .menu-toggle a { font-size: 1.1rem; font-weight: 500; color: #333; transition: color 0.2s; }
-    .menu-toggle a:hover { color: #2c5f8a; }
-    .close-btn { align-self: flex-end; font-size: 2rem; cursor: pointer; background: none; border: none; color: #333; line-height: 1; }
-    .overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.4); z-index: 150; }
-    .overlay.show { display: block; }
-
-    /* BREADCRUMB */
-    .breadcrumb { max-width: 1100px; margin: 1.5rem auto 0; padding: 0 2rem; font-size: 0.82rem; color: #aaa; display: flex; align-items: center; gap: 0.5rem; }
-    .breadcrumb a { color: #2c5f8a; transition: opacity 0.2s; }
-    .breadcrumb a:hover { opacity: 0.7; }
-
-    /* PAGE HERO */
-    .page-hero { max-width: 1100px; margin: 1.2rem auto 0; padding: 0 2rem 1.5rem; border-bottom: 1px solid #e8e8e8; }
-    .hero-tag { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #993556; background: #fbeaf0; padding: 0.25rem 0.75rem; border-radius: 20px; display: inline-block; margin-bottom: 0.8rem; }
-    .page-hero h1 { font-size: clamp(1.5rem, 3vw, 2rem); font-weight: 600; color: #1a1a1a; margin-bottom: 0.5rem; line-height: 1.25; }
-    .hero-meta { display: flex; flex-wrap: wrap; gap: 1rem; font-size: 0.82rem; color: #888; margin-top: 0.8rem; }
-    .hero-meta span { display: flex; align-items: center; gap: 0.3rem; }
-
-    /* LAYOUT */
-    .page-layout { max-width: 1100px; margin: 1.8rem auto; padding: 0 2rem 3rem; display: grid; grid-template-columns: 1fr 340px; gap: 2rem; align-items: start; }
-
-    /* CONTENU PRINCIPAL */
-    .main-col { display: flex; flex-direction: column; gap: 1.4rem; }
-
-    /* SECTIONS */
-    .section-card { background: #fff; border-radius: 12px; border: 1px solid #e8e8e8; padding: 1.6rem 1.8rem; box-shadow: 0 2px 8px rgba(0,0,0,0.03); }
-    .section-card h2 { font-size: 1rem; font-weight: 600; color: #1a1a1a; margin-bottom: 1rem; padding-bottom: 0.6rem; border-bottom: 2px solid #fbeaf0; }
-    .section-card p { font-size: 0.9rem; color: #555; line-height: 1.85; margin-bottom: 0.8rem; }
-    .section-card p:last-child { margin-bottom: 0; }
-    .section-card ul { padding-left: 1.2rem; }
-    .section-card li { font-size: 0.9rem; color: #555; line-height: 1.8; margin-bottom: 0.3rem; }
-
-    /* COMPÉTENCES */
-    .skills-wrap { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.5rem; }
-    .skill { font-size: 0.72rem; padding: 0.22rem 0.65rem; border-radius: 4px; background: #fbeaf0; color: #993556; font-weight: 500; }
-
-    /* LECTEUR PDF */
-    .pdf-viewer-wrap { background: #fff; border-radius: 12px; border: 1px solid #e8e8e8; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.03); }
-    .pdf-viewer-head { display: flex; align-items: center; justify-content: space-between; padding: 0.9rem 1.2rem; border-bottom: 1px solid #f0f0f0; }
-    .pdf-label { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #2c5f8a; }
-    .pdf-tabs { display: flex; gap: 0.4rem; }
-    .pdf-tab { font-size: 0.75rem; font-weight: 500; font-family: 'Inter', sans-serif; padding: 0.3rem 0.8rem; border-radius: 6px; border: 1.5px solid #ddd; background: #fff; color: #666; cursor: pointer; transition: all 0.2s; }
-    .pdf-tab:hover { border-color: #2c5f8a; color: #2c5f8a; }
-    .pdf-tab.active { background: #2c5f8a; color: #fff; border-color: #2c5f8a; }
-    .pdf-frame { width: 100%; height: 550px; border: none; display: block; }
-    .pdf-frame-2 { display: none; }
-    .pdf-download-bar { display: flex; flex-direction: column; gap: 0.6rem; padding: 0.9rem 1.2rem; border-top: 1px solid #f0f0f0; }
-    .btn-download { display: inline-flex; align-items: center; gap: 0.45rem; padding: 0.6rem 1.2rem; border-radius: 8px; font-size: 0.82rem; font-weight: 500; font-family: 'Inter', sans-serif; cursor: pointer; transition: all 0.2s; text-decoration: none; border: none; justify-content: center; }
-    .btn-dl-primary { background: #2c5f8a; color: #fff; }
-    .btn-dl-primary:hover { background: #1e4a6e; }
-    .btn-dl-secondary { background: #fff; color: #2c5f8a; border: 1.5px solid #2c5f8a; }
-    .btn-dl-secondary:hover { background: #2c5f8a; color: #fff; }
-
-    /* SIDEBAR */
-    .side-col { display: flex; flex-direction: column; gap: 1.2rem; position: sticky; top: 84px; }
-    .side-card { background: #fff; border-radius: 12px; border: 1px solid #e8e8e8; padding: 1.2rem 1.4rem; }
-    .side-card-titre { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #2c5f8a; margin-bottom: 0.9rem; }
-    .side-item { display: flex; align-items: flex-start; gap: 0.5rem; margin-bottom: 0.6rem; font-size: 0.82rem; color: #555; }
-    .side-dot { width: 6px; height: 6px; border-radius: 50%; background: #2c5f8a; flex-shrink: 0; margin-top: 0.4rem; }
-    .nav-projet { display: flex; flex-direction: column; gap: 0.5rem; }
-    .nav-projet a { display: flex; align-items: center; gap: 0.5rem; padding: 0.55rem 0.8rem; border-radius: 8px; font-size: 0.82rem; color: #555; transition: all 0.2s; border: 1px solid #f0f0f0; }
-    .nav-projet a:hover { background: #eef4fb; color: #2c5f8a; border-color: #b8d4ed; }
-    .nav-projet a.current { background: #eef4fb; color: #2c5f8a; border-color: #2c5f8a; font-weight: 600; }
-    .btn-retour { display: inline-flex; align-items: center; gap: 0.45rem; padding: 0.6rem 1.1rem; border-radius: 8px; font-size: 0.82rem; font-weight: 500; font-family: 'Inter', sans-serif; background: #fff; color: #2c5f8a; border: 1.5px solid #2c5f8a; cursor: pointer; transition: all 0.2s; text-decoration: none; width: 100%; justify-content: center; }
-    .btn-retour:hover { background: #2c5f8a; color: #fff; }
-
-    /* FOOTER */
-    .site-footer { text-align: center; padding: 1.5rem 1rem; border-top: 2px solid #2c5f8a; font-size: 0.88rem; color: #888; background: #fff; }
-
-    /* RESPONSIVE */
-    @media (max-width: 900px) {
-      .site-header { padding: 0 1rem; }
-      .main-nav { display: none; }
-      .hamburger { display: flex; }
-      .page-layout { grid-template-columns: 1fr; }
-      .side-col { position: static; }
-    }
-    @media (max-width: 640px) {
-      .breadcrumb, .page-hero, .page-layout { padding: 0 1rem; }
-      .page-layout { padding-bottom: 2rem; }
-      .pdf-frame { height: 380px; }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Modele logique et pitch - Steve Edgar Feze</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter','Segoe UI',sans-serif;font-size:1rem;line-height:1.8;color:#333;background:#f9f9f9}
+a{color:inherit;text-decoration:none}
+.site-header{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 2rem;height:64px;background:#fff;border-bottom:2px solid #2c5f8a;box-shadow:0 2px 8px rgba(0,0,0,.06)}
+.logo{font-size:1rem;font-weight:600;color:#1a1a1a}
+.logo span{color:#2c5f8a}
+.main-nav ul{display:flex;gap:2rem;list-style:none}
+.main-nav a{font-size:.9rem;font-weight:500;color:#555;transition:color .2s;position:relative;padding-bottom:2px}
+.main-nav a::after{content:'';position:absolute;bottom:0;left:0;width:0;height:2px;background:#2c5f8a;transition:width .2s}
+.main-nav a:hover,.main-nav a.active{color:#2c5f8a}
+.main-nav a:hover::after,.main-nav a.active::after{width:100%}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px}
+.hamburger span{display:block;width:24px;height:2px;background:#333;border-radius:2px}
+.menu-toggle{display:none;position:fixed;top:0;right:0;width:75%;max-width:300px;height:100vh;background:#fff;border-left:3px solid #2c5f8a;z-index:200;flex-direction:column;padding:2rem 1.5rem;gap:1.5rem;box-shadow:-4px 0 20px rgba(0,0,0,.1);transform:translateX(100%);transition:transform .3s ease}
+.menu-toggle.open{display:flex;transform:translateX(0)}
+.menu-toggle ul{list-style:none;display:flex;flex-direction:column;gap:1.2rem;margin-top:2rem}
+.menu-toggle a{font-size:1.1rem;font-weight:500;color:#333}
+.menu-toggle a:hover{color:#2c5f8a}
+.close-btn{align-self:flex-end;font-size:2rem;cursor:pointer;background:none;border:none;color:#333;line-height:1}
+.overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:150}
+.overlay.show{display:block}
+.breadcrumb{max-width:1100px;margin:1.5rem auto 0;padding:0 2rem;font-size:.82rem;color:#aaa;display:flex;align-items:center;gap:.5rem}
+.breadcrumb a{color:#2c5f8a}
+.page-hero{max-width:1100px;margin:1.2rem auto 0;padding:0 2rem 1.5rem;border-bottom:1px solid #e8e8e8}
+.hero-tag{font-size:.7rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#993556;background:#fbeaf0;padding:.25rem .75rem;border-radius:20px;display:inline-block;margin-bottom:.8rem}
+.page-hero h1{font-size:clamp(1.5rem,3vw,2rem);font-weight:600;color:#1a1a1a;line-height:1.25}
+.hero-meta{display:flex;flex-wrap:wrap;gap:1rem;font-size:.82rem;color:#888;margin-top:.8rem}
+.page-layout{max-width:1100px;margin:1.8rem auto;padding:0 2rem 3rem;display:grid;grid-template-columns:1fr 320px;gap:2rem;align-items:start}
+.main-col{display:flex;flex-direction:column;gap:1.4rem}
+.section-card{background:#fff;border-radius:12px;border:1px solid #e8e8e8;padding:1.6rem 1.8rem;box-shadow:0 2px 8px rgba(0,0,0,.03)}
+.section-card h2{font-size:1rem;font-weight:600;color:#1a1a1a;margin-bottom:1rem;padding-bottom:.6rem;border-bottom:2px solid #fbeaf0}
+.section-card p{font-size:.9rem;color:#555;line-height:1.85;margin-bottom:.8rem}
+.section-card p:last-child{margin-bottom:0}
+.section-card ul{padding-left:1.2rem}
+.section-card li{font-size:.9rem;color:#555;line-height:1.8;margin-bottom:.3rem}
+.skills-wrap{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.8rem}
+.skill{font-size:.72rem;padding:.22rem .65rem;border-radius:4px;background:#fbeaf0;color:#993556;font-weight:500}
+.livrable-wrap{background:#fff;border-radius:12px;border:1px solid #e8e8e8;overflow:hidden;margin-top:1rem}
+.livrable-head{display:flex;align-items:center;justify-content:space-between;padding:.9rem 1.2rem;border-bottom:1px solid #f0f0f0}
+.livrable-label{font-size:.75rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#2c5f8a}
+.tabs{display:flex;gap:.4rem}
+.tab{font-size:.75rem;font-weight:500;font-family:'Inter',sans-serif;padding:.3rem .8rem;border-radius:6px;border:1.5px solid #ddd;background:#fff;color:#666;cursor:pointer;transition:all .2s}
+.tab:hover{border-color:#2c5f8a;color:#2c5f8a}
+.tab.active{background:#2c5f8a;color:#fff;border-color:#2c5f8a}
+.zone{display:none}
+.zone.visible{display:block}
+.pdf-embed{width:100%;height:600px;border:none;display:block;background:#555}
+.video-ratio{position:relative;padding-bottom:56.25%;height:0;overflow:hidden;background:#000}
+.video-ratio iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:none}
+.action-bar{padding:.9rem 1.2rem;border-top:1px solid #f0f0f0;display:flex;flex-direction:column;gap:.5rem}
+.btn-dl{display:inline-flex;align-items:center;gap:.45rem;padding:.6rem 1.2rem;border-radius:8px;font-size:.82rem;font-weight:500;font-family:'Inter',sans-serif;cursor:pointer;transition:all .2s;text-decoration:none;border:none;justify-content:center}
+.btn-prim{background:#2c5f8a;color:#fff}
+.btn-prim:hover{background:#1e4a6e}
+.btn-sec{background:#fff;color:#2c5f8a;border:1.5px solid #2c5f8a}
+.btn-sec:hover{background:#2c5f8a;color:#fff}
+.side-col{display:flex;flex-direction:column;gap:1.2rem;position:sticky;top:84px}
+.side-card{background:#fff;border-radius:12px;border:1px solid #e8e8e8;padding:1.2rem 1.4rem}
+.side-titre{font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#2c5f8a;margin-bottom:.9rem}
+.side-item{display:flex;align-items:flex-start;gap:.5rem;margin-bottom:.6rem;font-size:.82rem;color:#555}
+.side-dot{width:6px;height:6px;border-radius:50%;background:#2c5f8a;flex-shrink:0;margin-top:.4rem}
+.nav-projet{display:flex;flex-direction:column;gap:.5rem}
+.nav-projet a{padding:.55rem .8rem;border-radius:8px;font-size:.82rem;color:#555;transition:all .2s;border:1px solid #f0f0f0}
+.nav-projet a:hover{background:#eef4fb;color:#2c5f8a;border-color:#b8d4ed}
+.nav-projet a.current{background:#eef4fb;color:#2c5f8a;border-color:#2c5f8a;font-weight:600}
+.btn-retour{display:inline-flex;align-items:center;gap:.45rem;padding:.6rem 1.1rem;border-radius:8px;font-size:.82rem;font-weight:500;font-family:'Inter',sans-serif;background:#fff;color:#2c5f8a;border:1.5px solid #2c5f8a;cursor:pointer;transition:all .2s;text-decoration:none;width:100%;justify-content:center}
+.btn-retour:hover{background:#2c5f8a;color:#fff}
+.site-footer{text-align:center;padding:1.5rem 1rem;border-top:2px solid #2c5f8a;font-size:.88rem;color:#888;background:#fff}
+@media(max-width:900px){.site-header{padding:0 1rem}.main-nav{display:none}.hamburger{display:flex}.page-layout{grid-template-columns:1fr}.side-col{position:static}}
+@media(max-width:640px){.breadcrumb,.page-hero,.page-layout{padding:0 1rem}.page-layout{padding-bottom:2rem}.pdf-embed{height:400px}}
+</style>
 </head>
 <body>
 
 <header class="site-header">
-  <a href="index.html" class="logo">SF — <span>e-portfolio</span></a>
+  <a href="index.html" class="logo">SF &#8212; <span>e-portfolio</span></a>
   <nav class="main-nav" aria-label="Navigation principale">
     <ul>
       <li><a href="index.html">Accueil</a></li>
-      <li><a href="apropos.html">À propos de moi</a></li>
+      <li><a href="apropos.html">&#192; propos de moi</a></li>
       <li><a href="projetAccueil.html" class="active">Mes projets</a></li>
       <li><a href="cv.html">CV</a></li>
     </ul>
@@ -143,69 +96,64 @@
 
 <div class="overlay"></div>
 <div class="menu-toggle">
-  <button class="close-btn" aria-label="Fermer le menu">&times;</button>
+  <button class="close-btn" aria-label="Fermer le menu">&#215;</button>
   <ul>
     <li><a href="index.html">Accueil</a></li>
-    <li><a href="apropos.html">À propos de moi</a></li>
+    <li><a href="apropos.html">&#192; propos de moi</a></li>
     <li><a href="projetAccueil.html">Mes projets</a></li>
     <li><a href="cv.html">CV</a></li>
   </ul>
 </div>
 
 <main>
-  <!-- BREADCRUMB -->
+
   <nav class="breadcrumb" aria-label="Fil d'Ariane">
-    <a href="projetAccueil.html">← Mes projets</a>
+    <a href="projetAccueil.html">&#8592; Mes projets</a>
     <span>/</span>
-    <span>Design de systèmes d'enseignement</span>
+    <span>Design de syst&#232;mes d'enseignement</span>
     <span>/</span>
-    <span>Modèle logique et pitch</span>
+    <span>Mod&#232;le logique et pitch</span>
   </nav>
 
-  <!-- HERO -->
   <div class="page-hero">
-    <span class="hero-tag">Design de systèmes d'enseignement et de formation</span>
-    <h1>Modèle logique et pitch de solution</h1>
+    <span class="hero-tag">Design de syst&#232;mes d'enseignement et de formation</span>
+    <h1>Mod&#232;le logique et pitch de solution</h1>
     <div class="hero-meta">
-      <span>👤 Travail individuel</span>
-      <span>📚 Cours TEN-7006 · Université Laval</span>
-      <span>📅 2025–2026</span>
+      <span>&#128100; Travail individuel</span>
+      <span>&#128218; Cours TEN-7006 &#183; Universit&#233; Laval</span>
+      <span>&#128197; 2025&#8211;2026</span>
     </div>
   </div>
 
-  <!-- LAYOUT -->
   <div class="page-layout">
     <div class="main-col">
 
-      <!-- CONTEXTE -->
       <div class="section-card">
         <h2>Contexte et objectif</h2>
-        <p>Ce travail comporte deux volets complémentaires réalisés à partir de l'analyse de besoins conduite à la YWCA de Québec. Le premier volet consiste en l'élaboration d'un modèle logique détaillant la structure et les composantes d'une solution de formation mobile. Le second volet prend la forme d'un pitch clair et convaincant pour présenter la solution à une clientèle cible.</p>
+        <p>Ce travail comporte deux volets compl&#233;mentaires r&#233;alis&#233;s &#224; partir de l'analyse de besoins conduite &#224; la YWCA de Qu&#233;bec. Le premier volet consiste en l'&#233;laboration d'un mod&#232;le logique d&#233;taillant la structure et les composantes d'une solution de formation mobile. Le second volet prend la forme d'un pitch clair et convaincant pour pr&#233;senter la solution &#224; une client&#232;le cible.</p>
       </div>
 
-      <!-- MODÈLE LOGIQUE -->
       <div class="section-card">
-        <h2>Volet 1 — Modèle logique</h2>
-        <p>Le modèle logique est un outil de planification essentiel qui permet de visualiser la logique interne de la solution et d'établir les liens entre les ressources investies et les résultats attendus. Il est présenté sous forme visuelle et inclut les éléments suivants :</p>
+        <h2>Volet 1 &#8212; Mod&#232;le logique</h2>
+        <p>Le mod&#232;le logique est un outil de planification essentiel qui permet de visualiser la logique interne de la solution et d'&#233;tablir les liens entre les ressources investies et les r&#233;sultats attendus. Il inclut les &#233;l&#233;ments suivants :</p>
         <ul>
-          <li><strong>Contexte et fondements</strong> : objectif général, groupe visé, hypothèses et facteurs externes</li>
-          <li><strong>Intrants</strong> : ressources humaines, matérielles et technologiques nécessaires, investissements requis en temps et en budget, expertises et partenariats à mobiliser</li>
-          <li><strong>Activités</strong> : actions et interventions principales, stratégies pédagogiques envisagées, mécanismes de support</li>
-          <li><strong>Extrants</strong> : livrables concrets, activités d'apprentissage développées, outils et ressources créés</li>
-          <li><strong>Résultats</strong> : apprentissages immédiats à court terme, transfert des apprentissages à moyen terme, impact social et organisationnel à long terme</li>
-          <li><strong>Indicateurs de mesure</strong> : métriques quantitatives, indicateurs qualitatifs, outils d'évaluation</li>
+          <li><strong>Contexte et fondements</strong> : objectif g&#233;n&#233;ral, groupe vis&#233;, hypoth&#232;ses et facteurs externes</li>
+          <li><strong>Intrants</strong> : ressources humaines, mat&#233;rielles et technologiques, investissements requis, expertises &#224; mobiliser</li>
+          <li><strong>Activit&#233;s</strong> : actions et interventions principales, strat&#233;gies p&#233;dagogiques, m&#233;canismes de support</li>
+          <li><strong>Extrants</strong> : livrables concrets, activit&#233;s d'apprentissage d&#233;velopp&#233;es, outils et ressources cr&#233;&#233;s</li>
+          <li><strong>R&#233;sultats</strong> : apprentissages imm&#233;diats &#224; court terme, transfert &#224; moyen terme, impact social et organisationnel &#224; long terme</li>
+          <li><strong>Indicateurs de mesure</strong> : m&#233;triques quantitatives, indicateurs qualitatifs, outils d'&#233;valuation</li>
         </ul>
       </div>
 
-      <!-- PITCH -->
       <div class="section-card">
-        <h2>Volet 2 — Pitch de solution</h2>
-        <p>Le pitch, intitulé <em>Ensemble vers l'autonomie numérique</em>, a été présenté au nom du Collectif Design à la YWCA de Québec en février 2026. Il présente une solution innovante d'apprentissage ou de formation développée à partir de l'analyse des besoins réalisée dans le cadre du cours TEN-7001.</p>
-        <p>La solution proposée est un module d'autoformation en microlearning sous la forme de mobile learning. Elle est présentée selon trois axes principaux : le module d'auto-formation, les raisons qui justifient le choix de cette solution (approche du <em>learning in the flow of work</em>) et les modalités de son intégration à la YWCA. Les bénéfices pour les apprenants et pour l'organisation sont documentés avec des impacts à court, moyen et long terme.</p>
+        <h2>Volet 2 &#8212; Pitch de solution</h2>
+        <p>Le pitch, intitul&#233; <em>Ensemble vers l'autonomie num&#233;rique</em>, a &#233;t&#233; pr&#233;sent&#233; au nom du Collectif Design &#224; la YWCA de Qu&#233;bec en f&#233;vrier 2026. Il pr&#233;sente une solution innovante d'apprentissage d&#233;velopp&#233;e &#224; partir de l'analyse des besoins r&#233;alis&#233;e dans le cadre du cours TEN-7001.</p>
+        <p>La solution propos&#233;e est un module d'autoformation en microlearning sous la forme de mobile learning, pr&#233;sent&#233;e selon trois axes : le module d'auto-formation, les raisons qui justifient le choix de cette solution (approche du <em>learning in the flow of work</em>) et les modalit&#233;s de son int&#233;gration &#224; la YWCA.</p>
         <div class="skills-wrap">
-          <span class="skill">Modèle logique</span>
+          <span class="skill">Mod&#232;le logique</span>
           <span class="skill">Pitch</span>
-          <span class="skill">Éthique</span>
+          <span class="skill">&#201;thique</span>
           <span class="skill">Microlearning</span>
           <span class="skill">Mobile learning</span>
           <span class="skill">Document technique</span>
@@ -213,464 +161,109 @@
         </div>
       </div>
 
-      <!-- DOCUMENTS PDF -->
       <div class="section-card">
         <h2>Documents du projet</h2>
-        <p>Consultez directement les deux livrables de ce projet ci-dessous. Sélectionnez l'onglet correspondant pour lire le modèle logique ou visionner le pitch de solution.</p>
+        <p>S&#233;lectionnez l'onglet correspondant pour consulter le mod&#232;le logique ou visionner le pitch de solution.</p>
 
-        <div class="pdf-viewer-wrap" style="margin-top:1rem">
-          <div class="pdf-viewer-head">
-            <span class="pdf-label">Livrables</span>
-            <div class="pdf-tabs">
-              <button class="pdf-tab active" onclick="afficherPdf()">Modèle logique</button>
-              <button class="pdf-tab" onclick="afficherVideo()">Pitch de solution</button>
+        <div class="livrable-wrap">
+          <div class="livrable-head">
+            <span class="livrable-label">Livrables</span>
+            <div class="tabs">
+              <button class="tab active" id="tab-pdf" onclick="showZone('pdf')">Mod&#232;le logique</button>
+              <button class="tab" id="tab-vid" onclick="showZone('vid')">Pitch de solution</button>
             </div>
           </div>
 
-          <!-- Zone PDF -->
-          <div id="zone-pdf">
-            <div id="pdf-container" style="background:#4a4a4a;padding:1rem;min-height:560px;display:flex;flex-direction:column;align-items:center;gap:0.6rem;overflow-y:auto;">
-              <div id="pdf-loading" style="color:#ccc;font-size:0.85rem;margin:auto;">Chargement du document…</div>
-            </div>
-            <div style="display:flex;align-items:center;justify-content:center;gap:0.8rem;padding:0.6rem;background:#3a3a3a;border-top:1px solid #555;">
-              <button onclick="prevPage()" style="background:#2c5f8a;color:#fff;border:none;padding:0.4rem 0.9rem;border-radius:6px;cursor:pointer;font-family:inherit;font-size:0.8rem;">← Préc.</button>
-              <span id="page-info" style="color:#ccc;font-size:0.8rem;">Page 1 / ?</span>
-              <button onclick="nextPage()" style="background:#2c5f8a;color:#fff;border:none;padding:0.4rem 0.9rem;border-radius:6px;cursor:pointer;font-family:inherit;font-size:0.8rem;">Suiv. →</button>
-            </div>
-            <div class="pdf-download-bar">
-              <a href="Modele_logique.pdf" download class="btn-download btn-dl-primary">⬇ Télécharger le modèle logique (PDF)</a>
+          <div class="zone visible" id="zone-pdf">
+            <object data="Modele_logique.pdf" type="application/pdf" class="pdf-embed">
+              <p style="padding:2rem;text-align:center;color:#888;">
+                Votre navigateur ne peut pas afficher le PDF directement.
+                <br><br>
+                <a href="modele_logique.pdf" download class="btn-dl btn-prim" style="display:inline-flex">&#11015; T&#233;l&#233;charger le mod&#232;le logique</a>
+              </p>
+            </object>
+            <div class="action-bar">
+              <a href="modele_logique.pdf" download class="btn-dl btn-prim">&#11015; T&#233;l&#233;charger le mod&#232;le logique (PDF)</a>
             </div>
           </div>
 
-          <!-- Zone Vidéo YouTube -->
-          <div id="zone-video" style="display:none;">
-            <div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;background:#000;">
+          <div class="zone" id="zone-vid">
+            <div class="video-ratio">
               <iframe
                 src="https://www.youtube.com/embed/gWn_vf0Ft8c"
-                title="Pitch de solution — Ensemble vers l'autonomie numérique"
+                title="Pitch &#8212; Ensemble vers l'autonomie num&#233;rique"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowfullscreen
-                style="position:absolute;top:0;left:0;width:100%;height:100%;border:none;">
+                allowfullscreen>
               </iframe>
             </div>
-            <div class="pdf-download-bar">
-              <a href="https://www.youtube.com/watch?v=gWn_vf0Ft8c" target="_blank" rel="noopener" class="btn-download btn-dl-secondary">↗ Ouvrir sur YouTube</a>
+            <div class="action-bar">
+              <a href="https://www.youtube.com/watch?v=gWn_vf0Ft8c" target="_blank" rel="noopener" class="btn-dl btn-sec">&#8599; Ouvrir sur YouTube</a>
             </div>
           </div>
 
         </div>
       </div>
 
-    </div><!-- /.main-col -->
-
-    <!-- SIDEBAR -->
-    <aside class="side-col">
-      <div class="side-card">
-        <div class="side-card-titre">Informations</div>
-        <div class="side-item"><div class="side-dot"></div><span>Cours TEN-7006 — Design de systèmes d'enseignement et de formation</span></div>
-        <div class="side-item"><div class="side-dot"></div><span>Université Laval · Faculté des sciences de l'éducation</span></div>
-        <div class="side-item"><div class="side-dot"></div><span>Travail individuel</span></div>
-        <div class="side-item"><div class="side-dot"></div><span>2 livrables : modèle logique + pitch</span></div>
-      </div>
-
-      <div class="side-card">
-        <div class="side-card-titre">Autres projets du même domaine</div>
-        <nav class="nav-projet">
-          <a href="modele-logique.html" class="current">Modèle logique et pitch</a>
-          <a href="document-technique.html">Document technique de conception</a>
-          <a href="rester-a-jour.html">Restez à jour — Article d'opinion</a>
-        </nav>
-      </div>
-
-      <a href="projetAccueil.html" class="btn-retour">← Retour aux projets</a>
-    </aside>
-
-  </div><!-- /.page-layout -->
-</main>
-
-<footer class="site-footer">
-  <p>&copy; 2025 Steve Edgar Feze Feugang. Tous droits réservés.</p>
-</footer>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
-<script>
-  pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
-
-  let pdfDoc = null, pageNum = 1;
-
-  function renderPage(num) {
-    pdfDoc.getPage(num).then(page => {
-      const container = document.getElementById('pdf-container');
-      const scale = Math.min((container.clientWidth - 32) / page.getViewport({scale:1}).width, 2.5);
-      const viewport = page.getViewport({scale});
-      const canvas = document.createElement('canvas');
-      canvas.width = viewport.width;
-      canvas.height = viewport.height;
-      canvas.style.cssText = 'display:block;box-shadow:0 2px 8px rgba(0,0,0,0.4);border-radius:2px;';
-      page.render({canvasContext: canvas.getContext('2d'), viewport}).promise.then(() => {
-        container.innerHTML = '';
-        container.appendChild(canvas);
-        document.getElementById('page-info').textContent = 'Page ' + num + ' / ' + pdfDoc.numPages;
-      });
-    });
-  }
-
-  function loadPdf(url) {
-    pageNum = 1;
-    document.getElementById('pdf-container').innerHTML = '<div style="color:#ccc;font-size:0.85rem;margin:auto;">Chargement…</div>';
-    pdfjsLib.getDocument(url).promise.then(doc => {
-      pdfDoc = doc;
-      renderPage(1);
-    }).catch(() => {
-      document.getElementById('pdf-container').innerHTML = '<div style="color:#f88;font-size:0.85rem;margin:auto;padding:2rem;text-align:center;">Impossible de charger le PDF.<br>Vérifiez que le fichier est bien uploadé sur GitHub.</div>';
-    });
-  }
-
-  function prevPage() { if (pageNum > 1) { pageNum--; renderPage(pageNum); } }
-  function nextPage() { if (pdfDoc && pageNum < pdfDoc.numPages) { pageNum++; renderPage(pageNum); } }
-
-  function afficherPdf() {
-    document.querySelectorAll('.pdf-tab').forEach((b, i) => b.classList.toggle('active', i === 0));
-    document.getElementById('zone-pdf').style.display = 'block';
-    document.getElementById('zone-video').style.display = 'none';
-    if (!pdfDoc) loadPdf('Modele_logique.pdf');
-  }
-
-  function afficherVideo() {
-    document.querySelectorAll('.pdf-tab').forEach((b, i) => b.classList.toggle('active', i === 1));
-    document.getElementById('zone-pdf').style.display = 'none';
-    document.getElementById('zone-video').style.display = 'block';
-  }
-
-  /* MENU MOBILE */
-  const hamburger  = document.querySelector('.hamburger');
-  const menuToggle = document.querySelector('.menu-toggle');
-  const overlay    = document.querySelector('.overlay');
-  const closeBtn   = document.querySelector('.close-btn');
-  hamburger.addEventListener('click', () => { menuToggle.classList.add('open'); overlay.classList.add('show'); hamburger.setAttribute('aria-expanded', 'true'); });
-  function fermerMenu() { menuToggle.classList.remove('open'); overlay.classList.remove('show'); hamburger.setAttribute('aria-expanded', 'false'); }
-  closeBtn.addEventListener('click', fermerMenu);
-  overlay.addEventListener('click', fermerMenu);
-  menuToggle.querySelectorAll('a').forEach(l => l.addEventListener('click', fermerMenu));
-
-  window.addEventListener('load', () => loadPdf('Modele_logique.pdf'));
-</script>
-
-</body>
-</html> 0; }
-    body { font-family: 'Inter', 'Segoe UI', sans-serif; font-size: 1rem; line-height: 1.8; color: #333; background: #f9f9f9; }
-    a { color: inherit; text-decoration: none; }
-
-    /* HEADER */
-    .site-header { position: sticky; top: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 0 2rem; height: 64px; background: #fff; border-bottom: 2px solid #2c5f8a; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
-    .logo { font-size: 1rem; font-weight: 600; color: #1a1a1a; }
-    .logo span { color: #2c5f8a; }
-    .main-nav ul { display: flex; gap: 2rem; list-style: none; }
-    .main-nav a { font-size: 0.9rem; font-weight: 500; color: #555; transition: color 0.2s; position: relative; padding-bottom: 2px; }
-    .main-nav a::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 2px; background: #2c5f8a; transition: width 0.2s; }
-    .main-nav a:hover, .main-nav a.active { color: #2c5f8a; }
-    .main-nav a:hover::after, .main-nav a.active::after { width: 100%; }
-
-    /* HAMBURGER */
-    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 4px; }
-    .hamburger span { display: block; width: 24px; height: 2px; background: #333; border-radius: 2px; }
-
-    /* MENU MOBILE */
-    .menu-toggle { display: none; position: fixed; top: 0; right: 0; width: 75%; max-width: 300px; height: 100vh; background: #fff; border-left: 3px solid #2c5f8a; z-index: 200; flex-direction: column; padding: 2rem 1.5rem; gap: 1.5rem; box-shadow: -4px 0 20px rgba(0,0,0,0.1); transform: translateX(100%); transition: transform 0.3s ease; }
-    .menu-toggle.open { display: flex; transform: translateX(0); }
-    .menu-toggle ul { list-style: none; display: flex; flex-direction: column; gap: 1.2rem; margin-top: 2rem; }
-    .menu-toggle a { font-size: 1.1rem; font-weight: 500; color: #333; transition: color 0.2s; }
-    .menu-toggle a:hover { color: #2c5f8a; }
-    .close-btn { align-self: flex-end; font-size: 2rem; cursor: pointer; background: none; border: none; color: #333; line-height: 1; }
-    .overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.4); z-index: 150; }
-    .overlay.show { display: block; }
-
-    /* BREADCRUMB */
-    .breadcrumb { max-width: 1100px; margin: 1.5rem auto 0; padding: 0 2rem; font-size: 0.82rem; color: #aaa; display: flex; align-items: center; gap: 0.5rem; }
-    .breadcrumb a { color: #2c5f8a; transition: opacity 0.2s; }
-    .breadcrumb a:hover { opacity: 0.7; }
-
-    /* PAGE HERO */
-    .page-hero { max-width: 1100px; margin: 1.2rem auto 0; padding: 0 2rem 1.5rem; border-bottom: 1px solid #e8e8e8; }
-    .hero-tag { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #993556; background: #fbeaf0; padding: 0.25rem 0.75rem; border-radius: 20px; display: inline-block; margin-bottom: 0.8rem; }
-    .page-hero h1 { font-size: clamp(1.5rem, 3vw, 2rem); font-weight: 600; color: #1a1a1a; margin-bottom: 0.5rem; line-height: 1.25; }
-    .hero-meta { display: flex; flex-wrap: wrap; gap: 1rem; font-size: 0.82rem; color: #888; margin-top: 0.8rem; }
-    .hero-meta span { display: flex; align-items: center; gap: 0.3rem; }
-
-    /* LAYOUT */
-    .page-layout { max-width: 1100px; margin: 1.8rem auto; padding: 0 2rem 3rem; display: grid; grid-template-columns: 1fr 340px; gap: 2rem; align-items: start; }
-
-    /* CONTENU PRINCIPAL */
-    .main-col { display: flex; flex-direction: column; gap: 1.4rem; }
-
-    /* SECTIONS */
-    .section-card { background: #fff; border-radius: 12px; border: 1px solid #e8e8e8; padding: 1.6rem 1.8rem; box-shadow: 0 2px 8px rgba(0,0,0,0.03); }
-    .section-card h2 { font-size: 1rem; font-weight: 600; color: #1a1a1a; margin-bottom: 1rem; padding-bottom: 0.6rem; border-bottom: 2px solid #fbeaf0; }
-    .section-card p { font-size: 0.9rem; color: #555; line-height: 1.85; margin-bottom: 0.8rem; }
-    .section-card p:last-child { margin-bottom: 0; }
-    .section-card ul { padding-left: 1.2rem; }
-    .section-card li { font-size: 0.9rem; color: #555; line-height: 1.8; margin-bottom: 0.3rem; }
-
-    /* COMPÉTENCES */
-    .skills-wrap { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.5rem; }
-    .skill { font-size: 0.72rem; padding: 0.22rem 0.65rem; border-radius: 4px; background: #fbeaf0; color: #993556; font-weight: 500; }
-
-    /* LECTEUR PDF */
-    .pdf-viewer-wrap { background: #fff; border-radius: 12px; border: 1px solid #e8e8e8; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.03); }
-    .pdf-viewer-head { display: flex; align-items: center; justify-content: space-between; padding: 0.9rem 1.2rem; border-bottom: 1px solid #f0f0f0; }
-    .pdf-label { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #2c5f8a; }
-    .pdf-tabs { display: flex; gap: 0.4rem; }
-    .pdf-tab { font-size: 0.75rem; font-weight: 500; font-family: 'Inter', sans-serif; padding: 0.3rem 0.8rem; border-radius: 6px; border: 1.5px solid #ddd; background: #fff; color: #666; cursor: pointer; transition: all 0.2s; }
-    .pdf-tab:hover { border-color: #2c5f8a; color: #2c5f8a; }
-    .pdf-tab.active { background: #2c5f8a; color: #fff; border-color: #2c5f8a; }
-    .pdf-frame { width: 100%; height: 550px; border: none; display: block; }
-    .pdf-frame-2 { display: none; }
-    .pdf-download-bar { display: flex; flex-direction: column; gap: 0.6rem; padding: 0.9rem 1.2rem; border-top: 1px solid #f0f0f0; }
-    .btn-download { display: inline-flex; align-items: center; gap: 0.45rem; padding: 0.6rem 1.2rem; border-radius: 8px; font-size: 0.82rem; font-weight: 500; font-family: 'Inter', sans-serif; cursor: pointer; transition: all 0.2s; text-decoration: none; border: none; justify-content: center; }
-    .btn-dl-primary { background: #2c5f8a; color: #fff; }
-    .btn-dl-primary:hover { background: #1e4a6e; }
-    .btn-dl-secondary { background: #fff; color: #2c5f8a; border: 1.5px solid #2c5f8a; }
-    .btn-dl-secondary:hover { background: #2c5f8a; color: #fff; }
-
-    /* SIDEBAR */
-    .side-col { display: flex; flex-direction: column; gap: 1.2rem; position: sticky; top: 84px; }
-    .side-card { background: #fff; border-radius: 12px; border: 1px solid #e8e8e8; padding: 1.2rem 1.4rem; }
-    .side-card-titre { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #2c5f8a; margin-bottom: 0.9rem; }
-    .side-item { display: flex; align-items: flex-start; gap: 0.5rem; margin-bottom: 0.6rem; font-size: 0.82rem; color: #555; }
-    .side-dot { width: 6px; height: 6px; border-radius: 50%; background: #2c5f8a; flex-shrink: 0; margin-top: 0.4rem; }
-    .nav-projet { display: flex; flex-direction: column; gap: 0.5rem; }
-    .nav-projet a { display: flex; align-items: center; gap: 0.5rem; padding: 0.55rem 0.8rem; border-radius: 8px; font-size: 0.82rem; color: #555; transition: all 0.2s; border: 1px solid #f0f0f0; }
-    .nav-projet a:hover { background: #eef4fb; color: #2c5f8a; border-color: #b8d4ed; }
-    .nav-projet a.current { background: #eef4fb; color: #2c5f8a; border-color: #2c5f8a; font-weight: 600; }
-    .btn-retour { display: inline-flex; align-items: center; gap: 0.45rem; padding: 0.6rem 1.1rem; border-radius: 8px; font-size: 0.82rem; font-weight: 500; font-family: 'Inter', sans-serif; background: #fff; color: #2c5f8a; border: 1.5px solid #2c5f8a; cursor: pointer; transition: all 0.2s; text-decoration: none; width: 100%; justify-content: center; }
-    .btn-retour:hover { background: #2c5f8a; color: #fff; }
-
-    /* FOOTER */
-    .site-footer { text-align: center; padding: 1.5rem 1rem; border-top: 2px solid #2c5f8a; font-size: 0.88rem; color: #888; background: #fff; }
-
-    /* RESPONSIVE */
-    @media (max-width: 900px) {
-      .site-header { padding: 0 1rem; }
-      .main-nav { display: none; }
-      .hamburger { display: flex; }
-      .page-layout { grid-template-columns: 1fr; }
-      .side-col { position: static; }
-    }
-    @media (max-width: 640px) {
-      .breadcrumb, .page-hero, .page-layout { padding: 0 1rem; }
-      .page-layout { padding-bottom: 2rem; }
-      .pdf-frame { height: 380px; }
-    }
-  </style>
-</head>
-<body>
-
-<header class="site-header">
-  <a href="index.html" class="logo">SF — <span>e-portfolio</span></a>
-  <nav class="main-nav" aria-label="Navigation principale">
-    <ul>
-      <li><a href="index.html">Accueil</a></li>
-      <li><a href="apropos.html">À propos de moi</a></li>
-      <li><a href="projetAccueil.html" class="active">Mes projets</a></li>
-      <li><a href="cv.html">CV</a></li>
-    </ul>
-  </nav>
-  <button class="hamburger" aria-label="Ouvrir le menu" aria-expanded="false">
-    <span></span><span></span><span></span>
-  </button>
-</header>
-
-<div class="overlay"></div>
-<div class="menu-toggle">
-  <button class="close-btn" aria-label="Fermer le menu">&times;</button>
-  <ul>
-    <li><a href="index.html">Accueil</a></li>
-    <li><a href="apropos.html">À propos de moi</a></li>
-    <li><a href="projetAccueil.html">Mes projets</a></li>
-    <li><a href="cv.html">CV</a></li>
-  </ul>
-</div>
-
-<main>
-  <!-- BREADCRUMB -->
-  <nav class="breadcrumb" aria-label="Fil d'Ariane">
-    <a href="projetAccueil.html">← Mes projets</a>
-    <span>/</span>
-    <span>Design de systèmes d'enseignement</span>
-    <span>/</span>
-    <span>Modèle logique et pitch</span>
-  </nav>
-
-  <!-- HERO -->
-  <div class="page-hero">
-    <span class="hero-tag">Design de systèmes d'enseignement et de formation</span>
-    <h1>Modèle logique et pitch de solution</h1>
-    <div class="hero-meta">
-      <span>👤 Travail en équipe - 5 particpants</span>
-      <span>📚 Cours TEN-7006 · Université Laval</span>
-      <span>📅 2025–2026</span>
     </div>
-  </div>
 
-  <!-- LAYOUT -->
-  <div class="page-layout">
-    <div class="main-col">
-
-      <!-- CONTEXTE -->
-      <div class="section-card">
-        <h2>Contexte et objectif</h2>
-        <p>Ce travail comporte deux volets complémentaires réalisés à partir de l'analyse de besoins conduite à la YWCA de Québec. Le premier volet consiste en l'élaboration d'un modèle logique détaillant la structure et les composantes d'une solution de formation mobile. Le second volet prend la forme d'un pitch clair et convaincant pour présenter la solution à une clientèle cible.</p>
-      </div>
-
-      <!-- MODÈLE LOGIQUE -->
-      <div class="section-card">
-        <h2>Volet 1 — Modèle logique</h2>
-        <p>Le modèle logique est un outil de planification essentiel qui permet de visualiser la logique interne de la solution et d'établir les liens entre les ressources investies et les résultats attendus. Il est présenté sous forme visuelle et inclut les éléments suivants :</p>
-        <ul>
-          <li><strong>Contexte et fondements</strong> : objectif général, groupe visé, hypothèses et facteurs externes</li>
-          <li><strong>Intrants</strong> : ressources humaines, matérielles et technologiques nécessaires, investissements requis en temps et en budget, expertises et partenariats à mobiliser</li>
-          <li><strong>Activités</strong> : actions et interventions principales, stratégies pédagogiques envisagées, mécanismes de support</li>
-          <li><strong>Extrants</strong> : livrables concrets, activités d'apprentissage développées, outils et ressources créés</li>
-          <li><strong>Résultats</strong> : apprentissages immédiats à court terme, transfert des apprentissages à moyen terme, impact social et organisationnel à long terme</li>
-          <li><strong>Indicateurs de mesure</strong> : métriques quantitatives, indicateurs qualitatifs, outils d'évaluation</li>
-        </ul>
-      </div>
-
-      <!-- PITCH -->
-      <div class="section-card">
-        <h2>Volet 2 — Pitch de solution</h2>
-        <p>Le pitch, intitulé <em>Ensemble vers l'autonomie numérique</em>, a été présenté au nom du Collectif Design à la YWCA de Québec en février 2026. Il présente une solution innovante d'apprentissage ou de formation développée à partir de l'analyse des besoins réalisée dans le cadre du cours TEN-7001.</p>
-        <p>La solution proposée est un module d'autoformation en microlearning sous la forme de mobile learning. Elle est présentée selon trois axes principaux : le module d'auto-formation, les raisons qui justifient le choix de cette solution (approche du <em>learning in the flow of work</em>) et les modalités de son intégration à la YWCA. Les bénéfices pour les apprenants et pour l'organisation sont documentés avec des impacts à court, moyen et long terme.</p>
-        <div class="skills-wrap">
-          <span class="skill">Modèle logique</span>
-          <span class="skill">Pitch</span>
-          <span class="skill">Éthique</span>
-          <span class="skill">Microlearning</span>
-          <span class="skill">Mobile learning</span>
-          <span class="skill">Document technique</span>
-          <span class="skill">TEN-7006</span>
-        </div>
-      </div>
-
-      <!-- DOCUMENTS PDF -->
-      <div class="section-card">
-        <h2>Documents du projet</h2>
-        <p>Consultez directement les deux livrables de ce projet ci-dessous. Sélectionnez l'onglet correspondant pour lire le document ou téléchargez-le.</p>
-
-        <div class="pdf-viewer-wrap" style="margin-top:1rem">
-          <div class="pdf-viewer-head">
-            <span class="pdf-label">Livrables</span>
-            <div class="pdf-tabs">
-              <button class="pdf-tab active" onclick="switchPdf(this,'modele_logique.pdf','dl-btn-1','dl-btn-2')">Modèle logique</button>
-              <button class="pdf-tab" onclick="switchPdf(this,'https://www.youtube.com/watch?v=gWn_vf0Ft8c','dl-btn-2','dl-btn-1')">Pitch de solution</button>
-            </div>
-          </div>
-          <!-- Visionneuse PDF.js -->
-          <div id="pdf-container" style="background:#4a4a4a;padding:1rem;min-height:560px;display:flex;flex-direction:column;align-items:center;gap:0.6rem;overflow-y:auto;">
-            <div id="pdf-loading" style="color:#ccc;font-size:0.85rem;margin:auto;">Chargement du document…</div>
-          </div>
-          <div style="display:flex;align-items:center;justify-content:center;gap:0.8rem;padding:0.6rem;background:#3a3a3a;border-top:1px solid #555;">
-            <button onclick="prevPage()" style="background:#2c5f8a;color:#fff;border:none;padding:0.4rem 0.9rem;border-radius:6px;cursor:pointer;font-family:inherit;font-size:0.8rem;">← Préc.</button>
-            <span id="page-info" style="color:#ccc;font-size:0.8rem;">Page 1 / ?</span>
-            <button onclick="nextPage()" style="background:#2c5f8a;color:#fff;border:none;padding:0.4rem 0.9rem;border-radius:6px;cursor:pointer;font-family:inherit;font-size:0.8rem;">Suiv. →</button>
-          </div>
-          <div class="pdf-download-bar">
-            <a id="dl-btn-1" href="modele_logique.pdf" download class="btn-download btn-dl-primary">⬇ Télécharger le modèle logique (PDF)</a>
-            <a id="dl-btn-2" href="https://www.youtube.com/watch?v=gWn_vf0Ft8c" download class="btn-download btn-dl-secondary" style="display:none">⬇ Télécharger le pitch de solution (PDF)</a>
-          </div>
-        </div>
-      </div>
-
-    </div><!-- /.main-col -->
-
-    <!-- SIDEBAR -->
     <aside class="side-col">
       <div class="side-card">
-        <div class="side-card-titre">Informations</div>
-        <div class="side-item"><div class="side-dot"></div><span>Cours TEN-7006 — Design de systèmes d'enseignement et de formation</span></div>
-        <div class="side-item"><div class="side-dot"></div><span>Université Laval · Faculté des sciences de l'éducation</span></div>
-        <div class="side-item"><div class="side-dot"></div><span>Travail d'équipe</span></div>
-        <div class="side-item"><div class="side-dot"></div><span>2 livrables : modèle logique + pitch</span></div>
+        <div class="side-titre">Informations</div>
+        <div class="side-item"><div class="side-dot"></div><span>Cours TEN-7006 &#8212; Design de syst&#232;mes d'enseignement et de formation</span></div>
+        <div class="side-item"><div class="side-dot"></div><span>Universit&#233; Laval &#183; Facult&#233; des sciences de l'&#233;ducation</span></div>
+        <div class="side-item"><div class="side-dot"></div><span>Travail individuel</span></div>
+        <div class="side-item"><div class="side-dot"></div><span>2 livrables : mod&#232;le logique (PDF) + pitch (vid&#233;o)</span></div>
       </div>
-
       <div class="side-card">
-        <div class="side-card-titre">Autres projets du même domaine</div>
+        <div class="side-titre">Autres projets du m&#234;me domaine</div>
         <nav class="nav-projet">
-          <a href="modele-logique.html" class="current">Modèle logique et pitch</a>
+          <a href="modele-logique.html" class="current">Mod&#232;le logique et pitch</a>
           <a href="document-technique.html">Document technique de conception</a>
-          <a href="rester-a-jour.html">Restez à jour — Article d'opinion</a>
+          <a href="rester-a-jour.html">Restez &#224; jour &#8212; Article d'opinion</a>
         </nav>
       </div>
-
-      <a href="projetAccueil.html" class="btn-retour">← Retour aux projets</a>
+      <a href="projetAccueil.html" class="btn-retour">&#8592; Retour aux projets</a>
     </aside>
 
-  </div><!-- /.page-layout -->
+  </div>
 </main>
 
 <footer class="site-footer">
-  <p>&copy; 2025 Steve Edgar Feze Feugang. Tous droits réservés.</p>
+  <p>&#169; 2025 Steve Edgar Feze Feugang. Tous droits r&#233;serv&#233;s.</p>
 </footer>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 <script>
-  pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+function showZone(id) {
+  document.getElementById('zone-pdf').className = 'zone';
+  document.getElementById('zone-vid').className = 'zone';
+  document.getElementById('tab-pdf').className = 'tab';
+  document.getElementById('tab-vid').className = 'tab';
+  document.getElementById('zone-' + id).className = 'zone visible';
+  document.getElementById('tab-' + id).className = 'tab active';
+}
 
-  let pdfDoc = null, pageNum = 1, currentPdfUrl = 'modele_logique.pdf';
+var hamburger  = document.querySelector('.hamburger');
+var menuToggle = document.querySelector('.menu-toggle');
+var overlay    = document.querySelector('.overlay');
+var closeBtn   = document.querySelector('.close-btn');
 
-  function renderPage(num) {
-    pdfDoc.getPage(num).then(page => {
-      const container = document.getElementById('pdf-container');
-      const scale = Math.min((container.clientWidth - 32) / page.getViewport({scale:1}).width, 2.5);
-      const viewport = page.getViewport({scale});
-      const canvas = document.createElement('canvas');
-      canvas.width = viewport.width;
-      canvas.height = viewport.height;
-      canvas.style.cssText = 'display:block;box-shadow:0 2px 8px rgba(0,0,0,0.4);border-radius:2px;';
-      const ctx = canvas.getContext('2d');
-      page.render({canvasContext: ctx, viewport}).promise.then(() => {
-        container.innerHTML = '';
-        container.appendChild(canvas);
-        document.getElementById('page-info').textContent = 'Page ' + num + ' / ' + pdfDoc.numPages;
-      });
-    });
-  }
+hamburger.addEventListener('click', function() {
+  menuToggle.classList.add('open');
+  overlay.classList.add('show');
+  hamburger.setAttribute('aria-expanded', 'true');
+});
 
-  function loadPdf(url) {
-    currentPdfUrl = url;
-    pageNum = 1;
-    document.getElementById('pdf-loading') && (document.getElementById('pdf-container').innerHTML = '<div id="pdf-loading" style="color:#ccc;font-size:0.85rem;margin:auto;">Chargement…</div>');
-    pdfjsLib.getDocument(url).promise.then(doc => {
-      pdfDoc = doc;
-      renderPage(pageNum);
-    }).catch(() => {
-      document.getElementById('pdf-container').innerHTML = '<div style="color:#f88;font-size:0.85rem;margin:auto;padding:2rem;text-align:center;">Impossible de charger le PDF.<br>Vérifiez que le fichier est bien uploadé sur GitHub.</div>';
-    });
-  }
+function fermerMenu() {
+  menuToggle.classList.remove('open');
+  overlay.classList.remove('show');
+  hamburger.setAttribute('aria-expanded', 'false');
+}
 
-  function prevPage() { if (pageNum > 1) { pageNum--; renderPage(pageNum); } }
-  function nextPage() { if (pdfDoc && pageNum < pdfDoc.numPages) { pageNum++; renderPage(pageNum); } }
-
-  function switchPdf(btn, url, showDl, hideDl) {
-    document.querySelectorAll('.pdf-tab').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    document.getElementById(showDl).style.display = 'flex';
-    document.getElementById(hideDl).style.display = 'none';
-    loadPdf(url);
-  }
-
-  // MENU MOBILE
-  const hamburger  = document.querySelector('.hamburger');
-  const menuToggle = document.querySelector('.menu-toggle');
-  const overlay    = document.querySelector('.overlay');
-  const closeBtn   = document.querySelector('.close-btn');
-  hamburger.addEventListener('click', () => { menuToggle.classList.add('open'); overlay.classList.add('show'); hamburger.setAttribute('aria-expanded', 'true'); });
-  function fermerMenu() { menuToggle.classList.remove('open'); overlay.classList.remove('show'); hamburger.setAttribute('aria-expanded', 'false'); }
-  closeBtn.addEventListener('click', fermerMenu);
-  overlay.addEventListener('click', fermerMenu);
-  menuToggle.querySelectorAll('a').forEach(l => l.addEventListener('click', fermerMenu));
-
-  window.addEventListener('load', () => loadPdf(currentPdfUrl));
+closeBtn.addEventListener('click', fermerMenu);
+overlay.addEventListener('click', fermerMenu);
+menuToggle.querySelectorAll('a').forEach(function(l) {
+  l.addEventListener('click', fermerMenu);
+});
 </script>
 
 </body>
