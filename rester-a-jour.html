@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Restez à jour — Article d'opinion — Steve Edgar Feze</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Inter', 'Segoe UI', sans-serif; font-size: 1rem; line-height: 1.8; color: #333; background: #f9f9f9; }
+    a { color: inherit; text-decoration: none; }
+    .site-header { position: sticky; top: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 0 2rem; height: 64px; background: #fff; border-bottom: 2px solid #2c5f8a; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+    .logo { font-size: 1rem; font-weight: 600; color: #1a1a1a; }
+    .logo span { color: #2c5f8a; }
+    .main-nav ul { display: flex; gap: 2rem; list-style: none; }
+    .main-nav a { font-size: 0.9rem; font-weight: 500; color: #555; transition: color 0.2s; position: relative; padding-bottom: 2px; }
+    .main-nav a::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 2px; background: #2c5f8a; transition: width 0.2s; }
+    .main-nav a:hover, .main-nav a.active { color: #2c5f8a; }
+    .main-nav a:hover::after, .main-nav a.active::after { width: 100%; }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 4px; }
+    .hamburger span { display: block; width: 24px; height: 2px; background: #333; border-radius: 2px; }
+    .menu-toggle { display: none; position: fixed; top: 0; right: 0; width: 75%; max-width: 300px; height: 100vh; background: #fff; border-left: 3px solid #2c5f8a; z-index: 200; flex-direction: column; padding: 2rem 1.5rem; gap: 1.5rem; box-shadow: -4px 0 20px rgba(0,0,0,0.1); transform: translateX(100%); transition: transform 0.3s ease; }
+    .menu-toggle.open { display: flex; transform: translateX(0); }
+    .menu-toggle ul { list-style: none; display: flex; flex-direction: column; gap: 1.2rem; margin-top: 2rem; }
+    .menu-toggle a { font-size: 1.1rem; font-weight: 500; color: #333; transition: color 0.2s; }
+    .menu-toggle a:hover { color: #2c5f8a; }
+    .close-btn { align-self: flex-end; font-size: 2rem; cursor: pointer; background: none; border: none; color: #333; line-height: 1; }
+    .overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.4); z-index: 150; }
+    .overlay.show { display: block; }
+    .breadcrumb { max-width: 1100px; margin: 1.5rem auto 0; padding: 0 2rem; font-size: 0.82rem; color: #aaa; display: flex; align-items: center; gap: 0.5rem; }
+    .breadcrumb a { color: #2c5f8a; }
+    .breadcrumb a:hover { opacity: 0.7; }
+    .page-hero { max-width: 1100px; margin: 1.2rem auto 0; padding: 0 2rem 1.5rem; border-bottom: 1px solid #e8e8e8; }
+    .hero-tag { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #993556; background: #fbeaf0; padding: 0.25rem 0.75rem; border-radius: 20px; display: inline-block; margin-bottom: 0.8rem; }
+    .page-hero h1 { font-size: clamp(1.4rem, 3vw, 1.9rem); font-weight: 600; color: #1a1a1a; margin-bottom: 0.3rem; line-height: 1.25; }
+    .article-soustitre { font-size: 1rem; color: #2c5f8a; font-weight: 500; margin-bottom: 0.6rem; font-style: italic; }
+    .hero-meta { display: flex; flex-wrap: wrap; gap: 1rem; font-size: 0.82rem; color: #888; margin-top: 0.8rem; }
+    .page-layout { max-width: 1100px; margin: 1.8rem auto; padding: 0 2rem 3rem; display: grid; grid-template-columns: 1fr 340px; gap: 2rem; align-items: start; }
+    .main-col { display: flex; flex-direction: column; gap: 1.4rem; }
+    .section-card { background: #fff; border-radius: 12px; border: 1px solid #e8e8e8; padding: 1.6rem 1.8rem; box-shadow: 0 2px 8px rgba(0,0,0,0.03); }
+    .section-card h2 { font-size: 1rem; font-weight: 600; color: #1a1a1a; margin-bottom: 1rem; padding-bottom: 0.6rem; border-bottom: 2px solid #fbeaf0; }
+    .section-card p { font-size: 0.9rem; color: #555; line-height: 1.85; margin-bottom: 0.8rem; }
+    .section-card p:last-child { margin-bottom: 0; }
+    .section-card ul { padding-left: 1.2rem; }
+    .section-card li { font-size: 0.9rem; color: #555; line-height: 1.8; margin-bottom: 0.4rem; }
+    .skills-wrap { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.8rem; }
+    .skill { font-size: 0.72rem; padding: 0.22rem 0.65rem; border-radius: 4px; background: #fbeaf0; color: #993556; font-weight: 500; }
+
+    /* Citation mise en exergue */
+    .citation { background: #eef4fb; border-left: 4px solid #2c5f8a; border-radius: 0 8px 8px 0; padding: 1rem 1.4rem; margin: 1rem 0; font-size: 0.9rem; color: #2c5f8a; font-style: italic; line-height: 1.7; }
+
+    /* Thèses de l'article */
+    .theses-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; margin-top: 0.8rem; }
+    .these-card { background: #f9f9f9; border: 1px solid #eee; border-radius: 8px; padding: 0.9rem 1rem; }
+    .these-titre { font-size: 0.8rem; font-weight: 600; color: #993556; margin-bottom: 0.3rem; }
+    .these-desc { font-size: 0.78rem; color: #666; line-height: 1.6; }
+
+    .pdf-viewer-wrap { background: #fff; border-radius: 12px; border: 1px solid #e8e8e8; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.03); }
+    .pdf-viewer-head { display: flex; align-items: center; justify-content: space-between; padding: 0.9rem 1.2rem; border-bottom: 1px solid #f0f0f0; }
+    .pdf-label { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #2c5f8a; }
+    .pdf-frame { width: 100%; height: 580px; border: none; display: block; }
+    .pdf-download-bar { padding: 0.9rem 1.2rem; border-top: 1px solid #f0f0f0; }
+    .btn-download { display: inline-flex; align-items: center; gap: 0.45rem; padding: 0.6rem 1.2rem; border-radius: 8px; font-size: 0.82rem; font-weight: 500; font-family: 'Inter', sans-serif; cursor: pointer; transition: all 0.2s; text-decoration: none; border: none; width: 100%; justify-content: center; background: #2c5f8a; color: #fff; }
+    .btn-download:hover { background: #1e4a6e; }
+
+    .side-col { display: flex; flex-direction: column; gap: 1.2rem; position: sticky; top: 84px; }
+    .side-card { background: #fff; border-radius: 12px; border: 1px solid #e8e8e8; padding: 1.2rem 1.4rem; }
+    .side-card-titre { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #2c5f8a; margin-bottom: 0.9rem; }
+    .side-item { display: flex; align-items: flex-start; gap: 0.5rem; margin-bottom: 0.6rem; font-size: 0.82rem; color: #555; }
+    .side-dot { width: 6px; height: 6px; border-radius: 50%; background: #2c5f8a; flex-shrink: 0; margin-top: 0.4rem; }
+    .nav-projet { display: flex; flex-direction: column; gap: 0.5rem; }
+    .nav-projet a { display: flex; align-items: center; gap: 0.5rem; padding: 0.55rem 0.8rem; border-radius: 8px; font-size: 0.82rem; color: #555; transition: all 0.2s; border: 1px solid #f0f0f0; }
+    .nav-projet a:hover { background: #eef4fb; color: #2c5f8a; border-color: #b8d4ed; }
+    .nav-projet a.current { background: #eef4fb; color: #2c5f8a; border-color: #2c5f8a; font-weight: 600; }
+    .btn-retour { display: inline-flex; align-items: center; gap: 0.45rem; padding: 0.6rem 1.1rem; border-radius: 8px; font-size: 0.82rem; font-weight: 500; font-family: 'Inter', sans-serif; background: #fff; color: #2c5f8a; border: 1.5px solid #2c5f8a; cursor: pointer; transition: all 0.2s; text-decoration: none; width: 100%; justify-content: center; }
+    .btn-retour:hover { background: #2c5f8a; color: #fff; }
+    .site-footer { text-align: center; padding: 1.5rem 1rem; border-top: 2px solid #2c5f8a; font-size: 0.88rem; color: #888; background: #fff; }
+
+    @media (max-width: 900px) {
+      .site-header { padding: 0 1rem; }
+      .main-nav { display: none; }
+      .hamburger { display: flex; }
+      .page-layout { grid-template-columns: 1fr; }
+      .side-col { position: static; }
+      .theses-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 640px) {
+      .breadcrumb, .page-hero, .page-layout { padding: 0 1rem; }
+      .page-layout { padding-bottom: 2rem; }
+      .pdf-frame { height: 380px; }
+    }
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <a href="index.html" class="logo">SF — <span>e-portfolio</span></a>
+  <nav class="main-nav" aria-label="Navigation principale">
+    <ul>
+      <li><a href="index.html">Accueil</a></li>
+      <li><a href="apropos.html">À propos de moi</a></li>
+      <li><a href="projetAccueil.html" class="active">Mes projets</a></li>
+      <li><a href="cv.html">CV</a></li>
+    </ul>
+  </nav>
+  <button class="hamburger" aria-label="Ouvrir le menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+</header>
+
+<div class="overlay"></div>
+<div class="menu-toggle">
+  <button class="close-btn" aria-label="Fermer le menu">&times;</button>
+  <ul>
+    <li><a href="index.html">Accueil</a></li>
+    <li><a href="apropos.html">À propos de moi</a></li>
+    <li><a href="projetAccueil.html">Mes projets</a></li>
+    <li><a href="cv.html">CV</a></li>
+  </ul>
+</div>
+
+<main>
+  <nav class="breadcrumb" aria-label="Fil d'Ariane">
+    <a href="projetAccueil.html">← Mes projets</a>
+    <span>/</span>
+    <span>Design de systèmes d'enseignement</span>
+    <span>/</span>
+    <span>Restez à jour</span>
+  </nav>
+
+  <div class="page-hero">
+    <span class="hero-tag">Design de systèmes d'enseignement et de formation</span>
+    <h1>Restez à jour — Article d'opinion</h1>
+    <p class="article-soustitre">Andragogie 3.0 : quand l'adulte apprenant devient coproducteur de son parcours à l'aide de l'intelligence artificielle</p>
+    <div class="hero-meta">
+      <span>👤 Travail individuel</span>
+      <span>📚 Cours TEN-7006 · Université Laval</span>
+      <span>✍️ Steve Edgar Feze Feugang</span>
+    </div>
+  </div>
+
+  <div class="page-layout">
+    <div class="main-col">
+
+      <div class="section-card">
+        <h2>Contexte et objectif</h2>
+        <p>Ce travail a consisté à rédiger un article d'opinion dans le style de la conversation dans lequel j'explore une thématique liée à l'innovation pédagogique et andragogique à l'ère de l'intelligence artificielle et du numérique.</p>
+        <p>Ce travail m'a permis de produire un article sur un sujet qui me touche particulièrement en tant que professionnel, à savoir la conception des formations asynchrones ou synchrones pour les personnels des organisations publiques ou privées. En plus de permettre d'explorer les spécificités de ce type de public apprenants (adultes) à travers les principes andragogiques, j'ai exploré dans quelle mesure l'Intelligence artificielle générative (IAG) peut aider à concevoir des expériences d'apprentissage adaptées qui leur soient destinées.</p>
+      </div>
+
+      <div class="section-card">
+        <h2>Thèse centrale — L'andragogie 3.0</h2>
+        <p>Mon article intitulé <em>Andragogie 3.0 : quand l'adulte apprenant devient coproducteur de son parcours à l'aide de l'intelligence artificielle</em> suggère une nouvelle approche andragogique intégrant l'IAG comme outil susceptible de mieux engager ce type de public cible apprenant.</p>
+        <div class="citation">
+          « Imaginez une agente administrative de 52 ans, employée depuis vingt ans dans une PME. Son employeur vient d'acquérir une plateforme de gestion propulsée par l'IA et lui annonce une formation obligatoire de douze modules standardisés, conçus pour un apprenant de 25 ans fraîchement diplômé. Elle se retrouve face à un écran, confrontée non seulement à la nouveauté technologique, mais à la honte silencieuse de ne pas savoir […]. Elle décroche au bout d'une heure, non parce qu'elle est incapable, mais parce que le dispositif a ignoré qui elle est. »
+        </div>
+        <div class="theses-grid">
+          <div class="these-card">
+            <div class="these-titre">Andragogie 1.0</div>
+            <div class="these-desc">Présentiel traditionnel — transmission magistrale peu centrée sur les besoins de l'apprenant adulte</div>
+          </div>
+          <div class="these-card">
+            <div class="these-titre">Andragogie 2.0</div>
+            <div class="these-desc">E-learning de première génération — personnalisation de façade, contenus figés</div>
+          </div>
+          <div class="these-card">
+            <div class="these-titre">Andragogie 3.0</div>
+            <div class="these-desc">IA adaptative — ajustement en temps réel du contenu, du rythme et de la modalité selon le comportement réel de l'apprenant. L'adulte n'est plus un réceptacle passif mais un coproducteur actif de son parcours.</div>
+          </div>
+          <div class="these-card">
+            <div class="these-titre">Ancrages théoriques</div>
+            <div class="these-desc">Knowles (andragogie), Mezirow (apprentissage transformateur), Deci & Ryan (autodétermination), TELUQ (expérience et autodirection)</div>
+          </div>
+        </div>
+        <div class="skills-wrap">
+          <span class="skill">Andragogie</span>
+          <span class="skill">IA générative</span>
+          <span class="skill">Veille technologique</span>
+          <span class="skill">Rédaction académique</span>
+          <span class="skill">Pensée critique</span>
+          <span class="skill">Éthique numérique</span>
+        </div>
+      </div>
+
+      <div class="section-card">
+        <h2>Défis identifiés et positionnement</h2>
+        <p>L'article identifie quatre défis incontournables que l'enthousiasme pour l'IA ne doit pas occulter : la fracture numérique (24,7 % de la population active du Nord Global utilise l'IAG contre 14,1 % dans le Sud), l'éthique des données (gouvernance floue des données comportementales collectées), la délégation cognitive excessive (risque que l'IAG glisse vers la sous-traitance et la stagnation cognitive), et l'empreinte écologique (une requête à une IAG consomme dix fois plus d'énergie qu'une recherche classique).</p>
+        <p>Face à ces défis, l'article défend une andragogie augmentée, inclusive et sobre : l'IA amplifie les capacités de l'apprenant sans se substituer à son agentivité. Dans cette approche, le formateur reste l'architecte humain du sens, de la relation et de l'accompagnement émotionnel. Les études peer-reviewed soulignent d'ailleurs que les systèmes d'IA adaptative qui montrent les meilleurs résultats sont ceux qui sont co-conçus avec des pédagogues.</p>
+      </div>
+
+      <div class="section-card">
+        <h2>Démarche de rédaction</h2>
+        <p>Pour rédiger cet article, j'ai adopté une démarche en quatre phases. La première phase a été l'idéation : je me suis servi d'une IAG pour matérialiser mon idée sous forme de titre. La deuxième phase a été de faire un état de la littérature sur les fondements théoriques et les principes andragogiques, l'IAG et ses potentialités en conception pédagogique, ainsi que les enjeux qu'elle soulève. La troisième phase a consisté à définir ma problématique, la plus-value de ma communication et mon plan de rédaction, suivi de la rédaction elle-même. La quatrième phase a consisté en la révision linguistique et stylistique de mon texte.</p>
+        <p>Le principal défi a été de trouver des références bibliographiques traitant des aspects que je souhaitais aborder. Pour les trouver, j'ai utilisé Google Scholar et l'outil d'intelligence artificielle Consensus. Un autre défi était de synthétiser mes propos tout en restant précis et exhaustif dans les limites du nombre de pages requis.</p>
+      </div>
+
+      <!-- PDF -->
+      <div class="section-card">
+        <h2>Article complet</h2>
+        <p>Lisez ou téléchargez l'article d'opinion complet ci-dessous.</p>
+        <div class="pdf-viewer-wrap" style="margin-top:1rem">
+          <div class="pdf-viewer-head">
+            <span class="pdf-label">Andragogie 3.0 — Steve Edgar Feze Feugang</span>
+          </div>
+          <div id="pdf-container" style="background:#4a4a4a;padding:1rem;min-height:560px;display:flex;flex-direction:column;align-items:center;gap:0.6rem;overflow-y:auto;">
+            <div id="pdf-loading" style="color:#ccc;font-size:0.85rem;margin:auto;">Chargement du document…</div>
+          </div>
+          <div style="display:flex;align-items:center;justify-content:center;gap:0.8rem;padding:0.6rem;background:#3a3a3a;border-top:1px solid #555;">
+            <button onclick="prevPage()" style="background:#2c5f8a;color:#fff;border:none;padding:0.4rem 0.9rem;border-radius:6px;cursor:pointer;font-family:inherit;font-size:0.8rem;">← Préc.</button>
+            <span id="page-info" style="color:#ccc;font-size:0.8rem;">Page 1 / ?</span>
+            <button onclick="nextPage()" style="background:#2c5f8a;color:#fff;border:none;padding:0.4rem 0.9rem;border-radius:6px;cursor:pointer;font-family:inherit;font-size:0.8rem;">Suiv. →</button>
+          </div>
+          <div class="pdf-download-bar">
+            <a href="Andragogie_3_0.pdf" download class="btn-download">⬇ Télécharger l'article (PDF)</a>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /.main-col -->
+
+    <aside class="side-col">
+      <div class="side-card">
+        <div class="side-card-titre">À propos de l'article</div>
+        <div class="side-item"><div class="side-dot"></div><span>Cours TEN-7006 — Design de systèmes d'enseignement et de formation</span></div>
+        <div class="side-item"><div class="side-dot"></div><span>Université Laval · Faculté des sciences de l'éducation</span></div>
+        <div class="side-item"><div class="side-dot"></div><span>Format : article d'opinion dans le style de la conversation</span></div>
+        <div class="side-item"><div class="side-dot"></div><span>Références académiques : 2025–2026</span></div>
+        <div class="side-item"><div class="side-dot"></div><span>Outils : Google Scholar, Consensus, IAG</span></div>
+      </div>
+
+      <div class="side-card">
+        <div class="side-card-titre">Concepts clés</div>
+        <div class="skills-wrap">
+          <span class="skill">Andragogie</span>
+          <span class="skill">IA générative</span>
+          <span class="skill">Knowles</span>
+          <span class="skill">Mezirow</span>
+          <span class="skill">Loi du 1%</span>
+          <span class="skill">Fracture numérique</span>
+          <span class="skill">Sobriété numérique</span>
+          <span class="skill">Éthique IA</span>
+        </div>
+      </div>
+
+      <div class="side-card">
+        <div class="side-card-titre">Autres projets du même domaine</div>
+        <nav class="nav-projet">
+          <a href="modele-logique.html">Modèle logique et pitch</a>
+          <a href="document-technique.html">Document technique de conception</a>
+          <a href="rester-a-jour.html" class="current">Restez à jour — Article d'opinion</a>
+        </nav>
+      </div>
+
+      <a href="projetAccueil.html" class="btn-retour">← Retour aux projets</a>
+    </aside>
+
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2025 Steve Edgar Feze Feugang. Tous droits réservés.</p>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script>
+  pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+  let pdfDoc = null, pageNum = 1;
+
+  function renderPage(num) {
+    pdfDoc.getPage(num).then(page => {
+      const container = document.getElementById('pdf-container');
+      const scale = Math.min((container.clientWidth - 32) / page.getViewport({scale:1}).width, 2.5);
+      const viewport = page.getViewport({scale});
+      const canvas = document.createElement('canvas');
+      canvas.width = viewport.width; canvas.height = viewport.height;
+      canvas.style.cssText = 'display:block;box-shadow:0 2px 8px rgba(0,0,0,0.4);border-radius:2px;';
+      page.render({canvasContext: canvas.getContext('2d'), viewport}).promise.then(() => {
+        container.innerHTML = ''; container.appendChild(canvas);
+        document.getElementById('page-info').textContent = 'Page ' + num + ' / ' + pdfDoc.numPages;
+      });
+    });
+  }
+
+  function prevPage() { if (pageNum > 1) { pageNum--; renderPage(pageNum); } }
+  function nextPage() { if (pdfDoc && pageNum < pdfDoc.numPages) { pageNum++; renderPage(pageNum); } }
+
+  const hamburger  = document.querySelector('.hamburger');
+  const menuToggle = document.querySelector('.menu-toggle');
+  const overlay    = document.querySelector('.overlay');
+  const closeBtn   = document.querySelector('.close-btn');
+  hamburger.addEventListener('click', () => { menuToggle.classList.add('open'); overlay.classList.add('show'); hamburger.setAttribute('aria-expanded', 'true'); });
+  function fermerMenu() { menuToggle.classList.remove('open'); overlay.classList.remove('show'); hamburger.setAttribute('aria-expanded', 'false'); }
+  closeBtn.addEventListener('click', fermerMenu);
+  overlay.addEventListener('click', fermerMenu);
+  menuToggle.querySelectorAll('a').forEach(l => l.addEventListener('click', fermerMenu));
+
+  window.addEventListener('load', () => {
+    pdfjsLib.getDocument('Andragogie_3_0.pdf').promise.then(doc => {
+      pdfDoc = doc; renderPage(1);
+    }).catch(() => {
+      document.getElementById('pdf-container').innerHTML = '<div style="color:#f88;font-size:0.85rem;margin:auto;padding:2rem;text-align:center;">Impossible de charger le PDF.<br>Vérifiez que le fichier est bien uploadé sur GitHub.</div>';
+    });
+  });
+</script>
+
+</body>
+</html>
