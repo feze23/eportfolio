@@ -212,7 +212,7 @@
           <div class="pdf-viewer-head">
             <span class="pdf-label">Livrables</span>
             <div class="pdf-tabs">
-              <button class="pdf-tab active" onclick="switchPdf(this,'Modele_logique.pdf','dl-btn-1','dl-btn-2')">Modèle logique</button>
+              <button class="pdf-tab active" onclick="switchPdf(this,'modèle_logique.pdf','dl-btn-1','dl-btn-2')">Modèle logique</button>
               <button class="pdf-tab" onclick="switchPdf(this,'https://www.youtube.com/watch?v=gWn_vf0Ft8c','dl-btn-2','dl-btn-1')">Pitch de solution</button>
             </div>
           </div>
@@ -226,7 +226,7 @@
             <button onclick="nextPage()" style="background:#2c5f8a;color:#fff;border:none;padding:0.4rem 0.9rem;border-radius:6px;cursor:pointer;font-family:inherit;font-size:0.8rem;">Suiv. →</button>
           </div>
           <div class="pdf-download-bar">
-            <a id="dl-btn-1" href="Modele_logique.pdf" download class="btn-download btn-dl-primary">⬇ Télécharger le modèle logique (PDF)</a>
+            <a id="dl-btn-1" href="modèle_logique.pdf" download class="btn-download btn-dl-primary">⬇ Télécharger le modèle logique (PDF)</a>
             <a id="dl-btn-2" href="https://www.youtube.com/watch?v=gWn_vf0Ft8c" download class="btn-download btn-dl-secondary" style="display:none">⬇ Télécharger le pitch de solution (PDF)</a>
           </div>
         </div>
@@ -267,7 +267,7 @@
 <script>
   pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
 
-  let pdfDoc = null, pageNum = 1, currentPdfUrl = 'Modele_logique.pdf';
+  let pdfDoc = null, pageNum = 1, currentPdfUrl = 'modèle_logique.pdf';
 
   function renderPage(num) {
     pdfDoc.getPage(num).then(page => {
