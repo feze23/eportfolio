@@ -1,132 +1,188 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mes projets — Steve Edgar Feze</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: 'Inter', 'Segoe UI', sans-serif; font-size: 1rem; line-height: 1.8; color: #333; background-color: #f9f9f9; }
-    a { color: inherit; text-decoration: none; }
-    .site-header { position: sticky; top: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 0 2rem; height: 64px; background: #fff; border-bottom: 2px solid #2c5f8a; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
-    .logo { font-size: 1rem; font-weight: 600; color: #1a1a1a; }
-    .logo span { color: #2c5f8a; }
-    .main-nav ul { display: flex; gap: 2rem; list-style: none; }
-    .main-nav a { font-size: 0.9rem; font-weight: 500; color: #555; transition: color 0.2s; position: relative; padding-bottom: 2px; }
-    .main-nav a::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 2px; background: #2c5f8a; transition: width 0.2s; }
-    .main-nav a:hover, .main-nav a.active { color: #2c5f8a; }
-    .main-nav a:hover::after, .main-nav a.active::after { width: 100%; }
-    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 4px; }
-    .hamburger span { display: block; width: 24px; height: 2px; background: #333; border-radius: 2px; transition: all 0.3s; }
-    .menu-toggle { display: none; position: fixed; top: 0; right: 0; width: 75%; max-width: 300px; height: 100vh; background: #fff; border-left: 3px solid #2c5f8a; z-index: 200; flex-direction: column; padding: 2rem 1.5rem; gap: 1.5rem; box-shadow: -4px 0 20px rgba(0,0,0,0.1); transform: translateX(100%); transition: transform 0.3s ease; }
-    .menu-toggle.open { display: flex; transform: translateX(0); }
-    .menu-toggle ul { list-style: none; display: flex; flex-direction: column; gap: 1.2rem; margin-top: 2rem; }
-    .menu-toggle a { font-size: 1.1rem; font-weight: 500; color: #333; transition: color 0.2s; }
-    .menu-toggle a:hover { color: #2c5f8a; }
-    .close-btn { align-self: flex-end; font-size: 2rem; cursor: pointer; background: none; border: none; color: #333; line-height: 1; }
-    .overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.4); z-index: 150; }
-    .overlay.show { display: block; }
-    .page-hero { max-width: 1200px; margin: 2.5rem auto 0; padding: 0 2rem; }
-    .hero-top { display: flex; align-items: flex-start; justify-content: space-between; flex-wrap: wrap; gap: 1rem; margin-bottom: 0.6rem; }
-    .page-hero h1 { font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 600; color: #1a1a1a; }
-    .hero-stats { display: flex; gap: 0.6rem; flex-wrap: wrap; align-items: center; }
-    .stat-pill { font-size: 0.72rem; font-weight: 600; padding: 0.28rem 0.8rem; border-radius: 20px; background: #eef4fb; color: #2c5f8a; }
-    .page-hero p { font-size: 0.95rem; color: #666; max-width: 62ch; line-height: 1.75; border-bottom: 1px solid #e8e8e8; padding-bottom: 1.2rem; }
-    .legende { max-width: 1200px; margin: 0.8rem auto 0; padding: 0 2rem; display: flex; flex-wrap: wrap; gap: 1.2rem; align-items: center; font-size: 0.78rem; color: #888; }
-    .leg-item { display: flex; align-items: center; gap: 0.4rem; }
-    .leg-dots { display: flex; gap: 3px; align-items: center; }
-    .leg-dot { width: 9px; height: 9px; border-radius: 50%; }
-    .leg-dot.equipe { background: #2c5f8a; opacity: 0.75; }
-    .leg-dot.solo { background: #1D9E75; opacity: 0.85; }
-    .leg-hint { margin-left: auto; font-size: 0.72rem; color: #bbb; font-style: italic; }
-    .featured-wrap { max-width: 1200px; margin: 1.2rem auto 0; padding: 0 2rem; }
-    .featured-label { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #2c5f8a; margin-bottom: 0.6rem; }
-    .featured-card { background: #fff; border: 2px solid #2c5f8a; border-radius: 14px; padding: 1.6rem 2rem; display: flex; gap: 2rem; align-items: center; cursor: pointer; transition: box-shadow 0.25s, transform 0.25s; position: relative; }
-    .featured-card:hover { box-shadow: 0 8px 28px rgba(44,95,138,0.15); transform: translateY(-2px); }
-    .featured-badge { position: absolute; top: -11px; left: 1.4rem; background: #2c5f8a; color: #fff; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.22rem 0.75rem; border-radius: 10px; }
-    .featured-left { flex: 1; min-width: 0; }
-    .featured-left h2 { font-size: 1.05rem; font-weight: 600; color: #1a1a1a; margin-bottom: 0.45rem; line-height: 1.3; }
-    .featured-left p { font-size: 0.88rem; color: #555; line-height: 1.7; margin-bottom: 1rem; max-width: 60ch; }
-    .featured-tags { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-bottom: 1rem; }
-    .featured-btn { font-size: 0.82rem; font-weight: 600; font-family: 'Inter', sans-serif; color: #2c5f8a; background: none; border: 1.5px solid #2c5f8a; padding: 0.45rem 1.1rem; border-radius: 8px; cursor: pointer; transition: all 0.2s; }
-    .featured-btn:hover { background: #2c5f8a; color: #fff; }
-    .featured-right { flex: 0 0 90px; display: flex; flex-direction: column; align-items: center; gap: 0.4rem; }
-    .featured-dots { display: flex; flex-direction: column; align-items: center; gap: 4px; }
-    .fd { width: 12px; height: 12px; border-radius: 50%; background: #2c5f8a; opacity: 0.7; }
-    .featured-part-label { font-size: 0.7rem; color: #aaa; text-align: center; }
-    .filtres-wrap { max-width: 1200px; margin: 1.4rem auto 0; padding: 0 2rem; }
-    .filtres { display: flex; flex-wrap: wrap; gap: 0.45rem; align-items: center; }
-    .filter-btn { font-size: 0.78rem; font-weight: 500; font-family: 'Inter', sans-serif; padding: 0.38rem 1rem; border-radius: 20px; border: 1.5px solid #ddd; background: #fff; color: #666; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; gap: 0.3rem; }
-    .filter-btn:hover { border-color: #2c5f8a; color: #2c5f8a; }
-    .filter-btn.actif { background: #2c5f8a; color: #fff; border-color: #2c5f8a; }
-    .filter-btn .cnt { font-size: 0.68rem; opacity: 0.75; }
-    .filtre-count { margin-left: auto; font-size: 0.75rem; color: #aaa; }
-    .grille-projets { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 1.1rem; max-width: 1200px; margin: 1.2rem auto 0; padding: 0 2rem 3rem; }
-    .carte { background: #fff; border-radius: 12px; border: 1px solid #e8e8e8; padding: 1.3rem; cursor: pointer; transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease; display: flex; flex-direction: column; }
-    .carte:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(44,95,138,0.1); border-color: #b8d4ed; }
-    .carte.selected { border: 2px solid #2c5f8a; box-shadow: 0 0 0 3px rgba(44,95,138,0.1); }
-    .carte-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 0.5rem; margin-bottom: 0.75rem; flex-wrap: wrap; row-gap: 0.4rem; }
-    .tag-domaine { font-size: 0.67rem; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase; padding: 0.22rem 0.65rem; border-radius: 20px; white-space: normal; flex: 1 1 auto; min-width: 0; line-height: 1.4; }
-    .tag-sys { background: #eef4fb; color: #2c5f8a; }
-    .tag-ux { background: #edf8f3; color: #0f6e56; }
-    .tag-eform { background: #faeeda; color: #854f0b; }
-    .tag-web { background: #eeedfe; color: #534ab7; }
-    .tag-fad { background: #f1efe8; color: #5f5e5a; }
-    .tag-dsef { background: #fbeaf0; color: #993556; }
-    .tag-dsf { background: #e6f5e9; color: #2e7d32; }
-    .badge-p { display: flex; align-items: center; gap: 0.3rem; font-size: 0.7rem; color: #aaa; font-weight: 500; white-space: nowrap; flex-shrink: 0; }
-    .dots-wrap { display: flex; gap: 3px; align-items: center; }
-    .dot-p { width: 8px; height: 8px; border-radius: 50%; background: #2c5f8a; opacity: 0.7; }
-    .dot-p.solo { background: #1D9E75; opacity: 0.85; }
-    .carte h3 { font-size: 0.92rem; font-weight: 600; color: #1a1a1a; margin-bottom: 0.4rem; line-height: 1.35; }
-    .carte-desc { font-size: 0.82rem; color: #666; line-height: 1.65; flex: 1; margin-bottom: 0.75rem; }
-    .carte-skills { display: flex; flex-wrap: wrap; gap: 0.3rem; margin-bottom: 0.75rem; }
-    .skill-pill { font-size: 0.67rem; padding: 0.18rem 0.5rem; border-radius: 4px; background: #f4f4f4; color: #555; font-weight: 500; }
-    .carte-footer { display: flex; align-items: center; justify-content: space-between; padding-top: 0.65rem; border-top: 1px solid #f0f0f0; margin-top: auto; }
-    .lien-detail { font-size: 0.78rem; font-weight: 600; color: #2c5f8a; }
-    .badge-ext { font-size: 0.68rem; color: #bbb; }
-    .etat-vide { grid-column: 1 / -1; text-align: center; padding: 3.5rem 1rem; }
-    .etat-vide-icone { font-size: 2.5rem; margin-bottom: 1rem; }
-    .etat-vide p { font-size: 0.9rem; color: #aaa; line-height: 1.7; }
-    .overlay-detail { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.38); z-index: 300; }
-    .overlay-detail.show { display: block; }
-    .panneau-detail { position: fixed; top: 0; right: 0; width: 440px; max-width: 100vw; height: 100vh; background: #fff; z-index: 301; display: flex; flex-direction: column; transform: translateX(100%); transition: transform 0.32s ease; box-shadow: -4px 0 28px rgba(0,0,0,0.1); }
-    .panneau-detail.ouvert { transform: translateX(0); }
-    .panneau-header { display: flex; align-items: center; justify-content: space-between; padding: 1.2rem 1.5rem 0.8rem; border-bottom: 1px solid #f0f0f0; flex-shrink: 0; }
-    .panneau-tag { font-size: 0.67rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 0.22rem 0.65rem; border-radius: 20px; }
-    .panneau-fermer { background: none; border: none; font-size: 1.3rem; cursor: pointer; color: #888; padding: 0.2rem 0.4rem; border-radius: 4px; transition: color 0.2s, background 0.2s; line-height: 1; }
-    .panneau-fermer:hover { color: #1a1a1a; background: #f4f4f4; }
-    .panneau-corps { flex: 1; overflow-y: auto; padding: 1.4rem 1.5rem; scroll-behavior: smooth; }
-    .panneau-titre { font-size: 1.1rem; font-weight: 600; color: #1a1a1a; margin-bottom: 0.7rem; line-height: 1.3; }
-    .panneau-meta { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.1rem; padding-bottom: 0.9rem; border-bottom: 1px solid #f4f4f4; font-size: 0.78rem; color: #999; }
-    .panneau-desc { font-size: 0.88rem; color: #444; line-height: 1.85; margin-bottom: 1.1rem; }
-    .panneau-skills-titre { font-size: 0.67rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #bbb; margin-bottom: 0.55rem; }
-    .panneau-skills { display: flex; flex-wrap: wrap; gap: 0.35rem; }
-    .panneau-skill { font-size: 0.75rem; padding: 0.24rem 0.65rem; border-radius: 4px; background: #eef4fb; color: #2c5f8a; font-weight: 500; }
-    .scroll-hint { text-align: center; font-size: 0.72rem; color: #ccc; padding: 0.35rem; border-top: 1px solid #f4f4f4; flex-shrink: 0; transition: opacity 0.3s; }
-    .panneau-footer { padding: 1rem 1.5rem; border-top: 1px solid #f0f0f0; display: flex; flex-wrap: wrap; gap: 0.65rem; flex-shrink: 0; }
-    .btn-action { display: inline-flex; align-items: center; gap: 0.45rem; padding: 0.65rem 1.3rem; border-radius: 8px; font-size: 0.85rem; font-weight: 500; font-family: 'Inter', sans-serif; cursor: pointer; transition: all 0.2s; text-decoration: none; border: none; }
-    .btn-primaire { background: #2c5f8a; color: #fff; }
-    .btn-primaire:hover { background: #1e4a6e; }
-    .btn-secondaire { background: #fff; color: #2c5f8a; border: 1.5px solid #2c5f8a; }
-    .btn-secondaire:hover { background: #2c5f8a; color: #fff; }
-    .site-footer { text-align: center; padding: 1.5rem 1rem; border-top: 2px solid #2c5f8a; font-size: 0.88rem; color: #888; background: #fff; }
-    @media (max-width: 900px) { .site-header { padding: 0 1rem; } .main-nav { display: none; } .hamburger { display: flex; } }
-    @media (max-width: 768px) { .panneau-detail { width: 100vw; } .featured-card { flex-direction: column; gap: 1rem; } .featured-right { flex-direction: row; align-items: center; gap: 0.8rem; } .featured-dots { flex-direction: row; } }
-    @media (max-width: 640px) { .page-hero, .featured-wrap, .filtres-wrap, .legende { padding: 0 1rem; } .grille-projets { padding: 0 1rem 3rem; grid-template-columns: 1fr; } .hero-stats { display: none; } .leg-hint { display: none; } }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mes projets &#8212; Steve Edgar Feze</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+
+:root {
+  --bg-page    : #F4F7FB;
+  --bg-card    : #FFFFFF;
+  --bg-accent  : #EBF3FC;
+  --txt-primary   : #1C2B3A;
+  --txt-secondary : #4A6070;
+  --txt-muted     : #8A9DB0;
+  --accent        : #3B7EC8;
+  --accent-dark   : #2A6097;
+  --accent-light  : #C5DCF5;
+  --border-light  : #DDE8F2;
+  --border-medium : #B8CDE0;
+  --shadow-sm  : 0 1px 4px rgba(59,126,200,0.07);
+  --shadow-md  : 0 4px 16px rgba(59,126,200,0.10);
+  --font       : 'Inter','Segoe UI',system-ui,sans-serif;
+  --radius-sm  : 8px;
+  --radius-md  : 12px;
+  --radius-lg  : 18px;
+  --radius-pill: 999px;
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--font);font-size:15px;line-height:1.85;color:var(--txt-primary);background:var(--bg-page);-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+
+/* ── HEADER ── */
+.site-header{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 2.5rem;height:68px;background:rgba(255,255,255,0.92);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--border-light);box-shadow:var(--shadow-sm)}
+.logo{font-size:15px;font-weight:500;color:var(--txt-primary);letter-spacing:-.01em}
+.logo em{color:var(--accent);font-style:normal}
+.main-nav ul{display:flex;gap:2rem;list-style:none}
+.main-nav a{font-size:13px;font-weight:500;color:var(--txt-secondary);padding-bottom:3px;border-bottom:2px solid transparent;transition:color .2s,border-color .2s}
+.main-nav a:hover,.main-nav a.active{color:var(--accent);border-color:var(--accent)}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px}
+.hamburger span{display:block;width:24px;height:2px;background:var(--txt-primary);border-radius:2px;transition:all .3s}
+.menu-toggle{display:none;position:fixed;top:0;right:0;width:75%;max-width:300px;height:100vh;background:var(--bg-card);border-left:1px solid var(--border-light);z-index:200;flex-direction:column;padding:2rem 1.5rem;gap:1.5rem;box-shadow:-4px 0 24px rgba(0,0,0,.08);transform:translateX(100%);transition:transform .3s ease}
+.menu-toggle.open{display:flex;transform:translateX(0)}
+.menu-toggle ul{list-style:none;display:flex;flex-direction:column;gap:1.4rem;margin-top:2rem}
+.menu-toggle a{font-size:17px;font-weight:500;color:var(--txt-primary);transition:color .2s}
+.menu-toggle a:hover{color:var(--accent)}
+.close-btn{align-self:flex-end;font-size:2rem;cursor:pointer;background:none;border:none;color:var(--txt-secondary);line-height:1}
+.overlay{display:none;position:fixed;inset:0;background:rgba(28,43,58,.35);z-index:150;backdrop-filter:blur(2px)}
+.overlay.show{display:block}
+
+/* ── HERO ── */
+.page-hero{max-width:1100px;margin:4rem auto 0;padding:0 2.5rem}
+.hero-inner{border-bottom:1px solid var(--border-light);padding-bottom:2rem}
+.hero-top{display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:1rem;margin-bottom:1rem}
+.page-hero h1{font-size:clamp(1.6rem,3vw,2.2rem);font-weight:500;color:var(--txt-primary);letter-spacing:-.02em;line-height:1.2}
+.hero-pills{display:flex;gap:.5rem;flex-wrap:wrap;align-items:center}
+.hero-pill{font-size:11px;font-weight:600;padding:4px 12px;border-radius:var(--radius-pill);background:var(--bg-accent);color:var(--accent);border:1px solid var(--accent-light);letter-spacing:.02em}
+.page-hero p{font-size:15px;color:var(--txt-secondary);max-width:60ch;line-height:1.85}
+
+/* ── LÉGENDE ── */
+.legende{max-width:1100px;margin:1.2rem auto 0;padding:0 2.5rem;display:flex;flex-wrap:wrap;gap:1.4rem;align-items:center;font-size:12px;color:var(--txt-muted)}
+.leg-item{display:flex;align-items:center;gap:.4rem}
+.leg-dots{display:flex;gap:3px;align-items:center}
+.leg-dot{width:8px;height:8px;border-radius:50%}
+.leg-dot.equipe{background:var(--accent);opacity:.8}
+.leg-dot.solo{background:#1D9E75;opacity:.85}
+
+/* ── ZONE FILTRE — ÉTAT INITIAL ── */
+.filtres-section{max-width:1100px;margin:2.5rem auto 0;padding:0 2.5rem}
+
+/* Invite à cliquer */
+.invite-clic{background:var(--bg-card);border:1px solid var(--border-light);border-radius:var(--radius-lg);padding:2.5rem 2rem;text-align:center;margin-bottom:2rem;box-shadow:var(--shadow-sm)}
+.invite-icone{font-size:2.5rem;margin-bottom:.8rem;line-height:1}
+.invite-titre{font-size:17px;font-weight:500;color:var(--txt-primary);margin-bottom:.4rem}
+.invite-sous{font-size:13px;color:var(--txt-secondary);max-width:46ch;margin:0 auto}
+
+/* Grille filtres */
+.filtres-titre{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--txt-muted);margin-bottom:1rem}
+.filtres-grille{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:.6rem}
+
+.filtre-btn{display:flex;align-items:center;gap:.65rem;padding:1rem 1.2rem;border-radius:var(--radius-md);border:1.5px solid var(--border-light);background:var(--bg-card);color:var(--txt-secondary);font-size:13px;font-weight:500;font-family:var(--font);cursor:pointer;transition:all .2s;text-align:left;position:relative}
+.filtre-btn:hover{border-color:var(--accent);color:var(--accent);background:var(--bg-accent);transform:translateY(-1px);box-shadow:var(--shadow-sm)}
+.filtre-btn.actif{border-color:var(--accent);background:var(--accent);color:#fff;box-shadow:0 4px 14px rgba(59,126,200,.25)}
+.filtre-btn.actif .filtre-icone{background:rgba(255,255,255,.2)}
+.filtre-btn.actif .filtre-cnt{background:rgba(255,255,255,.25);color:#fff}
+
+.filtre-icone{width:34px;height:34px;border-radius:var(--radius-sm);background:var(--bg-accent);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;transition:background .2s}
+.filtre-texte{flex:1;min-width:0}
+.filtre-nom{display:block;font-size:13px;font-weight:500;line-height:1.3;white-space:normal}
+.filtre-cnt{display:inline-block;font-size:10px;font-weight:700;padding:1px 7px;border-radius:var(--radius-pill);background:var(--bg-accent);color:var(--accent);margin-top:3px;transition:all .2s}
+
+/* ── GRILLE PROJETS ── */
+.grille-wrap{max-width:1100px;margin:2rem auto 0;padding:0 2.5rem 4rem}
+.grille-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.2rem;flex-wrap:wrap;gap:.5rem}
+.grille-titre{font-size:13px;font-weight:600;color:var(--txt-secondary)}
+.grille-reset{font-size:12px;color:var(--accent);cursor:pointer;background:none;border:none;font-family:var(--font);display:none}
+.grille-reset:hover{text-decoration:underline}
+
+.grille-projets{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.2rem}
+
+/* ── CARTE PROJET ── */
+.carte{background:var(--bg-card);border-radius:var(--radius-lg);border:1px solid var(--border-light);padding:1.4rem 1.5rem;cursor:pointer;transition:transform .22s,box-shadow .22s,border-color .22s;display:flex;flex-direction:column;box-shadow:var(--shadow-sm)}
+.carte:hover{transform:translateY(-3px);box-shadow:var(--shadow-md);border-color:var(--accent-light)}
+.carte.selected{border:2px solid var(--accent);box-shadow:0 0 0 3px rgba(59,126,200,.1)}
+
+.carte-top{display:flex;align-items:flex-start;justify-content:space-between;gap:.5rem;margin-bottom:.8rem;flex-wrap:wrap;row-gap:.4rem}
+.tag-domaine{font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:3px 10px;border-radius:var(--radius-pill);white-space:normal;line-height:1.4}
+.tag-sys   {background:#EBF3FC;color:#2A6097}
+.tag-ux    {background:#EDF8F3;color:#0F6E56}
+.tag-eform {background:#FDF0E0;color:#875200}
+.tag-web   {background:#EEEDFE;color:#4840B0}
+.tag-fad   {background:#F1EFE8;color:#5A5850}
+.tag-dsef  {background:#FBEAF0;color:#993556}
+.tag-dsf   {background:#E6F5E9;color:#2A7032}
+
+.badge-p{display:flex;align-items:center;gap:.3rem;font-size:11px;color:var(--txt-muted);font-weight:500;white-space:nowrap;flex-shrink:0}
+.dots-wrap{display:flex;gap:3px;align-items:center}
+.dot-p{width:7px;height:7px;border-radius:50%;background:var(--accent);opacity:.7}
+.dot-p.solo{background:#1D9E75;opacity:.85}
+
+.carte h3{font-size:15px;font-weight:500;color:var(--txt-primary);margin-bottom:.4rem;line-height:1.35}
+.carte-desc{font-size:13px;color:var(--txt-secondary);line-height:1.7;flex:1;margin-bottom:.8rem}
+.carte-skills{display:flex;flex-wrap:wrap;gap:.3rem;margin-bottom:.85rem}
+.skill-pill{font-size:10px;padding:3px 8px;border-radius:4px;background:var(--bg-page);color:var(--txt-secondary);font-weight:500;border:1px solid var(--border-light)}
+.carte-footer{display:flex;align-items:center;justify-content:space-between;padding-top:.65rem;border-top:1px solid var(--border-light);margin-top:auto}
+.lien-detail{font-size:12px;font-weight:600;color:var(--accent)}
+.badge-ext{font-size:10px;color:var(--txt-muted)}
+
+/* ── ÉTAT VIDE ── */
+.etat-vide{grid-column:1/-1;text-align:center;padding:4rem 1rem}
+.etat-vide-icone{font-size:2.5rem;margin-bottom:1rem}
+.etat-vide p{font-size:14px;color:var(--txt-muted);line-height:1.7}
+
+/* ── PANNEAU DÉTAIL ── */
+.overlay-detail{display:none;position:fixed;inset:0;background:rgba(28,43,58,.35);z-index:300;backdrop-filter:blur(2px)}
+.overlay-detail.show{display:block}
+.panneau-detail{position:fixed;top:0;right:0;width:460px;max-width:100vw;height:100vh;background:var(--bg-card);z-index:301;display:flex;flex-direction:column;transform:translateX(100%);transition:transform .32s ease;box-shadow:-4px 0 32px rgba(0,0,0,.1)}
+.panneau-detail.ouvert{transform:translateX(0)}
+.panneau-header{display:flex;align-items:center;justify-content:space-between;padding:1.2rem 1.5rem .8rem;border-bottom:1px solid var(--border-light);flex-shrink:0}
+.panneau-tag{font-size:10px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;padding:3px 10px;border-radius:var(--radius-pill)}
+.panneau-fermer{background:none;border:none;font-size:1.2rem;cursor:pointer;color:var(--txt-muted);padding:.2rem .4rem;border-radius:6px;transition:color .2s,background .2s;line-height:1}
+.panneau-fermer:hover{color:var(--txt-primary);background:var(--bg-page)}
+.panneau-corps{flex:1;overflow-y:auto;padding:1.4rem 1.5rem;scroll-behavior:smooth}
+.panneau-titre{font-size:17px;font-weight:500;color:var(--txt-primary);margin-bottom:.7rem;line-height:1.3}
+.panneau-meta{display:flex;align-items:center;gap:1rem;margin-bottom:1.1rem;padding-bottom:.9rem;border-bottom:1px solid var(--border-light);font-size:12px;color:var(--txt-muted)}
+.panneau-desc{font-size:14px;color:var(--txt-secondary);line-height:1.9;margin-bottom:1.1rem}
+.panneau-skills-titre{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--txt-muted);margin-bottom:.55rem}
+.panneau-skills{display:flex;flex-wrap:wrap;gap:.35rem}
+.panneau-skill{font-size:12px;padding:4px 10px;border-radius:6px;background:var(--bg-accent);color:var(--accent);font-weight:500}
+.scroll-hint{text-align:center;font-size:11px;color:var(--border-medium);padding:.35rem;border-top:1px solid var(--border-light);flex-shrink:0;transition:opacity .3s}
+.panneau-footer{padding:1rem 1.5rem;border-top:1px solid var(--border-light);display:flex;flex-wrap:wrap;gap:.65rem;flex-shrink:0}
+.btn-action{display:inline-flex;align-items:center;gap:.45rem;padding:.65rem 1.3rem;border-radius:var(--radius-sm);font-size:14px;font-weight:500;font-family:var(--font);cursor:pointer;transition:all .2s;text-decoration:none;border:none}
+.btn-primaire{background:var(--accent);color:#fff}
+.btn-primaire:hover{background:var(--accent-dark)}
+.btn-secondaire{background:var(--bg-card);color:var(--accent);border:1.5px solid var(--accent)}
+.btn-secondaire:hover{background:var(--accent);color:#fff}
+
+/* ── FOOTER ── */
+.site-footer{background:var(--bg-card);border-top:1px solid var(--border-light);padding:1.6rem 2.5rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.8rem}
+.foot-copy{font-size:11px;color:var(--txt-muted)}
+.foot-links{display:flex;gap:1.8rem}
+.foot-links a{font-size:11px;color:var(--txt-muted);transition:color .2s}
+.foot-links a:hover{color:var(--accent)}
+
+/* ── RESPONSIVE ── */
+@media(max-width:900px){.site-header{padding:0 1.5rem}.main-nav{display:none}.hamburger{display:flex}}
+@media(max-width:768px){.panneau-detail{width:100vw}.filtres-grille{grid-template-columns:1fr 1fr}}
+@media(max-width:640px){.page-hero,.filtres-section,.grille-wrap,.legende{padding-left:1.2rem;padding-right:1.2rem}.filtres-grille{grid-template-columns:1fr}.hero-pills{display:none}}
+
+</style>
 </head>
 <body>
 
+<!-- HEADER -->
 <header class="site-header">
-  <a href="index.html" class="logo">SF — <span>e-portfolio</span></a>
+  <a href="index.html" class="logo">SF &#8212; <em>e-portfolio</em></a>
   <nav class="main-nav" aria-label="Navigation principale">
     <ul>
       <li><a href="index.html">Accueil</a></li>
-      <li><a href="apropos.html">À propos de moi</a></li>
+      <li><a href="apropos.html">&#192; propos de moi</a></li>
       <li><a href="projetAccueil.html" class="active">Mes projets</a></li>
       <li><a href="cv.html">CV</a></li>
     </ul>
@@ -135,234 +191,360 @@
     <span></span><span></span><span></span>
   </button>
 </header>
+
 <div class="overlay"></div>
 <div class="menu-toggle">
-  <button class="close-btn" aria-label="Fermer le menu">&times;</button>
+  <button class="close-btn" aria-label="Fermer le menu">&#215;</button>
   <ul>
     <li><a href="index.html">Accueil</a></li>
-    <li><a href="apropos.html">À propos de moi</a></li>
+    <li><a href="apropos.html">&#192; propos de moi</a></li>
     <li><a href="projetAccueil.html">Mes projets</a></li>
     <li><a href="cv.html">CV</a></li>
   </ul>
 </div>
 
 <main>
+
+  <!-- HERO -->
   <div class="page-hero">
-    <div class="hero-top">
-      <h1>Mes projets</h1>
-      <div class="hero-stats">
-        <span class="stat-pill" id="statTotal">18 projets</span>
-        <span class="stat-pill">7 domaines</span>
-        <span class="stat-pill">Maîtrise · Université Laval</span>
-      </div>
-    </div>
-    <p>Projets académiques et personnels illustrant mes compétences en conception pédagogique, design UX et développement web — réalisés sur des mandats authentiques, en équipe et individuellement.</p>
-  </div>
-
-  <div class="legende" aria-label="Légende des badges de participation">
-    <div class="leg-item"><div class="leg-dots"><div class="leg-dot equipe"></div><div class="leg-dot equipe"></div><div class="leg-dot equipe"></div></div><span>Travail d'équipe (N points = N participants)</span></div>
-    <div class="leg-item"><div class="leg-dots"><div class="leg-dot solo"></div></div><span>Travail individuel</span></div>
-    <span class="leg-hint">Cliquez sur une carte pour voir le détail</span>
-  </div>
-
-  <div class="featured-wrap">
-    <div class="featured-card" id="featuredCard" role="button" tabindex="0" aria-label="Voir le détail du projet Plan directeur YWCA">
-      <span class="featured-badge">Courbe d'apprrentissage et développment des compétence</span>
-      <div class="featured-left">
-        <h2>La pratique au coeur de mon apprentissage</h2>
-        <p>Vous trouverez ci-dessous des projets réalisé en équipe et en individuel. Ces mises en situation authentique permettent de développer des savoirs, savoir-faire et savoir-être. En combinant la théorie à la pratique je réussi à développer des compétences explicites qui me permettent de documenter mes démarches</p>
-        <div class="featured-tags">
-          <span class="tag-domaine tag-sys">Approche systémique</span>
-          <span class="skill-pill">SWOT</span><span class="skill-pill">PESTEL</span><span class="skill-pill">Swanson</span><span class="skill-pill">Monday.com</span><span class="skill-pill">Gantt</span>
+    <div class="hero-inner">
+      <div class="hero-top">
+        <h1>Mes projets</h1>
+        <div class="hero-pills">
+          <span class="hero-pill">18 projets</span>
+          <span class="hero-pill">7 domaines</span>
+          <span class="hero-pill">Ma&#238;trise &#183; Universit&#233; Laval</span>
         </div>
-        <button class="featured-btn" id="featuredBtn">Voir le détail →</button>
       </div>
-      <div class="featured-right">
-        <div class="featured-dots"><div class="fd"></div><div class="fd"></div><div class="fd"></div></div>
-        <p class="featured-part-label">3 participants</p>
-      </div>
+      <p>Projets acad&#233;miques et personnels illustrant mes comp&#233;tences en conception p&#233;dagogique, design UX et d&#233;veloppement web &#8212; r&#233;alis&#233;s sur des mandats authentiques, en &#233;quipe et individuellement.</p>
     </div>
   </div>
 
-  <div class="filtres-wrap">
-    <div class="filtres" id="filtres" role="group" aria-label="Filtrer par domaine">
-      <button class="filter-btn actif" data-filtre="tous">Tous <span class="cnt">(18)</span></button>
-      <button class="filter-btn" data-filtre="sys">Approche systémique <span class="cnt">(4)</span></button>
-      <button class="filter-btn" data-filtre="ux">Design UX <span class="cnt">(1)</span></button>
-      <button class="filter-btn" data-filtre="eform">E-formation <span class="cnt">(2)</span></button>
-      <button class="filter-btn" data-filtre="web">Développement web <span class="cnt">(4)</span></button>
-      <button class="filter-btn" data-filtre="fad">Formation à distance <span class="cnt">(1)</span></button>
-      <button class="filter-btn" data-filtre="dsef">Design de systèmes d'enseignement et de formation <span class="cnt">(3)</span></button>
-      <button class="filter-btn" data-filtre="dsf">Développement des systèmes de formation <span class="cnt">(3)</span></button>
-      <span class="filtre-count" id="filtreCount" aria-live="polite">18 projets affichés</span>
+  <!-- LÉGENDE -->
+  <div class="legende">
+    <div class="leg-item">
+      <div class="leg-dots"><div class="leg-dot equipe"></div><div class="leg-dot equipe"></div><div class="leg-dot equipe"></div></div>
+      <span>Travail d&#8217;&#233;quipe (N points = N participants)</span>
+    </div>
+    <div class="leg-item">
+      <div class="leg-dots"><div class="leg-dot solo"></div></div>
+      <span>Travail individuel</span>
     </div>
   </div>
 
-  <div class="grille-projets" id="grille" role="list" aria-label="Liste des projets"></div>
+  <!-- FILTRES -->
+  <section class="filtres-section">
+
+    <!-- Invite initiale -->
+    <div class="invite-clic" id="invite">
+      <div class="invite-icone">&#128193;</div>
+      <div class="invite-titre">S&#233;lectionnez un domaine pour explorer les projets</div>
+      <div class="invite-sous">Cliquez sur l&#8217;un des boutons ci-dessous pour afficher les projets correspondants.</div>
+    </div>
+
+    <!-- Titre filtres -->
+    <div class="filtres-titre">&#128071; Choisissez un domaine</div>
+
+    <!-- Boutons filtres -->
+    <div class="filtres-grille" id="filtres" role="group" aria-label="Filtrer par domaine">
+
+      <button class="filtre-btn" data-filtre="tous">
+        <div class="filtre-icone">&#127775;</div>
+        <div class="filtre-texte">
+          <span class="filtre-nom">Tous les projets</span>
+          <span class="filtre-cnt">18</span>
+        </div>
+      </button>
+
+      <button class="filtre-btn" data-filtre="sys">
+        <div class="filtre-icone">&#128200;</div>
+        <div class="filtre-texte">
+          <span class="filtre-nom">Approche syst&#233;mique</span>
+          <span class="filtre-cnt">4</span>
+        </div>
+      </button>
+
+      <button class="filtre-btn" data-filtre="ux">
+        <div class="filtre-icone">&#127912;</div>
+        <div class="filtre-texte">
+          <span class="filtre-nom">Design UX</span>
+          <span class="filtre-cnt">1</span>
+        </div>
+      </button>
+
+      <button class="filtre-btn" data-filtre="eform">
+        <div class="filtre-icone">&#128640;</div>
+        <div class="filtre-texte">
+          <span class="filtre-nom">E-formation</span>
+          <span class="filtre-cnt">2</span>
+        </div>
+      </button>
+
+      <button class="filtre-btn" data-filtre="web">
+        <div class="filtre-icone">&#128187;</div>
+        <div class="filtre-texte">
+          <span class="filtre-nom">D&#233;veloppement web</span>
+          <span class="filtre-cnt">4</span>
+        </div>
+      </button>
+
+      <button class="filtre-btn" data-filtre="fad">
+        <div class="filtre-icone">&#127891;</div>
+        <div class="filtre-texte">
+          <span class="filtre-nom">Formation &#224; distance</span>
+          <span class="filtre-cnt">1</span>
+        </div>
+      </button>
+
+      <button class="filtre-btn" data-filtre="dsef">
+        <div class="filtre-icone">&#9997;&#65039;</div>
+        <div class="filtre-texte">
+          <span class="filtre-nom">Design de syst&#232;mes d&#8217;enseignement et de formation</span>
+          <span class="filtre-cnt">3</span>
+        </div>
+      </button>
+
+      <button class="filtre-btn" data-filtre="dsf">
+        <div class="filtre-icone">&#128736;&#65039;</div>
+        <div class="filtre-texte">
+          <span class="filtre-nom">D&#233;veloppement des syst&#232;mes de formation</span>
+          <span class="filtre-cnt">3</span>
+        </div>
+      </button>
+
+    </div>
+  </section>
+
+  <!-- GRILLE PROJETS (cachée au départ) -->
+  <div class="grille-wrap" id="grille-wrap" style="display:none">
+    <div class="grille-header">
+      <span class="grille-titre" id="grille-titre">0 projet affich&#233;</span>
+      <button class="grille-reset" id="grille-reset" onclick="resetFiltres()">&#8592; Changer de domaine</button>
+    </div>
+    <div class="grille-projets" id="grille" role="list" aria-label="Liste des projets"></div>
+  </div>
+
 </main>
 
-<footer class="site-footer"><p>&copy; 2025 Steve Edgar Feze Feugang. Tous droits réservés.</p></footer>
+<footer class="site-footer">
+  <span class="foot-copy">&copy; 2025 Steve Edgar Feze Feugang. Tous droits r&#233;serv&#233;s.</span>
+  <div class="foot-links">
+    <a href="https://www.linkedin.com/in/stevefeze" target="_blank" rel="noopener">LinkedIn</a>
+    <a href="https://github.com/Rute23" target="_blank" rel="noopener">GitHub</a>
+    <a href="mailto:stevefeze@outlook.com">Courriel</a>
+  </div>
+</footer>
 
-<div class="overlay-detail" id="overlayDetail" role="presentation"></div>
-<aside class="panneau-detail" id="panneau" aria-label="Détail du projet" aria-hidden="true">
+<!-- OVERLAY + PANNEAU DÉTAIL -->
+<div class="overlay-detail" id="overlayDetail"></div>
+<aside class="panneau-detail" id="panneau" aria-label="D&#233;tail du projet" aria-hidden="true">
   <div class="panneau-header">
     <span class="panneau-tag" id="panneauTag"></span>
-    <button class="panneau-fermer" id="panneauFermer" aria-label="Fermer le panneau">✕</button>
+    <button class="panneau-fermer" id="panneauFermer" aria-label="Fermer le panneau">&#10005;</button>
   </div>
   <div class="panneau-corps" id="panneauCorps">
     <h2 class="panneau-titre" id="panneauTitre"></h2>
     <div class="panneau-meta" id="panneauMeta"></div>
     <p class="panneau-desc" id="panneauDesc"></p>
-    <p class="panneau-skills-titre">Compétences mobilisées</p>
+    <p class="panneau-skills-titre">Comp&#233;tences mobilis&#233;es</p>
     <div class="panneau-skills" id="panneauSkills"></div>
   </div>
-  <div class="scroll-hint" id="scrollHint">↓ Défiler pour les actions</div>
+  <div class="scroll-hint" id="scrollHint">&#8595; D&#233;filer pour les actions</div>
   <div class="panneau-footer" id="panneauFooter"></div>
 </aside>
 
 <script>
-  const PROJETS = [
-    {id:1,domaine:'sys',titre:'Plan directeur — YWCA de Québec',desc:'Démarche systémique complète pour améliorer l\'autonomie numérique des clientes de 50 ans et plus. Analyse SWOT, PESTEL et Swanson. Collecte de données terrain.',long:'Ce plan directeur documente la démarche systémique menée à la YWCA de Québec pour répondre aux difficultés numériques d\'une clientèle aînée. Il couvre l\'identification du besoin, la collecte de données via entretiens semi-dirigés, questionnaires et observation directe, l\'analyse selon les modèles SWOT, PESTEL et Swanson, ainsi que la proposition de solutions pédagogiques adaptées. Projet mené en équipe de trois avec Monday.com et un diagramme de Gantt pour le suivi.',participants:3,tag:'tag-sys',tagLabel:'Approche systémique',skills:['SWOT','PESTEL','Swanson','Gestion de projet','Monday.com','Gantt','Analyse de besoins'],lien:'planDirecteur.html',ext:false,pdf:'Plandirecteur_Équipe4_Diallo_Feze Feugang_Neunreuther_20250427.pdf'},
-    {id:2,domaine:'sys',titre:'Rapport d\'analyse de besoins',desc:'Analyse des besoins des préposé·e·s à l\'accueil avec entretiens, personas et évaluation selon le modèle de Kirkpatrick.',long:'Analyse approfondie mobilisant entretiens semi-dirigés, questionnaires et observation directe auprès des préposé·e·s à l\'accueil de la YWCA. Trois personas ont été modélisés. Le rapport débouche sur des objectifs d\'apprentissage structurés et une évaluation à quatre niveaux selon le modèle de Kirkpatrick.',participants:3,tag:'tag-sys',tagLabel:'Approche systémique',skills:['Kirkpatrick','Personas','Entretiens','Questionnaire','Observation directe','Swanson'],lien:'RapportAnalyse.html',ext:false,pdf:'Rapport de l\'analyse de besoin_Équipe4_Feze_Feugang_Diallo_Neunreuther_20250427.pdf'},
-    {id:3,domaine:'sys',titre:'Conception de solutions potentielles',desc:'Six axes de solutions interconnectées pour autonomiser les préposé·e·s et les clientes dans la gestion des inscriptions sur Qidigo.',long:'Conception de six solutions systémiques articulées : réaménagement de l\'espace d\'accueil, ressources technologiques additionnelles, création d\'outils pédagogiques, e-formation mobile avec quiz et mises en situation, optimisation de la plateforme Qidigo, et automatisation des tâches répétitives.',participants:3,tag:'tag-sys',tagLabel:'Approche systémique',skills:['Design de solution','E-formation','Swanson','UX pédagogique','Indicateurs de performance'],lien:'solutionPotentielles.html',ext:false,pdf:'Solutions potentielles_équipe 4_Diallo_Feze Feugang_Neunreuther_20250427.pdf'},
-    {id:4,domaine:'sys',titre:'E-portfolio réflexif',desc:'Portfolio numérique développé de A à Z en HTML, CSS et JavaScript, documentant les apprentissages réalisés durant la maîtrise.',long:'Portfolio numérique développé de A à Z en HTML, CSS et JavaScript, hébergé sur GitHub Pages. Chaque projet est documenté avec une réflexion sur les compétences développées, les défis surmontés et les apprentissages retenus.',participants:1,tag:'tag-sys',tagLabel:'Approche systémique',skills:['HTML','CSS','JavaScript','GitHub Pages','Réflexivité','Communication'],lien:'portfolio.html',ext:false,pdf:null},
-    {id:5,domaine:'ux',titre:'Amélioration UX d\'un site web existant',desc:'Analyse critique et redesign de l\'expérience utilisateur d\'un site réel : personas, wireframes et tests d\'utilisabilité.',long:'Démarche complète de design UX appliquée à un site existant : analyse des tâches utilisateurs, construction de personas à partir d\'entretiens, création de wireframes basse et haute fidélité, puis réalisation de tests d\'utilisabilité pour valider les choix de design.',participants:1,tag:'tag-ux',tagLabel:'Design UX',skills:['Personas','Wireframe','Tests utilisateurs','Accessibilité','Analyse de tâches'],lien:'experience-utilisateur.html',ext:false,pdf:null},
-    {id:6,domaine:'eform',titre:'Analyse environnement, GRH et besoins',desc:'Analyse PESTEL et audit RH pour concevoir une stratégie de formation alignée sur les objectifs d\'affaires d\'une organisation.',long:'Analyse combinant le cadre PESTEL, l\'audit des ressources humaines et une étude des besoins de formation d\'une organisation partenaire. Le rapport aboutit à des recommandations stratégiques alignées sur les objectifs d\'affaires de l\'entreprise et les réalités de ses employés.',participants:3,tag:'tag-eform',tagLabel:'E-formation',skills:['PESTEL','GRH','Analyse de besoins','Formation entreprise','Stratégie'],lien:'analyse-environnement.html',ext:false,pdf:null},
-    {id:7,domaine:'eform',titre:'Solution, gestion de projet et budget',desc:'Présentation de la solution de formation retenue, planification détaillée et estimation budgétaire avec analyse coût-bénéfice.',long:'Document de synthèse présentant la solution pédagogique choisie avec son plan de déploiement, les jalons du projet, les ressources nécessaires et une analyse coût-bénéfice.',participants:3,tag:'tag-eform',tagLabel:'E-formation',skills:['Gestion de projet','Budget','Kirkpatrick','Planification','Coût-bénéfice'],lien:'solution-budget.html',ext:false,pdf:null},
-    {id:8,domaine:'web',titre:'Formulaire interactif multi-étapes',desc:'Formulaire multi-étapes avec validation en temps réel, barre de progression visuelle et transitions fluides. JS natif.',long:'Formulaire à étapes multiples avec barre de progression visuelle, validation côté client à chaque étape et transitions animées entre les panneaux. Le projet démontre la maîtrise de la manipulation du DOM en JavaScript pur, sans framework.',participants:1,tag:'tag-web',tagLabel:'Développement web',skills:['HTML','CSS','JavaScript','Validation formulaire','DOM manipulation','UX'],lien:'https://rute23.github.io/feze.portfolio.com/Multi-step-form/Multi-step-form.html',ext:true,pdf:null},
-    {id:9,domaine:'web',titre:'Page d\'accueil de site de presse',desc:'Intégration pixel-perfect d\'une page d\'accueil avec CSS Grid complexe, hiérarchie typographique et approche mobile-first.',long:'Page d\'accueil d\'un site de presse avec mise en page en grille CSS complexe, adaptation mobile-first et respect strict de la maquette fournie.',participants:1,tag:'tag-web',tagLabel:'Développement web',skills:['CSS Grid','Responsive design','Typographie','HTML sémantique','Mobile-first'],lien:'https://rute23.github.io/feze.portfolio.com/HomePage/HomePage.html',ext:true,pdf:null},
-    {id:10,domaine:'web',titre:'Site multi-page — tourisme spatial',desc:'Site web complet sur le tourisme spatial : navigation par onglets, animations CSS et design immersif sur 3 breakpoints.',long:'Site multi-page avec navigation par onglets, transitions animées et design adapté à trois breakpoints. Démontre la maîtrise de l\'architecture d\'un site multi-pages en HTML/CSS/JS natif, sans framework.',participants:1,tag:'tag-web',tagLabel:'Développement web',skills:['HTML','CSS','JavaScript','Navigation','Animation CSS','Accessibilité'],lien:'https://rute23.github.io/feze.portfolio.com/Space%20tourism%20multi-page%20website/space_tourism.html',ext:true,pdf:null},
-    {id:11,domaine:'web',titre:'Application — pays du monde',desc:'Application web avec recherche dynamique, filtres par région, mode sombre et page de détail via API REST Countries.',long:'Application consommant l\'API REST Countries pour afficher, filtrer et rechercher les pays du monde en temps réel. Inclut un mode sombre basculable, une page de détail par pays avec informations clés et pays frontaliers cliquables.',participants:1,tag:'tag-web',tagLabel:'Développement web',skills:['REST API','Fetch / Async','Filtres dynamiques','Dark mode','Responsive'],lien:'https://rute23.github.io/feze.portfolio.com/countriesDescription/countries.html',ext:true,pdf:null},
-    {id:12,domaine:'fad',titre:'Conception d\'un cours de formation à distance',desc:'Scénarisation et production d\'un cours FAD complet sur Canva selon l\'approche ADDIE et la taxonomie de Bloom.',long:'Conception d\'un cours de formation à distance structuré selon l\'approche ADDIE. Le cours inclut des objectifs d\'apprentissage formulés selon la taxonomie de Bloom, des activités variées (quiz, mises en situation, ressources multimédias) et des outils d\'évaluation formative et sommative.',participants:1,tag:'tag-fad',tagLabel:'Formation à distance',skills:['ADDIE','Bloom','Scénarisation','Canva','Évaluation formative','FAD'],lien:'https://www.canva.com/design/DAGurhuizQg/paufXdGLQVpIMZz3Txaj_w/view?utm_content=DAGurhuizQg&utm_campaign=designshare&utm_medium=link&utm_source=recording_view',ext:true,pdf:null},
-    {id:13,domaine:'dsef',titre:'Modèle logique et pitch de solution',desc:'Conception d\'un modèle logique structurant une solution de formation mobile innovante, accompagné d\'un pitch convaincant présenté à une clientèle cible.',long:'Ce projet se déploie en deux volets complémentaires. Le modèle logique détaille la structure, les composantes et les résultats attendus d\'une solution de formation mobile pour la YWCA. Le pitch présente cette solution de manière structurée et convaincante à une clientèle décisionnelle, avec des indicateurs d\'impact chiffrés.',participants:1,tag:'tag-dsef',tagLabel:'Design de systèmes d\'enseignement et de formation',skills:['Modèle logique','Pitch','Éthique','Communication','Pensée systémique','TEN-7006'],lien:'modele-logique.html',ext:false,pdf:null},
-    {id:14,domaine:'dsef',titre:'Document technique de conception détaillée',desc:'Conception détaillée de l\'expérience d\'apprentissage et production de l\'ensemble des documents techniques guidant une équipe de production.',long:'En équipe de cinq, nous avons traduit une vision pédagogique en spécifications opérationnelles concrètes pour la YWCA de Québec. Ce livrable comprend le scénarimage Rise, le storyboard Storyline, la matrice de contenu, la feuille de style visuelle, les aide-mémoires et le plan d\'évaluation formative.',participants:5,tag:'tag-dsef',tagLabel:'Design de systèmes d\'enseignement et de formation',skills:['Document technique','Scénarimage','Storyboard','Articulate Rise','Articulate Storyline','Design pédagogique'],lien:'document-technique.html',ext:false,pdf:null},
-    {id:17,domaine:'dsef',titre:'Restez à jour — Article d\'opinion',desc:'Rédaction d\'un article d\'opinion sur l\'innovation pédagogique et andragogique à l\'ère de l\'intelligence artificielle et du numérique.',long:'Article d\'opinion intitulé Andragogie 3.0 : quand l\'adulte apprenant devient coproducteur de son parcours à l\'aide de l\'intelligence artificielle. L\'article explore comment l\'IAG peut transformer la formation des adultes en mobilisant les principes andragogiques de Knowles, tout en identifiant les défis éthiques, écologiques et d\'équité à surmonter.',participants:1,tag:'tag-dsef',tagLabel:'Design de systèmes d\'enseignement et de formation',skills:['Rédaction académique','Veille technologique','IA en éducation','Andragogie','Pensée critique'],lien:'rester-a-jour.html',ext:false,pdf:null},
-    {id:18,domaine:'dsf',titre:'Vlog d\'autoformation aux outils numériques',desc:'Exploration et documentation de trois logiciels de création — Articulate Rise, Articulate Storyline et NotebookLM — à travers un vlog d\'autoformation de 15 à 20 minutes.',long:'Ce projet d\'autoformation dirigée a consisté à explorer de manière autonome trois outils de création numérique incontournables en technologie éducative. L\'ensemble du processus d\'apprentissage a été documenté sous forme d\'un vlog structuré de 15 à 20 minutes.',participants:1,tag:'tag-dsf',tagLabel:'Développement des systèmes de formation',skills:['Articulate Rise','Articulate Storyline','NotebookLM','Autoformation','Vlog réflexif'],lien:null,ext:false,pdf:null},
-    {id:19,domaine:'dsf',titre:'Prototype de formation mobile',desc:'Développement de dix minutes complètes d\'une expérience d\'apprentissage interactive, entièrement fonctionnelle et accessible en ligne.',long:'Ce projet a consisté à développer un prototype complet de dix minutes d\'expérience d\'apprentissage interactive, conçu pour être parcouru comme une véritable expérience numérique. Accessible en ligne, ce module illustre la maîtrise des principes de l\'UX pédagogique, de l\'interactivité et de l\'accessibilité numérique.',participants:1,tag:'tag-dsf',tagLabel:'Développement des systèmes de formation',skills:['Formation mobile','UX pédagogique','Interactivité','Accessibilité','Prototype fonctionnel'],lien:null,ext:false,pdf:null},
-    {id:20,domaine:'dsf',titre:'Conception et facilitation d\'un atelier Adobe Illustrator',desc:'Conception et animation d\'un atelier en ligne de 75 minutes sur Adobe Illustrator, alliant design pédagogique et facilitation active.',long:'Ce projet a requis de concevoir de A à Z un atelier de formation en ligne de 75 minutes centré sur Adobe Illustrator, puis de l\'animer en direct. La démarche a mobilisé des compétences en design pédagogique et en animation de groupe en contexte numérique.',participants:1,tag:'tag-dsf',tagLabel:'Développement des systèmes de formation',skills:['Adobe Illustrator','Facilitation','Design pédagogique','Formation en ligne','Animation de groupe'],lien:null,ext:false,pdf:null}
-  ];
+/* ════════════ DONNÉES ════════════ */
+var PROJETS = [
+  {id:1,domaine:'sys',titre:'Plan directeur \u2014 YWCA de Qu\u00e9bec',desc:'D\u00e9marche syst\u00e9mique compl\u00e8te pour am\u00e9liorer l\u2019autonomie num\u00e9rique des clientes de 50 ans et plus. Analyse SWOT, PESTEL et Swanson. Collecte de donn\u00e9es terrain.',long:'Ce plan directeur documente la d\u00e9marche syst\u00e9mique men\u00e9e \u00e0 la YWCA de Qu\u00e9bec pour r\u00e9pondre aux difficult\u00e9s num\u00e9riques d\u2019une client\u00e8le a\u00een\u00e9e. Il couvre l\u2019identification du besoin, la collecte de donn\u00e9es via entretiens semi-dirig\u00e9s, questionnaires et observation directe, l\u2019analyse selon les mod\u00e8les SWOT, PESTEL et Swanson, ainsi que la proposition de solutions p\u00e9dagogiques adapt\u00e9es.',participants:3,tag:'tag-sys',tagLabel:'Approche syst\u00e9mique',skills:['SWOT','PESTEL','Swanson','Gestion de projet','Monday.com','Gantt','Analyse de besoins'],lien:'planDirecteur.html',ext:false,pdf:null},
+  {id:2,domaine:'sys',titre:'Rapport d\u2019analyse de besoins',desc:'Analyse des besoins des pr\u00e9pos\u00e9\u00b7e\u00b7s \u00e0 l\u2019accueil avec entretiens, personas et \u00e9valuation selon le mod\u00e8le de Kirkpatrick.',long:'Analyse approfondie mobilisant entretiens semi-dirig\u00e9s, questionnaires et observation directe aupr\u00e8s des pr\u00e9pos\u00e9\u00b7e\u00b7s \u00e0 l\u2019accueil de la YWCA. Trois personas ont \u00e9t\u00e9 mod\u00e9lis\u00e9s. Le rapport d\u00e9bouche sur des objectifs d\u2019apprentissage structur\u00e9s et une \u00e9valuation \u00e0 quatre niveaux selon le mod\u00e8le de Kirkpatrick.',participants:3,tag:'tag-sys',tagLabel:'Approche syst\u00e9mique',skills:['Kirkpatrick','Personas','Entretiens','Questionnaire','Observation directe','Swanson'],lien:'RapportAnalyse.html',ext:false,pdf:null},
+  {id:3,domaine:'sys',titre:'Conception de solutions potentielles',desc:'Six axes de solutions interconnect\u00e9es pour autonomiser les pr\u00e9pos\u00e9\u00b7e\u00b7s et les clientes dans la gestion des inscriptions sur Qidigo.',long:'Conception de six solutions syst\u00e9miques articul\u00e9es : r\u00e9am\u00e9nagement de l\u2019espace d\u2019accueil, ressources technologiques additionnelles, cr\u00e9ation d\u2019outils p\u00e9dagogiques, e-formation mobile avec quiz et mises en situation, optimisation de la plateforme Qidigo, et automatisation des t\u00e2ches r\u00e9p\u00e9titives.',participants:3,tag:'tag-sys',tagLabel:'Approche syst\u00e9mique',skills:['Design de solution','E-formation','Swanson','UX p\u00e9dagogique','Indicateurs de performance'],lien:'solutionPotentielles.html',ext:false,pdf:null},
+  {id:4,domaine:'sys',titre:'E-portfolio r\u00e9flexif',desc:'Portfolio num\u00e9rique d\u00e9velopp\u00e9 de A \u00e0 Z en HTML, CSS et JavaScript, documentant les apprentissages r\u00e9alis\u00e9s durant la ma\u00eetrise.',long:'Portfolio num\u00e9rique d\u00e9velopp\u00e9 de A \u00e0 Z en HTML, CSS et JavaScript, h\u00e9berg\u00e9 sur GitHub Pages. Chaque projet est document\u00e9 avec une r\u00e9flexion sur les comp\u00e9tences d\u00e9velopp\u00e9es, les d\u00e9fis surmount\u00e9s et les apprentissages retenus.',participants:1,tag:'tag-sys',tagLabel:'Approche syst\u00e9mique',skills:['HTML','CSS','JavaScript','GitHub Pages','R\u00e9flexivit\u00e9','Communication'],lien:'portfolio.html',ext:false,pdf:null},
+  {id:5,domaine:'ux',titre:'Am\u00e9lioration UX d\u2019un site web existant',desc:'Analyse critique et redesign de l\u2019exp\u00e9rience utilisateur d\u2019un site r\u00e9el\u00a0: personas, wireframes et tests d\u2019utilisabilit\u00e9.',long:'D\u00e9marche compl\u00e8te de design UX appliqu\u00e9e \u00e0 un site existant\u00a0: analyse des t\u00e2ches utilisateurs, construction de personas \u00e0 partir d\u2019entretiens, cr\u00e9ation de wireframes basse et haute fid\u00e9lit\u00e9, puis r\u00e9alisation de tests d\u2019utilisabilit\u00e9 pour valider les choix de design.',participants:1,tag:'tag-ux',tagLabel:'Design UX',skills:['Personas','Wireframe','Tests utilisateurs','Accessibilit\u00e9','Analyse de t\u00e2ches'],lien:'experience-utilisateur.html',ext:false,pdf:null},
+  {id:6,domaine:'eform',titre:'Analyse environnement, GRH et besoins',desc:'Analyse PESTEL et audit RH pour concevoir une strat\u00e9gie de formation align\u00e9e sur les objectifs d\u2019affaires d\u2019une organisation.',long:'Analyse combinant le cadre PESTEL, l\u2019audit des ressources humaines et une \u00e9tude des besoins de formation d\u2019une organisation partenaire. Le rapport aboutit \u00e0 des recommandations strat\u00e9giques align\u00e9es sur les objectifs d\u2019affaires.',participants:3,tag:'tag-eform',tagLabel:'E-formation',skills:['PESTEL','GRH','Analyse de besoins','Formation entreprise','Strat\u00e9gie'],lien:'analyse-environnement.html',ext:false,pdf:null},
+  {id:7,domaine:'eform',titre:'Solution, gestion de projet et budget',desc:'Pr\u00e9sentation de la solution de formation retenue, planification d\u00e9taill\u00e9e et estimation budg\u00e9taire avec analyse co\u00fbt-b\u00e9n\u00e9fice.',long:'Document de synth\u00e8se pr\u00e9sentant la solution p\u00e9dagogique choisie avec son plan de d\u00e9ploiement, les jalons du projet, les ressources n\u00e9cessaires et une analyse co\u00fbt-b\u00e9n\u00e9fice.',participants:3,tag:'tag-eform',tagLabel:'E-formation',skills:['Gestion de projet','Budget','Kirkpatrick','Planification','Co\u00fbt-b\u00e9n\u00e9fice'],lien:'solution-budget.html',ext:false,pdf:null},
+  {id:8,domaine:'web',titre:'Formulaire interactif multi-\u00e9tapes',desc:'Formulaire multi-\u00e9tapes avec validation en temps r\u00e9el, barre de progression visuelle et transitions fluides. JS natif.',long:'Formulaire \u00e0 \u00e9tapes multiples avec barre de progression visuelle, validation c\u00f4t\u00e9 client \u00e0 chaque \u00e9tape et transitions anim\u00e9es entre les panneaux. D\u00e9montre la ma\u00eetrise de la manipulation du DOM en JavaScript pur, sans framework.',participants:1,tag:'tag-web',tagLabel:'D\u00e9veloppement web',skills:['HTML','CSS','JavaScript','Validation formulaire','DOM manipulation','UX'],lien:'https://rute23.github.io/feze.portfolio.com/Multi-step-form/Multi-step-form.html',ext:true,pdf:null},
+  {id:9,domaine:'web',titre:'Page d\u2019accueil de site de presse',desc:'Int\u00e9gration pixel-perfect d\u2019une page d\u2019accueil avec CSS Grid complexe, hi\u00e9rarchie typographique et approche mobile-first.',long:'Page d\u2019accueil d\u2019un site de presse avec mise en page en grille CSS complexe, adaptation mobile-first et respect strict de la maquette fournie.',participants:1,tag:'tag-web',tagLabel:'D\u00e9veloppement web',skills:['CSS Grid','Responsive design','Typographie','HTML s\u00e9mantique','Mobile-first'],lien:'https://rute23.github.io/feze.portfolio.com/HomePage/HomePage.html',ext:true,pdf:null},
+  {id:10,domaine:'web',titre:'Site multi-page \u2014 tourisme spatial',desc:'Site web complet sur le tourisme spatial\u00a0: navigation par onglets, animations CSS et design immersif sur 3 breakpoints.',long:'Site multi-page avec navigation par onglets, transitions anim\u00e9es et design adapt\u00e9 \u00e0 trois breakpoints. D\u00e9montre la ma\u00eetrise de l\u2019architecture d\u2019un site multi-pages en HTML/CSS/JS natif.',participants:1,tag:'tag-web',tagLabel:'D\u00e9veloppement web',skills:['HTML','CSS','JavaScript','Navigation','Animation CSS','Accessibilit\u00e9'],lien:'https://rute23.github.io/feze.portfolio.com/Space%20tourism%20multi-page%20website/space_tourism.html',ext:true,pdf:null},
+  {id:11,domaine:'web',titre:'Application \u2014 pays du monde',desc:'Application web avec recherche dynamique, filtres par r\u00e9gion, mode sombre et page de d\u00e9tail via API REST Countries.',long:'Application consommant l\u2019API REST Countries pour afficher, filtrer et rechercher les pays du monde en temps r\u00e9el. Inclut un mode sombre basculable, une page de d\u00e9tail par pays avec informations cl\u00e9s et pays frontaliers cliquables.',participants:1,tag:'tag-web',tagLabel:'D\u00e9veloppement web',skills:['REST API','Fetch / Async','Filtres dynamiques','Dark mode','Responsive'],lien:'https://rute23.github.io/feze.portfolio.com/countriesDescription/countries.html',ext:true,pdf:null},
+  {id:12,domaine:'fad',titre:'Conception d\u2019un cours de formation \u00e0 distance',desc:'Sc\u00e9narisation et production d\u2019un cours FAD complet sur Canva selon l\u2019approche ADDIE et la taxonomie de Bloom.',long:'Conception d\u2019un cours de formation \u00e0 distance structur\u00e9 selon l\u2019approche ADDIE. Le cours inclut des objectifs d\u2019apprentissage formul\u00e9s selon la taxonomie de Bloom, des activit\u00e9s vari\u00e9es et des outils d\u2019\u00e9valuation formative et sommative.',participants:1,tag:'tag-fad',tagLabel:'Formation \u00e0 distance',skills:['ADDIE','Bloom','Sc\u00e9narisation','Canva','\u00c9valuation formative','FAD'],lien:'https://www.canva.com/design/DAGurhuizQg/paufXdGLQVpIMZz3Txaj_w/view',ext:true,pdf:null},
+  {id:13,domaine:'dsef',titre:'Mod\u00e8le logique et pitch de solution',desc:'Conception d\u2019un mod\u00e8le logique structurant une solution de formation mobile innovante, accompagn\u00e9 d\u2019un pitch convaincant.',long:'Ce projet se d\u00e9ploie en deux volets compl\u00e9mentaires. Le mod\u00e8le logique d\u00e9taille la structure, les composantes et les r\u00e9sultats attendus d\u2019une solution de formation mobile pour la YWCA. Le pitch pr\u00e9sente cette solution de mani\u00e8re structur\u00e9e et convaincante \u00e0 une client\u00e8le d\u00e9cisionnelle.',participants:1,tag:'tag-dsef',tagLabel:'Design de syst\u00e8mes d\u2019enseignement et de formation',skills:['Mod\u00e8le logique','Pitch','\u00c9thique','Communication','Pens\u00e9e syst\u00e9mique','TEN-7006'],lien:'modele-logique.html',ext:false,pdf:null},
+  {id:14,domaine:'dsef',titre:'Document technique de conception d\u00e9taill\u00e9e',desc:'Conception d\u00e9taill\u00e9e de l\u2019exp\u00e9rience d\u2019apprentissage et production de l\u2019ensemble des documents techniques.',long:'En \u00e9quipe de cinq, nous avons traduit une vision p\u00e9dagogique en sp\u00e9cifications op\u00e9rationnelles concr\u00e8tes pour la YWCA de Qu\u00e9bec. Ce livrable comprend le sc\u00e9narimage Rise, le storyboard Storyline, la matrice de contenu, la feuille de style visuelle et le plan d\u2019\u00e9valuation formative.',participants:5,tag:'tag-dsef',tagLabel:'Design de syst\u00e8mes d\u2019enseignement et de formation',skills:['Document technique','Sc\u00e9narimage','Storyboard','Articulate Rise','Articulate Storyline','Design p\u00e9dagogique'],lien:'document-technique.html',ext:false,pdf:null},
+  {id:17,domaine:'dsef',titre:'Restez \u00e0 jour \u2014 Article d\u2019opinion',desc:'R\u00e9daction d\u2019un article d\u2019opinion sur l\u2019innovation p\u00e9dagogique et andragogique \u00e0 l\u2019\u00e8re de l\u2019intelligence artificielle.',long:'Article d\u2019opinion intitul\u00e9 Andragogie 3.0\u00a0: quand l\u2019adulte apprenant devient coproducteur de son parcours \u00e0 l\u2019aide de l\u2019intelligence artificielle. L\u2019article explore comment l\u2019IAG peut transformer la formation des adultes en mobilisant les principes andragogiques.',participants:1,tag:'tag-dsef',tagLabel:'Design de syst\u00e8mes d\u2019enseignement et de formation',skills:['R\u00e9daction acad\u00e9mique','Veille technologique','IA en \u00e9ducation','Andragogie','Pens\u00e9e critique'],lien:'rester-a-jour.html',ext:false,pdf:null},
+  {id:18,domaine:'dsf',titre:'Vlog d\u2019autoformation aux outils num\u00e9riques',desc:'Exploration et documentation de trois logiciels \u2014 Articulate Rise, Articulate Storyline et NotebookLM \u2014 \u00e0 travers un vlog de 15 \u00e0 20 minutes.',long:'Ce projet d\u2019autoformation dirig\u00e9e a consist\u00e9 \u00e0 explorer de mani\u00e8re autonome trois outils de cr\u00e9ation num\u00e9rique incontournables en technologie \u00e9ducative. L\u2019ensemble du processus d\u2019apprentissage a \u00e9t\u00e9 document\u00e9 sous forme d\u2019un vlog structur\u00e9.',participants:1,tag:'tag-dsf',tagLabel:'D\u00e9veloppement des syst\u00e8mes de formation',skills:['Articulate Rise','Articulate Storyline','NotebookLM','Autoformation','Vlog r\u00e9flexif'],lien:null,ext:false,pdf:null},
+  {id:19,domaine:'dsf',titre:'Prototype de formation mobile',desc:'D\u00e9veloppement de dix minutes compl\u00e8tes d\u2019une exp\u00e9rience d\u2019apprentissage interactive, enti\u00e8rement fonctionnelle et accessible en ligne.',long:'Ce projet a consist\u00e9 \u00e0 d\u00e9velopper un prototype complet de dix minutes d\u2019exp\u00e9rience d\u2019apprentissage interactive. Accessible en ligne, ce module illustre la ma\u00eetrise des principes de l\u2019UX p\u00e9dagogique, de l\u2019interactivit\u00e9 et de l\u2019accessibilit\u00e9 num\u00e9rique.',participants:1,tag:'tag-dsf',tagLabel:'D\u00e9veloppement des syst\u00e8mes de formation',skills:['Formation mobile','UX p\u00e9dagogique','Interactivit\u00e9','Accessibilit\u00e9','Prototype fonctionnel'],lien:null,ext:false,pdf:null},
+  {id:20,domaine:'dsf',titre:'Conception et facilitation d\u2019un atelier Adobe Illustrator',desc:'Conception et animation d\u2019un atelier en ligne de 75 minutes sur Adobe Illustrator, alliant design p\u00e9dagogique et facilitation active.',long:'Ce projet a requis de concevoir de A \u00e0 Z un atelier de formation en ligne de 75 minutes centr\u00e9 sur Adobe Illustrator, puis de l\u2019animer en direct.',participants:1,tag:'tag-dsf',tagLabel:'D\u00e9veloppement des syst\u00e8mes de formation',skills:['Adobe Illustrator','Facilitation','Design p\u00e9dagogique','Formation en ligne','Animation de groupe'],lien:null,ext:false,pdf:null}
+];
 
-  const TAG_CONFIG = {
-    'tag-sys':   {style:'background:#eef4fb;color:#2c5f8a'},
-    'tag-ux':    {style:'background:#edf8f3;color:#0f6e56'},
-    'tag-eform': {style:'background:#faeeda;color:#854f0b'},
-    'tag-web':   {style:'background:#eeedfe;color:#534ab7'},
-    'tag-fad':   {style:'background:#f1efe8;color:#5f5e5a'},
-    'tag-dsef':  {style:'background:#fbeaf0;color:#993556'},
-    'tag-dsf':   {style:'background:#e6f5e9;color:#2e7d32'}
-  };
+var TAG_CONFIG = {
+  'tag-sys'  :{style:'background:#EBF3FC;color:#2A6097'},
+  'tag-ux'   :{style:'background:#EDF8F3;color:#0F6E56'},
+  'tag-eform':{style:'background:#FDF0E0;color:#875200'},
+  'tag-web'  :{style:'background:#EEEDFE;color:#4840B0'},
+  'tag-fad'  :{style:'background:#F1EFE8;color:#5A5850'},
+  'tag-dsef' :{style:'background:#FBEAF0;color:#993556'},
+  'tag-dsf'  :{style:'background:#E6F5E9;color:#2A7032'}
+};
 
-  let selectedId = null;
+var selectedId = null;
 
-  function buildDots(n) {
-    if (n === 1) return '<div class="dots-wrap"><div class="dot-p solo"></div></div><span>Individuel</span>';
-    let d = '';
-    for (let i = 0; i < n; i++) d += '<div class="dot-p"></div>';
-    return '<div class="dots-wrap">' + d + '</div><span>' + n + ' participants</span>';
+/* ── HELPERS ── */
+function buildDots(n) {
+  if (n === 1) return '<div class="dots-wrap"><div class="dot-p solo"></div></div><span>Individuel</span>';
+  var d = '';
+  for (var i = 0; i < n; i++) d += '<div class="dot-p"></div>';
+  return '<div class="dots-wrap">' + d + '</div><span>' + n + ' participants</span>';
+}
+
+/* ── RENDU GRILLE ── */
+function renderGrille(filtre) {
+  var grille = document.getElementById('grille');
+  grille.innerHTML = '';
+
+  var liste = filtre === 'tous' ? PROJETS : PROJETS.filter(function(p){ return p.domaine === filtre; });
+  var n = liste.length;
+
+  // Masquer invite, afficher grille
+  document.getElementById('invite').style.display = 'none';
+  document.getElementById('grille-wrap').style.display = 'block';
+  document.getElementById('grille-reset').style.display = 'inline';
+  document.getElementById('grille-titre').textContent = n + ' projet' + (n > 1 ? 's' : '') + ' affich\u00e9' + (n > 1 ? 's' : '');
+
+  if (n === 0) {
+    grille.innerHTML = '<div class="etat-vide"><div class="etat-vide-icone">\uD83D\uDD0D</div><p>Aucun projet dans cette cat\u00e9gorie.</p></div>';
+    return;
   }
 
-  function renderGrille(filtre) {
-    const grille = document.getElementById('grille');
-    grille.innerHTML = '';
-    const liste = filtre === 'tous' ? PROJETS : PROJETS.filter(p => p.domaine === filtre);
-    const n = liste.length;
-    document.getElementById('filtreCount').textContent = n + ' projet' + (n > 1 ? 's' : '') + ' affiché' + (n > 1 ? 's' : '');
-    if (n === 0) {
-      grille.innerHTML = '<div class="etat-vide" role="status"><div class="etat-vide-icone">🔍</div><p>Aucun projet dans cette catégorie.<br>Sélectionnez un autre domaine.</p></div>';
-      return;
-    }
-    liste.forEach(p => {
-      const carte = document.createElement('article');
-      carte.className = 'carte' + (selectedId === p.id ? ' selected' : '');
-      carte.dataset.id = String(p.id);
-      carte.setAttribute('role', 'listitem');
-      carte.setAttribute('tabindex', '0');
-      carte.setAttribute('aria-label', 'Voir le détail de ' + p.titre);
-      carte.innerHTML =
-        '<div class="carte-top"><span class="tag-domaine ' + p.tag + '">' + p.tagLabel + '</span><div class="badge-p">' + buildDots(p.participants) + '</div></div>' +
-        '<h3>' + p.titre + '</h3>' +
-        '<p class="carte-desc">' + p.desc + '</p>' +
-        '<div class="carte-skills">' + p.skills.slice(0,4).map(s => '<span class="skill-pill">' + s + '</span>').join('') + (p.skills.length > 4 ? '<span class="skill-pill">+' + (p.skills.length - 4) + '</span>' : '') + '</div>' +
-        '<div class="carte-footer"><span class="lien-detail">' + (p.enCours ? '⏳ En cours' : 'Voir le détail →') + '</span>' + (p.ext ? '<span class="badge-ext">↗ externe</span>' : '') + '</div>';
-      const ouvrir = () => ouvrirPanneau(p);
-      carte.addEventListener('click', ouvrir);
-      carte.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); ouvrir(); } });
-      grille.appendChild(carte);
-    });
-  }
+  liste.forEach(function(p) {
+    var carte = document.createElement('article');
+    carte.className = 'carte' + (selectedId === p.id ? ' selected' : '');
+    carte.dataset.id = String(p.id);
+    carte.setAttribute('role', 'listitem');
+    carte.setAttribute('tabindex', '0');
 
-  function ouvrirPanneau(p) {
-    selectedId = p.id;
-    document.querySelectorAll('.carte').forEach(c => c.classList.toggle('selected', parseInt(c.dataset.id) === p.id));
-    const cfg = TAG_CONFIG[p.tag];
-    document.getElementById('panneauTag').textContent = p.tagLabel;
-    document.getElementById('panneauTag').style = cfg.style;
-    document.getElementById('panneauTitre').textContent = p.titre;
-    document.getElementById('panneauMeta').innerHTML = '<div class="badge-p">' + buildDots(p.participants) + '</div><span>' + (p.ext ? 'Projet personnel' : 'Projet académique') + '</span>';
-    document.getElementById('panneauDesc').textContent = p.long;
-    document.getElementById('panneauSkills').innerHTML = p.skills.map(s => '<span class="panneau-skill">' + s + '</span>').join('');
+    carte.innerHTML =
+      '<div class="carte-top">' +
+        '<span class="tag-domaine ' + p.tag + '">' + p.tagLabel + '</span>' +
+        '<div class="badge-p">' + buildDots(p.participants) + '</div>' +
+      '</div>' +
+      '<h3>' + p.titre + '</h3>' +
+      '<p class="carte-desc">' + p.desc + '</p>' +
+      '<div class="carte-skills">' +
+        p.skills.slice(0, 4).map(function(s){ return '<span class="skill-pill">' + s + '</span>'; }).join('') +
+        (p.skills.length > 4 ? '<span class="skill-pill">+' + (p.skills.length - 4) + '</span>' : '') +
+      '</div>' +
+      '<div class="carte-footer">' +
+        '<span class="lien-detail">Voir le d\u00e9tail \u2192</span>' +
+        (p.ext ? '<span class="badge-ext">\u2197 externe</span>' : '') +
+      '</div>';
 
-    let actions = '';
-    if (p.pdf) actions += '<a href="' + p.pdf + '" download class="btn-action btn-primaire">⬇ Télécharger le PDF</a>';
-    if (p.lien) {
-      const label = p.lien && !p.ext ? 'Voir la page du projet →' : 'Voir le projet →';
-      actions += '<a href="' + p.lien + '" ' + (p.ext ? 'target="_blank" rel="noopener"' : '') + ' class="btn-action btn-secondaire">' + label + '</a>';
-    }
-    document.getElementById('panneauFooter').innerHTML = actions;
-
-    const corps = document.getElementById('panneauCorps');
-    corps.scrollTop = 0;
-    majScrollHint();
-    document.getElementById('panneau').classList.add('ouvert');
-    document.getElementById('panneau').setAttribute('aria-hidden', 'false');
-    document.getElementById('overlayDetail').classList.add('show');
-    document.getElementById('panneauFermer').focus();
-  }
-
-  function fermerPanneau() {
-    selectedId = null;
-    document.querySelectorAll('.carte').forEach(c => c.classList.remove('selected'));
-    document.getElementById('panneau').classList.remove('ouvert');
-    document.getElementById('panneau').setAttribute('aria-hidden', 'true');
-    document.getElementById('overlayDetail').classList.remove('show');
-  }
-
-  function majScrollHint() {
-    const corps = document.getElementById('panneauCorps');
-    const hint = document.getElementById('scrollHint');
-    hint.style.opacity = (corps.scrollHeight > corps.clientHeight + 10 && corps.scrollTop < 20) ? '1' : '0';
-    hint.style.pointerEvents = 'none';
-  }
-
-  document.getElementById('panneauCorps').addEventListener('scroll', majScrollHint);
-  document.getElementById('panneauFermer').addEventListener('click', fermerPanneau);
-  document.getElementById('overlayDetail').addEventListener('click', fermerPanneau);
-  document.addEventListener('keydown', e => { if (e.key === 'Escape') fermerPanneau(); });
-
-  document.getElementById('featuredBtn').addEventListener('click', e => { e.stopPropagation(); ouvrirPanneau(PROJETS[0]); });
-  document.getElementById('featuredCard').addEventListener('click', () => ouvrirPanneau(PROJETS[0]));
-  document.getElementById('featuredCard').addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); ouvrirPanneau(PROJETS[0]); } });
-
-  document.getElementById('filtres').addEventListener('click', e => {
-    const btn = e.target.closest('.filter-btn');
-    if (!btn) return;
-    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('actif'));
-    btn.classList.add('actif');
-    renderGrille(btn.dataset.filtre);
+    var ouvrir = function(){ ouvrirPanneau(p); };
+    carte.addEventListener('click', ouvrir);
+    carte.addEventListener('keydown', function(e){ if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); ouvrir(); } });
+    grille.appendChild(carte);
   });
+}
 
-  const hamburger = document.querySelector('.hamburger');
-  const menuToggle = document.querySelector('.menu-toggle');
-  const overlay = document.querySelector('.overlay');
-  const closeBtn = document.querySelector('.close-btn');
-  hamburger.addEventListener('click', () => { menuToggle.classList.add('open'); overlay.classList.add('show'); hamburger.setAttribute('aria-expanded', 'true'); });
-  function fermerMenu() { menuToggle.classList.remove('open'); overlay.classList.remove('show'); hamburger.setAttribute('aria-expanded', 'false'); }
-  closeBtn.addEventListener('click', fermerMenu);
-  overlay.addEventListener('click', fermerMenu);
-  menuToggle.querySelectorAll('a').forEach(l => l.addEventListener('click', fermerMenu));
-  document.querySelectorAll('.main-nav a').forEach(link => { if (window.location.pathname.endsWith(link.getAttribute('href'))) { document.querySelectorAll('.main-nav a').forEach(l => l.classList.remove('active')); link.classList.add('active'); } });
+/* ── RESET ── */
+function resetFiltres() {
+  document.querySelectorAll('.filtre-btn').forEach(function(b){ b.classList.remove('actif'); });
+  document.getElementById('grille-wrap').style.display = 'none';
+  document.getElementById('invite').style.display = 'block';
+  document.getElementById('grille-reset').style.display = 'none';
+  fermerPanneau();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
 
-  renderGrille('tous');
+/* ── PANNEAU DÉTAIL ── */
+function ouvrirPanneau(p) {
+  selectedId = p.id;
+  document.querySelectorAll('.carte').forEach(function(c){ c.classList.toggle('selected', parseInt(c.dataset.id) === p.id); });
+
+  var cfg = TAG_CONFIG[p.tag];
+  document.getElementById('panneauTag').textContent = p.tagLabel;
+  document.getElementById('panneauTag').style = cfg.style;
+  document.getElementById('panneauTitre').textContent = p.titre;
+  document.getElementById('panneauMeta').innerHTML = '<div class="badge-p">' + buildDots(p.participants) + '</div><span>' + (p.ext ? 'Projet personnel' : 'Projet acad\u00e9mique') + '</span>';
+  document.getElementById('panneauDesc').textContent = p.long;
+  document.getElementById('panneauSkills').innerHTML = p.skills.map(function(s){ return '<span class="panneau-skill">' + s + '</span>'; }).join('');
+
+  var actions = '';
+  if (p.pdf) actions += '<a href="' + p.pdf + '" download class="btn-action btn-primaire">\u2B07 T\u00e9l\u00e9charger le PDF</a>';
+  if (p.lien) actions += '<a href="' + p.lien + '" ' + (p.ext ? 'target="_blank" rel="noopener"' : '') + ' class="btn-action btn-secondaire">Voir le projet \u2192</a>';
+  document.getElementById('panneauFooter').innerHTML = actions;
+
+  var corps = document.getElementById('panneauCorps');
+  corps.scrollTop = 0;
+  majScrollHint();
+
+  document.getElementById('panneau').classList.add('ouvert');
+  document.getElementById('panneau').setAttribute('aria-hidden', 'false');
+  document.getElementById('overlayDetail').classList.add('show');
+  document.getElementById('panneauFermer').focus();
+}
+
+function fermerPanneau() {
+  selectedId = null;
+  document.querySelectorAll('.carte').forEach(function(c){ c.classList.remove('selected'); });
+  document.getElementById('panneau').classList.remove('ouvert');
+  document.getElementById('panneau').setAttribute('aria-hidden', 'true');
+  document.getElementById('overlayDetail').classList.remove('show');
+}
+
+function majScrollHint() {
+  var corps = document.getElementById('panneauCorps');
+  var hint  = document.getElementById('scrollHint');
+  hint.style.opacity = (corps.scrollHeight > corps.clientHeight + 10 && corps.scrollTop < 20) ? '1' : '0';
+  hint.style.pointerEvents = 'none';
+}
+
+document.getElementById('panneauCorps').addEventListener('scroll', majScrollHint);
+document.getElementById('panneauFermer').addEventListener('click', fermerPanneau);
+document.getElementById('overlayDetail').addEventListener('click', fermerPanneau);
+document.addEventListener('keydown', function(e){ if (e.key === 'Escape') fermerPanneau(); });
+
+/* ── FILTRES ── */
+document.getElementById('filtres').addEventListener('click', function(e) {
+  var btn = e.target.closest('.filtre-btn');
+  if (!btn) return;
+  document.querySelectorAll('.filtre-btn').forEach(function(b){ b.classList.remove('actif'); });
+  btn.classList.add('actif');
+  renderGrille(btn.dataset.filtre);
+  // Scroll doux vers la grille
+  setTimeout(function(){
+    document.getElementById('grille-wrap').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, 100);
+});
+
+/* ── MENU MOBILE ── */
+var hamburger  = document.querySelector('.hamburger');
+var menuToggle = document.querySelector('.menu-toggle');
+var overlay    = document.querySelector('.overlay');
+var closeBtn   = document.querySelector('.close-btn');
+
+hamburger.addEventListener('click', function() {
+  menuToggle.classList.add('open');
+  overlay.classList.add('show');
+  hamburger.setAttribute('aria-expanded', 'true');
+});
+
+function fermerMenu() {
+  menuToggle.classList.remove('open');
+  overlay.classList.remove('show');
+  hamburger.setAttribute('aria-expanded', 'false');
+}
+
+closeBtn.addEventListener('click', fermerMenu);
+overlay.addEventListener('click', fermerMenu);
+menuToggle.querySelectorAll('a').forEach(function(l){ l.addEventListener('click', fermerMenu); });
+
+/* ── LIEN ACTIF ── */
+document.querySelectorAll('.main-nav a').forEach(function(link) {
+  if (window.location.pathname.endsWith(link.getAttribute('href'))) {
+    document.querySelectorAll('.main-nav a').forEach(function(l){ l.classList.remove('active'); });
+    link.classList.add('active');
+  }
+});
 </script>
 
 </body>
