@@ -235,11 +235,18 @@ a{color:inherit;text-decoration:none}
     <!-- Boutons filtres -->
     <div class="filtres-grille" id="filtres" role="group" aria-label="Filtrer par domaine">
 
+      <button class="filtre-btn" data-filtre="tous">
+        <div class="filtre-icone">&#127775;</div>
+        <div class="filtre-texte">
+          <span class="filtre-nom">Tous les projets</span>
+          <span class="filtre-cnt">18</span>
+        </div>
+      </button>
 
       <button class="filtre-btn" data-filtre="sys">
         <div class="filtre-icone">&#128200;</div>
         <div class="filtre-texte">
-          <span class="filtre-nom">TEN-7001 Approche syst&#233;mique et analyse de besoins</span>
+          <span class="filtre-nom">Approche syst&#233;mique</span>
           <span class="filtre-cnt">4</span>
         </div>
       </button>
@@ -247,7 +254,7 @@ a{color:inherit;text-decoration:none}
       <button class="filtre-btn" data-filtre="ux">
         <div class="filtre-icone">&#127912;</div>
         <div class="filtre-texte">
-          <span class="filtre-nom">SIO-6021 Design de l'expérience utilisateur</span>
+          <span class="filtre-nom">Design UX</span>
           <span class="filtre-cnt">1</span>
         </div>
       </button>
@@ -255,7 +262,7 @@ a{color:inherit;text-decoration:none}
       <button class="filtre-btn" data-filtre="eform">
         <div class="filtre-icone">&#128640;</div>
         <div class="filtre-texte">
-          <span class="filtre-nom">MNG-6034 Gestion de la e-formation en entreprise</span>
+          <span class="filtre-nom">E-formation</span>
           <span class="filtre-cnt">2</span>
         </div>
       </button>
@@ -271,7 +278,7 @@ a{color:inherit;text-decoration:none}
       <button class="filtre-btn" data-filtre="fad">
         <div class="filtre-icone">&#127891;</div>
         <div class="filtre-texte">
-          <span class="filtre-nom">TEN-7012 Fondement de l'apprentissage &#224; distance</span>
+          <span class="filtre-nom">Formation &#224; distance</span>
           <span class="filtre-cnt">1</span>
         </div>
       </button>
@@ -279,7 +286,7 @@ a{color:inherit;text-decoration:none}
       <button class="filtre-btn" data-filtre="dsef">
         <div class="filtre-icone">&#9997;&#65039;</div>
         <div class="filtre-texte">
-          <span class="filtre-nom">TEN-7006 Design de syst&#232;mes d&#8217;enseignement et de formation</span>
+          <span class="filtre-nom">Design de syst&#232;mes d&#8217;enseignement et de formation</span>
           <span class="filtre-cnt">3</span>
         </div>
       </button>
@@ -287,15 +294,8 @@ a{color:inherit;text-decoration:none}
       <button class="filtre-btn" data-filtre="dsf">
         <div class="filtre-icone">&#128736;&#65039;</div>
         <div class="filtre-texte">
-          <span class="filtre-nom">TEN-7015 D&#233;veloppement des syst&#232;mes de formation</span>
+          <span class="filtre-nom">D&#233;veloppement des syst&#232;mes de formation</span>
           <span class="filtre-cnt">3</span>
-        </div>
-      </button>
-      <button class="filtre-btn" data-filtre="tous">
-        <div class="filtre-icone">&#127775;</div>
-        <div class="filtre-texte">
-          <span class="filtre-nom">Tous les projets</span>
-          <span class="filtre-cnt">18</span>
         </div>
       </button>
 
@@ -358,9 +358,9 @@ var PROJETS = [
   {id:13,domaine:'dsef',titre:'Mod\u00e8le logique et pitch de solution',desc:'Conception d\u2019un mod\u00e8le logique structurant une solution de formation mobile innovante, accompagn\u00e9 d\u2019un pitch convaincant.',long:'Ce projet se d\u00e9ploie en deux volets compl\u00e9mentaires. Le mod\u00e8le logique d\u00e9taille la structure, les composantes et les r\u00e9sultats attendus d\u2019une solution de formation mobile pour la YWCA. Le pitch pr\u00e9sente cette solution de mani\u00e8re structur\u00e9e et convaincante \u00e0 une client\u00e8le d\u00e9cisionnelle.',participants:1,tag:'tag-dsef',tagLabel:'Design de syst\u00e8mes d\u2019enseignement et de formation',skills:['Mod\u00e8le logique','Pitch','\u00c9thique','Communication','Pens\u00e9e syst\u00e9mique','TEN-7006'],lien:'modele-logique.html',ext:false,pdf:null},
   {id:14,domaine:'dsef',titre:'Document technique de conception d\u00e9taill\u00e9e',desc:'Conception d\u00e9taill\u00e9e de l\u2019exp\u00e9rience d\u2019apprentissage et production de l\u2019ensemble des documents techniques.',long:'En \u00e9quipe de cinq, nous avons traduit une vision p\u00e9dagogique en sp\u00e9cifications op\u00e9rationnelles concr\u00e8tes pour la YWCA de Qu\u00e9bec. Ce livrable comprend le sc\u00e9narimage Rise, le storyboard Storyline, la matrice de contenu, la feuille de style visuelle et le plan d\u2019\u00e9valuation formative.',participants:5,tag:'tag-dsef',tagLabel:'Design de syst\u00e8mes d\u2019enseignement et de formation',skills:['Document technique','Sc\u00e9narimage','Storyboard','Articulate Rise','Articulate Storyline','Design p\u00e9dagogique'],lien:'document-technique.html',ext:false,pdf:null},
   {id:17,domaine:'dsef',titre:'Restez \u00e0 jour \u2014 Article d\u2019opinion',desc:'R\u00e9daction d\u2019un article d\u2019opinion sur l\u2019innovation p\u00e9dagogique et andragogique \u00e0 l\u2019\u00e8re de l\u2019intelligence artificielle.',long:'Article d\u2019opinion intitul\u00e9 Andragogie 3.0\u00a0: quand l\u2019adulte apprenant devient coproducteur de son parcours \u00e0 l\u2019aide de l\u2019intelligence artificielle. L\u2019article explore comment l\u2019IAG peut transformer la formation des adultes en mobilisant les principes andragogiques.',participants:1,tag:'tag-dsef',tagLabel:'Design de syst\u00e8mes d\u2019enseignement et de formation',skills:['R\u00e9daction acad\u00e9mique','Veille technologique','IA en \u00e9ducation','Andragogie','Pens\u00e9e critique'],lien:'rester-a-jour.html',ext:false,pdf:null},
-  {id:18,domaine:'dsf',titre:'Vlog d\u2019autoformation aux outils num\u00e9riques',desc:'Exploration et documentation de trois logiciels \u2014 Articulate Rise, Articulate Storyline et NotebookLM \u2014 \u00e0 travers un vlog de 15 \u00e0 20 minutes.',long:'Ce projet d\u2019autoformation dirig\u00e9e a consist\u00e9 \u00e0 explorer de mani\u00e8re autonome trois outils de cr\u00e9ation num\u00e9rique incontournables en technologie \u00e9ducative. L\u2019ensemble du processus d\u2019apprentissage a \u00e9t\u00e9 document\u00e9 sous forme d\u2019un vlog structur\u00e9.',participants:1,tag:'tag-dsf',tagLabel:'D\u00e9veloppement des syst\u00e8mes de formation',skills:['Articulate Rise','Articulate Storyline','NotebookLM','Autoformation','Vlog r\u00e9flexif'],lien:null,ext:false,pdf:null},
-  {id:19,domaine:'dsf',titre:'Prototype de formation mobile',desc:'D\u00e9veloppement de dix minutes compl\u00e8tes d\u2019une exp\u00e9rience d\u2019apprentissage interactive, enti\u00e8rement fonctionnelle et accessible en ligne.',long:'Ce projet a consist\u00e9 \u00e0 d\u00e9velopper un prototype complet de dix minutes d\u2019exp\u00e9rience d\u2019apprentissage interactive. Accessible en ligne, ce module illustre la ma\u00eetrise des principes de l\u2019UX p\u00e9dagogique, de l\u2019interactivit\u00e9 et de l\u2019accessibilit\u00e9 num\u00e9rique.',participants:1,tag:'tag-dsf',tagLabel:'D\u00e9veloppement des syst\u00e8mes de formation',skills:['Formation mobile','UX p\u00e9dagogique','Interactivit\u00e9','Accessibilit\u00e9','Prototype fonctionnel'],lien:null,ext:false,pdf:null},
-  {id:20,domaine:'dsf',titre:'Conception et facilitation d\u2019un atelier Adobe Illustrator',desc:'Conception et animation d\u2019un atelier en ligne de 75 minutes sur Adobe Illustrator, alliant design p\u00e9dagogique et facilitation active.',long:'Ce projet a requis de concevoir de A \u00e0 Z un atelier de formation en ligne de 75 minutes centr\u00e9 sur Adobe Illustrator, puis de l\u2019animer en direct.',participants:1,tag:'tag-dsf',tagLabel:'D\u00e9veloppement des syst\u00e8mes de formation',skills:['Adobe Illustrator','Facilitation','Design p\u00e9dagogique','Formation en ligne','Animation de groupe'],lien:null,ext:false,pdf:null}
+  {id:18,domaine:'dsf',titre:'Vlog d\u2019autoformation aux outils num\u00e9riques',desc:'Exploration et documentation de trois logiciels \u2014 Articulate Rise, Articulate Storyline et NotebookLM \u2014 \u00e0 travers un vlog de 15 \u00e0 20 minutes.',long:'Ce projet d\u2019autoformation dirig\u00e9e a consist\u00e9 \u00e0 explorer de mani\u00e8re autonome trois outils de cr\u00e9ation num\u00e9rique incontournables en technologie \u00e9ducative. L\u2019ensemble du processus d\u2019apprentissage a \u00e9t\u00e9 document\u00e9 sous forme d\u2019un vlog structur\u00e9.',participants:1,tag:'tag-dsf',tagLabel:'D\u00e9veloppement des syst\u00e8mes de formation',skills:['Articulate Rise','Articulate Storyline','NotebookLM','Autoformation','Vlog r\u00e9flexif'],lien:'vlog-autoformation.html',ext:false,pdf:null},
+  {id:19,domaine:'dsf',titre:'Prototype de formation mobile',desc:'D\u00e9veloppement de dix minutes compl\u00e8tes d\u2019une exp\u00e9rience d\u2019apprentissage interactive, enti\u00e8rement fonctionnelle et accessible en ligne.',long:'Ce projet a consist\u00e9 \u00e0 d\u00e9velopper un prototype complet de dix minutes d\u2019exp\u00e9rience d\u2019apprentissage interactive. Accessible en ligne, ce module illustre la ma\u00eetrise des principes de l\u2019UX p\u00e9dagogique, de l\u2019interactivit\u00e9 et de l\u2019accessibilit\u00e9 num\u00e9rique.',participants:1,tag:'tag-dsf',tagLabel:'D\u00e9veloppement des syst\u00e8mes de formation',skills:['Formation mobile','UX p\u00e9dagogique','Interactivit\u00e9','Accessibilit\u00e9','Prototype fonctionnel'],lien:'prototype-formation-mobile.html',ext:false,pdf:null},
+  {id:20,domaine:'dsf',titre:'Conception et facilitation d\u2019un atelier Adobe Illustrator',desc:'Conception et animation d\u2019un atelier en ligne de 75 minutes sur Adobe Illustrator, alliant design p\u00e9dagogique et facilitation active.',long:'Ce projet a requis de concevoir de A \u00e0 Z un atelier de formation en ligne de 75 minutes centr\u00e9 sur Adobe Illustrator, puis de l\u2019animer en direct.',participants:1,tag:'tag-dsf',tagLabel:'D\u00e9veloppement des syst\u00e8mes de formation',skills:['Adobe Illustrator','Facilitation','Design p\u00e9dagogique','Formation en ligne','Animation de groupe'],lien:'atelier-adobe-illustrator.html',ext:false,pdf:null}
 ];
 
 var TAG_CONFIG = {
