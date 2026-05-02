@@ -1,0 +1,351 @@
+/* ============================================================
+   global.css — Feuille de style commune à tout le portfolio
+   Steve Edgar Feze Feugang — e-portfolio
+   
+   UTILISATION : ajouter dans le <head> de chaque page HTML :
+   <link rel="stylesheet" href="global.css">
+   ============================================================ */
+
+/* ── POLICE GOOGLE FONTS ── */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap');
+
+/* ── VARIABLES GLOBALES ── */
+:root {
+  /* Palette de couleurs */
+  --bg-page        : #F4F7FB;   /* fond de page — bleu-gris très doux */
+  --bg-card        : #FFFFFF;   /* fond des cartes et panneaux */
+  --bg-accent      : #EBF3FC;   /* fond des pills, hover, tags */
+
+  /* Couleurs de texte */
+  --txt-primary    : #1C2B3A;   /* titres, texte principal */
+  --txt-secondary  : #4A6070;   /* texte corps, descriptions */
+  --txt-muted      : #8A9DB0;   /* méta, labels discrets */
+
+  /* Couleur d'accent */
+  --accent         : #2c5f8a;   /* bleu principal — liens, boutons, bordures actives */
+  --accent-hover   : #1e4a6e;   /* bleu foncé au survol */
+  --accent-light   : #C5DCF5;   /* bleu très clair — bordures légères */
+
+  /* Bordures */
+  --border-light   : #DDE8F2;
+  --border-medium  : #B8CDE0;
+
+  /* Ombres */
+  --shadow-sm      : 0 1px 4px rgba(44, 95, 138, 0.07);
+  --shadow-md      : 0 4px 16px rgba(44, 95, 138, 0.10);
+
+  /* Typographie */
+  --font           : 'Inter', 'Segoe UI', system-ui, sans-serif;
+  --size-xs        : 0.72rem;   /* labels, méta, badges */
+  --size-sm        : 0.88rem;   /* texte secondaire, nav */
+  --size-base      : 1.05rem;   /* corps de texte principal */
+  --size-md        : 1.1rem;    /* sous-titres, labels forts */
+  --size-lg        : 1.5rem;    /* titres de section h2 */
+  --size-xl        : 2rem;      /* titres de page h1 moyens */
+  --size-2xl       : clamp(1.8rem, 3.5vw, 2.5rem); /* h1 hero */
+
+  /* Hauteurs de ligne */
+  --leading        : 1.85;      /* corps de texte */
+  --leading-tight  : 1.3;       /* titres */
+  --leading-loose  : 1.9;       /* contenu long */
+
+  /* Rayons */
+  --radius-sm      : 8px;
+  --radius-md      : 12px;
+  --radius-lg      : 18px;
+  --radius-pill    : 999px;
+}
+
+/* ── RESET DE BASE ── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html { scroll-behavior: smooth; }
+
+/* ── CORPS ── */
+body {
+  font-family    : var(--font);
+  font-size      : var(--size-base);
+  line-height    : var(--leading);
+  color          : var(--txt-primary);
+  background     : var(--bg-page);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ── LIENS ── */
+a {
+  color          : inherit;
+  text-decoration: none;
+}
+
+/* ── TITRES ── */
+h1 {
+  font-size   : var(--size-2xl);
+  font-weight : 600;
+  line-height : var(--leading-tight);
+  color       : var(--txt-primary);
+  letter-spacing: -0.02em;
+}
+
+h2 {
+  font-size   : var(--size-lg);
+  font-weight : 600;
+  line-height : var(--leading-tight);
+  color       : var(--txt-primary);
+}
+
+h3 {
+  font-size   : var(--size-md);
+  font-weight : 600;
+  color       : var(--txt-primary);
+}
+
+p {
+  font-size  : var(--size-base);
+  line-height: var(--leading-loose);
+  color      : var(--txt-secondary);
+}
+
+/* ── HEADER ── */
+.site-header {
+  position       : sticky;
+  top            : 0;
+  z-index        : 100;
+  display        : flex;
+  align-items    : center;
+  justify-content: space-between;
+  padding        : 0 2.5rem;
+  height         : 68px;
+  background     : rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom  : 1px solid var(--border-light);
+  box-shadow     : var(--shadow-sm);
+}
+
+.logo {
+  font-size  : var(--size-sm);
+  font-weight: 500;
+  color      : var(--txt-primary);
+  letter-spacing: -0.01em;
+}
+
+.logo span,
+.logo em {
+  color     : var(--accent);
+  font-style: normal;
+}
+
+.main-nav ul {
+  display    : flex;
+  gap        : 2rem;
+  list-style : none;
+}
+
+.main-nav a {
+  font-size    : var(--size-sm);
+  font-weight  : 500;
+  color        : var(--txt-secondary);
+  padding-bottom: 3px;
+  border-bottom: 2px solid transparent;
+  transition   : color 0.2s, border-color 0.2s;
+}
+
+.main-nav a:hover,
+.main-nav a.active {
+  color       : var(--accent);
+  border-color: var(--accent);
+}
+
+/* ── HAMBURGER ── */
+.hamburger {
+  display        : none;
+  flex-direction : column;
+  gap            : 5px;
+  cursor         : pointer;
+  background     : none;
+  border         : none;
+  padding        : 4px;
+}
+
+.hamburger span {
+  display      : block;
+  width        : 24px;
+  height       : 2px;
+  background   : var(--txt-primary);
+  border-radius: 2px;
+  transition   : all 0.3s;
+}
+
+/* ── MENU MOBILE ── */
+.menu-toggle {
+  display        : none;
+  position       : fixed;
+  top            : 0;
+  right          : 0;
+  width          : 75%;
+  max-width      : 300px;
+  height         : 100vh;
+  background     : var(--bg-card);
+  border-left    : 1px solid var(--border-light);
+  z-index        : 200;
+  flex-direction : column;
+  padding        : 2rem 1.5rem;
+  gap            : 1.5rem;
+  box-shadow     : -4px 0 24px rgba(0, 0, 0, 0.08);
+  transform      : translateX(100%);
+  transition     : transform 0.3s ease;
+}
+
+.menu-toggle.open {
+  display  : flex;
+  transform: translateX(0);
+}
+
+.menu-toggle ul {
+  list-style    : none;
+  display       : flex;
+  flex-direction: column;
+  gap           : 1.4rem;
+  margin-top    : 2rem;
+}
+
+.menu-toggle a {
+  font-size  : var(--size-xl);
+  font-weight: 500;
+  color      : var(--txt-primary);
+  transition : color 0.2s;
+}
+
+.menu-toggle a:hover { color: var(--accent); }
+
+.close-btn {
+  align-self : flex-end;
+  font-size  : 2rem;
+  cursor     : pointer;
+  background : none;
+  border     : none;
+  color      : var(--txt-secondary);
+  line-height: 1;
+}
+
+.overlay {
+  display   : none;
+  position  : fixed;
+  inset     : 0;
+  background: rgba(28, 43, 58, 0.35);
+  z-index   : 150;
+  backdrop-filter: blur(2px);
+}
+
+.overlay.show { display: block; }
+
+/* ── FOOTER ── */
+.site-footer {
+  background     : var(--bg-card);
+  border-top     : 1px solid var(--border-light);
+  padding        : 1.4rem 2.5rem;
+  display        : flex;
+  align-items    : center;
+  justify-content: space-between;
+  flex-wrap      : wrap;
+  gap            : 0.6rem;
+  font-family    : var(--font);
+  font-size      : var(--size-xs);
+  color          : var(--txt-muted);
+}
+
+.site-footer p { font-size: var(--size-xs); color: var(--txt-muted); }
+
+.foot-links {
+  display: flex;
+  gap    : 1.8rem;
+}
+
+.foot-links a {
+  font-size : var(--size-xs);
+  color     : var(--txt-muted);
+  transition: color 0.2s;
+}
+
+.foot-links a:hover { color: var(--accent); }
+
+/* ── BOUTONS GLOBAUX ── */
+.btn-primary {
+  display        : inline-flex;
+  align-items    : center;
+  gap            : 8px;
+  padding        : 12px 26px;
+  border-radius  : var(--radius-sm);
+  background     : var(--accent);
+  color          : #fff;
+  font-size      : var(--size-sm);
+  font-weight    : 500;
+  font-family    : var(--font);
+  border         : none;
+  cursor         : pointer;
+  text-decoration: none;
+  transition     : background 0.2s, transform 0.2s;
+}
+
+.btn-primary:hover {
+  background: var(--accent-hover);
+  transform : translateY(-1px);
+}
+
+.btn-secondary {
+  display        : inline-flex;
+  align-items    : center;
+  gap            : 8px;
+  padding        : 11px 24px;
+  border-radius  : var(--radius-sm);
+  background     : var(--bg-card);
+  color          : var(--accent);
+  font-size      : var(--size-sm);
+  font-weight    : 500;
+  font-family    : var(--font);
+  border         : 1.5px solid var(--accent);
+  cursor         : pointer;
+  text-decoration: none;
+  transition     : all 0.2s;
+}
+
+.btn-secondary:hover {
+  background: var(--accent);
+  color     : #fff;
+}
+
+/* ── BREADCRUMB ── */
+.breadcrumb {
+  max-width  : 1100px;
+  margin     : 1.8rem auto 0;
+  padding    : 0 2.5rem;
+  font-size  : var(--size-xs);
+  color      : var(--txt-muted);
+  display    : flex;
+  align-items: center;
+  gap        : 0.5rem;
+}
+
+.breadcrumb a {
+  color     : var(--accent);
+  transition: opacity 0.2s;
+}
+
+.breadcrumb a:hover { opacity: 0.7; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  .site-header { padding: 0 1.5rem; }
+  .main-nav    { display: none; }
+  .hamburger   { display: flex; }
+}
+
+@media (max-width: 640px) {
+  .breadcrumb  { padding: 0 1.2rem; }
+  .site-footer { padding: 1.2rem 1.5rem; }
+}
