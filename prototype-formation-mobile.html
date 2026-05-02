@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prototype de formation mobile &#8212; Steve Edgar Feze</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg-page:#F4F7FB;--bg-card:#FFFFFF;--bg-accent:#EBF3FC;--txt-primary:#1C2B3A;--txt-secondary:#4A6070;--txt-muted:#8A9DB0;--accent:#3B7EC8;--accent-dark:#2A6097;--accent-light:#C5DCF5;--border-light:#DDE8F2;--border-medium:#B8CDE0;--shadow-sm:0 1px 4px rgba(59,126,200,0.07);--shadow-md:0 4px 16px rgba(59,126,200,0.10);--font:'Inter','Segoe UI',system-ui,sans-serif;--radius-sm:8px;--radius-md:12px;--radius-lg:18px;--radius-pill:999px}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--font);font-size:15px;line-height:1.85;color:var(--txt-primary);background:var(--bg-page);-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+.site-header{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 2.5rem;height:68px;background:rgba(255,255,255,0.92);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--border-light);box-shadow:var(--shadow-sm)}
+.logo{font-size:15px;font-weight:500;color:var(--txt-primary);letter-spacing:-.01em}
+.logo em{color:var(--accent);font-style:normal}
+.main-nav ul{display:flex;gap:2rem;list-style:none}
+.main-nav a{font-size:13px;font-weight:500;color:var(--txt-secondary);padding-bottom:3px;border-bottom:2px solid transparent;transition:color .2s,border-color .2s}
+.main-nav a:hover,.main-nav a.active{color:var(--accent);border-color:var(--accent)}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px}
+.hamburger span{display:block;width:24px;height:2px;background:var(--txt-primary);border-radius:2px}
+.menu-toggle{display:none;position:fixed;top:0;right:0;width:75%;max-width:300px;height:100vh;background:var(--bg-card);border-left:1px solid var(--border-light);z-index:200;flex-direction:column;padding:2rem 1.5rem;gap:1.5rem;box-shadow:-4px 0 24px rgba(0,0,0,.08);transform:translateX(100%);transition:transform .3s ease}
+.menu-toggle.open{display:flex;transform:translateX(0)}
+.menu-toggle ul{list-style:none;display:flex;flex-direction:column;gap:1.4rem;margin-top:2rem}
+.menu-toggle a{font-size:17px;font-weight:500;color:var(--txt-primary);transition:color .2s}
+.menu-toggle a:hover{color:var(--accent)}
+.close-btn{align-self:flex-end;font-size:2rem;cursor:pointer;background:none;border:none;color:var(--txt-secondary);line-height:1}
+.overlay{display:none;position:fixed;inset:0;background:rgba(28,43,58,.35);z-index:150;backdrop-filter:blur(2px)}
+.overlay.show{display:block}
+.breadcrumb{max-width:1100px;margin:1.8rem auto 0;padding:0 2.5rem;font-size:13px;color:var(--txt-muted);display:flex;align-items:center;gap:.5rem}
+.breadcrumb a{color:var(--accent);transition:opacity .2s}
+.breadcrumb a:hover{opacity:.7}
+.page-hero{max-width:1100px;margin:1.2rem auto 0;padding:0 2.5rem 2rem;border-bottom:1px solid var(--border-light)}
+.hero-tag{display:inline-flex;align-items:center;gap:7px;font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#2A7032;background:#E6F5E9;border:1px solid #A8D5AD;padding:4px 14px;border-radius:var(--radius-pill);margin-bottom:1rem}
+.page-hero h1{font-size:clamp(1.4rem,3vw,1.9rem);font-weight:500;color:var(--txt-primary);letter-spacing:-.02em;line-height:1.2;margin-bottom:.5rem}
+.hero-meta{display:flex;flex-wrap:wrap;gap:1rem;font-size:13px;color:var(--txt-muted);margin-top:.8rem}
+.page-layout{max-width:1100px;margin:2rem auto;padding:0 2.5rem 3rem;display:grid;grid-template-columns:1fr 300px;gap:2.5rem;align-items:start}
+.main-col{display:flex;flex-direction:column;gap:1.4rem}
+.section-card{background:var(--bg-card);border-radius:var(--radius-lg);border:1px solid var(--border-light);padding:1.6rem 1.8rem;box-shadow:var(--shadow-sm)}
+.section-card h2{font-size:16px;font-weight:600;color:var(--txt-primary);margin-bottom:1rem;padding-bottom:.6rem;border-bottom:2px solid #E6F5E9}
+.section-card h3{font-size:14px;font-weight:600;color:var(--accent-dark);margin:1.2rem 0 .5rem}
+.section-card p{font-size:14px;color:var(--txt-secondary);line-height:1.9;margin-bottom:.8rem}
+.section-card p:last-child{margin-bottom:0}
+.section-card ul{padding-left:1.2rem;margin-bottom:.8rem}
+.section-card li{font-size:14px;color:var(--txt-secondary);line-height:1.8;margin-bottom:.3rem}
+.skills-wrap{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.8rem}
+.skill{font-size:11px;padding:3px 10px;border-radius:4px;background:#E6F5E9;color:#2A7032;font-weight:500;border:1px solid #A8D5AD}
+.refs{font-size:12px;color:var(--txt-muted);line-height:1.7;padding-top:.8rem;border-top:1px solid var(--border-light);margin-top:.8rem}
+.refs a{color:var(--accent)}
+
+/* Livrables résultats */
+.livrable-list{display:flex;flex-direction:column;gap:.8rem;margin-top:.8rem}
+.livrable-item{display:flex;align-items:flex-start;gap:.8rem;padding:1rem 1.1rem;background:var(--bg-page);border:1px solid var(--border-light);border-radius:var(--radius-md)}
+.livrable-num{width:28px;height:28px;border-radius:50%;background:var(--accent);color:#fff;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.livrable-txt{font-size:13px;color:var(--txt-secondary);line-height:1.7}
+.livrable-txt strong{color:var(--txt-primary)}
+.livrable-txt a{color:var(--accent);font-weight:500}
+.livrable-txt a:hover{text-decoration:underline}
+
+/* PDF viewer */
+.pdf-card{background:var(--bg-card);border-radius:var(--radius-lg);border:1px solid var(--border-light);overflow:hidden;box-shadow:var(--shadow-md)}
+.pdf-card-head{padding:1rem 1.4rem;border-bottom:1px solid var(--border-light);display:flex;align-items:center;justify-content:space-between}
+.pdf-card-label{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
+.pdf-embed{width:100%;height:600px;border:none;display:block;background:#555}
+.pdf-action{padding:.9rem 1.4rem;border-top:1px solid var(--border-light)}
+.btn-dl{display:inline-flex;align-items:center;gap:7px;padding:10px 20px;border-radius:var(--radius-sm);background:var(--accent);color:#fff;font-size:13px;font-weight:500;font-family:var(--font);transition:background .2s;text-decoration:none}
+.btn-dl:hover{background:var(--accent-dark)}
+
+.side-col{display:flex;flex-direction:column;gap:1.2rem;position:sticky;top:84px}
+.side-card{background:var(--bg-card);border-radius:var(--radius-lg);border:1px solid var(--border-light);padding:1.2rem 1.4rem;box-shadow:var(--shadow-sm)}
+.side-titre{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:.9rem}
+.side-item{display:flex;align-items:flex-start;gap:.5rem;margin-bottom:.6rem;font-size:13px;color:var(--txt-secondary)}
+.side-dot{width:6px;height:6px;border-radius:50%;background:var(--accent);flex-shrink:0;margin-top:.4rem}
+.nav-projet{display:flex;flex-direction:column;gap:.5rem}
+.nav-projet a{padding:.55rem .8rem;border-radius:var(--radius-sm);font-size:13px;color:var(--txt-secondary);transition:all .2s;border:1px solid var(--border-light);display:block}
+.nav-projet a:hover{background:var(--bg-accent);color:var(--accent);border-color:var(--accent-light)}
+.nav-projet a.current{background:var(--bg-accent);color:var(--accent);border-color:var(--accent);font-weight:600}
+.btn-retour{display:inline-flex;align-items:center;justify-content:center;gap:.45rem;padding:.6rem 1.1rem;border-radius:var(--radius-sm);font-size:13px;font-weight:500;font-family:var(--font);background:var(--bg-card);color:var(--accent);border:1.5px solid var(--accent);cursor:pointer;transition:all .2s;text-decoration:none;width:100%}
+.btn-retour:hover{background:var(--accent);color:#fff}
+.site-footer{background:var(--bg-card);border-top:1px solid var(--border-light);padding:1.4rem 2.5rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.6rem}
+.foot-copy{font-size:11px;color:var(--txt-muted)}
+.foot-links{display:flex;gap:1.8rem}
+.foot-links a{font-size:11px;color:var(--txt-muted);transition:color .2s}
+.foot-links a:hover{color:var(--accent)}
+@media(max-width:900px){.site-header{padding:0 1.5rem}.main-nav{display:none}.hamburger{display:flex}.page-layout{grid-template-columns:1fr}.side-col{position:static}}
+@media(max-width:640px){.breadcrumb,.page-hero,.page-layout{padding-left:1.2rem;padding-right:1.2rem}.page-layout{padding-bottom:2rem}.pdf-embed{height:400px}}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <a href="index.html" class="logo">SF &#8212; <em>e-portfolio</em></a>
+  <nav class="main-nav" aria-label="Navigation principale">
+    <ul>
+      <li><a href="index.html">Accueil</a></li>
+      <li><a href="apropos.html">&#192; propos de moi</a></li>
+      <li><a href="projetAccueil.html" class="active">Mes projets</a></li>
+      <li><a href="cv.html">CV</a></li>
+    </ul>
+  </nav>
+  <button class="hamburger" aria-label="Ouvrir le menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+</header>
+
+<div class="overlay"></div>
+<div class="menu-toggle">
+  <button class="close-btn" aria-label="Fermer le menu">&#215;</button>
+  <ul>
+    <li><a href="index.html">Accueil</a></li>
+    <li><a href="apropos.html">&#192; propos de moi</a></li>
+    <li><a href="projetAccueil.html">Mes projets</a></li>
+    <li><a href="cv.html">CV</a></li>
+  </ul>
+</div>
+
+<main>
+
+  <nav class="breadcrumb" aria-label="Fil d'Ariane">
+    <a href="projetAccueil.html">&#8592; Mes projets</a>
+    <span>/</span>
+    <span>D&#233;veloppement des syst&#232;mes de formation</span>
+    <span>/</span>
+    <span>Prototype de formation mobile</span>
+  </nav>
+
+  <div class="page-hero">
+    <span class="hero-tag">D&#233;veloppement des syst&#232;mes de formation &#183; TEN-7015</span>
+    <h1>Prototype de formation mobile</h1>
+    <div class="hero-meta">
+      <span>&#128101; Travail en &#233;quipe &#183; 5 participants</span>
+      <span>&#128218; Cours TEN-7015 &#183; Universit&#233; Laval</span>
+      <span>&#128197; Avril 2026</span>
+    </div>
+  </div>
+
+  <div class="page-layout">
+    <div class="main-col">
+
+      <!-- CONTEXTE -->
+      <div class="section-card">
+        <h2>Contexte et objectif</h2>
+        <p>Dans la continuit&#233; du document technique &#233;labor&#233; dans le cadre du cours TEN&#160;7006, notre &#233;quipe de cinq personnes a d&#233;velopp&#233; une exp&#233;rience d&#8217;apprentissage d&#8217;environ dix minutes sous la forme d&#8217;un <strong>module de formation en ligne</strong>. Ce module devait proposer des activit&#233;s interactives et immersives, tout en offrant une navigation fluide et intuitive.</p>
+        <p>Le fait que l&#8217;&#233;quipe ayant travaill&#233; sur le document technique soit la m&#234;me que celle mobilis&#233;e pour ce projet de d&#233;veloppement constituait un avantage certain&#160;: nous abordions cette nouvelle &#233;tape avec une vision relativement claire des livrables attendus. Cela dit, la r&#233;alisation du module n&#8217;a pas &#233;t&#233; exempte de d&#233;fis.</p>
+        <div class="skills-wrap">
+          <span class="skill">Articulate Rise</span>
+          <span class="skill">Articulate Storyline</span>
+          <span class="skill">Formation mobile</span>
+          <span class="skill">UX p&#233;dagogique</span>
+          <span class="skill">Travail d&#8217;&#233;quipe</span>
+          <span class="skill">TEN-7015</span>
+        </div>
+      </div>
+
+      <!-- DÉFIS -->
+      <div class="section-card">
+        <h2>D&#233;fis rencontr&#233;s et d&#233;marches de r&#233;solution</h2>
+
+        <h3>1. R&#233;partition coh&#233;rente des t&#226;ches au sein de l&#8217;&#233;quipe</h3>
+        <p>Le premier d&#233;fi a &#233;t&#233; d&#8217;organiser le travail de mani&#232;re &#224; assurer la coh&#233;rence p&#233;dagogique et technique de l&#8217;ensemble du module. Nous avons opt&#233; pour Articulate Rise comme outil auteur principal, en exploitant ses blocs d&#8217;int&#233;gration de contenus pour structurer la formation. Pour offrir une exp&#233;rience immersive, nous avons choisi d&#8217;y int&#233;grer une mise en situation interactive et d&#233;cisionnelle sous forme de pratique guid&#233;e.</p>
+        <p>En tant qu&#8217;&#233;quipe de cinq, nous nous sommes organis&#233;s en deux sous-groupes&#160;:</p>
+        <ul>
+          <li>Un premier sous-groupe, charg&#233; de la structuration de la formation sur Articulate Rise&#160;;</li>
+          <li>Un second sous-groupe, dont je faisais partie, d&#233;di&#233; au d&#233;veloppement de l&#8217;activit&#233; immersive de mise en situation&#160;;</li>
+          <li>Un cinqui&#232;me membre assurant le r&#244;le de coordonnateur de projet, garant de la coh&#233;rence entre les actions des deux sous-groupes.</li>
+        </ul>
+        <p>Les d&#233;fis technologiques li&#233;s aux outils utilis&#233;s ayant d&#233;j&#224; &#233;t&#233; document&#233;s dans le cadre de l&#8217;activit&#233; du vlog d&#8217;autoformation, je me concentrerai ici sur les dynamiques d&#8217;&#233;quipe et les enjeux p&#233;dagogiques.</p>
+
+        <h3>2. Traitement des r&#233;troactions et r&#233;vision du module</h3>
+        <p>Un second d&#233;fi majeur est survenu lors de la r&#233;vision du module, apr&#232;s sa pr&#233;sentation &#224; nos coll&#232;gues pour collecte de r&#233;troactions. Nous avons d&#251; faire face &#224; la n&#233;cessit&#233; de trier et prioriser ces r&#233;troactions, en veillant &#224; pr&#233;server l&#8217;esprit et les objectifs initiaux du module.</p>
+        <p>Notre crit&#232;re de d&#233;cision &#233;tait clair&#160;: seules les r&#233;visions servant les objectifs p&#233;dagogiques de la formation &#233;taient retenues. Celles jug&#233;es incompatibles avec ces objectifs, le profil du public cible ou les strat&#233;gies p&#233;dagogiques choisies ont &#233;t&#233; &#233;cart&#233;es de mani&#232;re d&#233;lib&#233;r&#233;e et justifi&#233;e.</p>
+        <p>Cette exp&#233;rience nous a permis d&#8217;int&#233;grer un principe fondamental du design p&#233;dagogique&#160;: toute d&#233;cision de conception doit &#234;tre align&#233;e avec le profil des apprenants, les objectifs d&#8217;apprentissage et les strat&#233;gies p&#233;dagogiques retenues, ce qu&#8217;on retrouve notamment dans le mod&#232;le d&#8217;alignement p&#233;dagogique de Biggs (1996), selon lequel les activit&#233;s, les &#233;valuations et les objectifs doivent former un tout coh&#233;rent.</p>
+      </div>
+
+      <!-- RÉSULTATS -->
+      <div class="section-card">
+        <h2>R&#233;sultats</h2>
+        <p>Cette activit&#233; a donn&#233; lieu &#224; trois livrables principaux&#160;:</p>
+        <div class="livrable-list">
+          <div class="livrable-item">
+            <div class="livrable-num">1</div>
+            <div class="livrable-txt"><strong>Un One Pager</strong> synth&#233;tisant les &#233;l&#233;ments structurants de la formation&#160;: l&#8217;objectif de la solution, son contexte d&#8217;implantation, la description du public cible, les approches p&#233;dagogiques retenues, les formats et m&#233;dias utilis&#233;s, les strat&#233;gies d&#8217;&#233;valuation des apprentissages et les consid&#233;rations techniques et &#233;thiques.</div>
+          </div>
+          <div class="livrable-item">
+            <div class="livrable-num">2</div>
+            <div class="livrable-txt"><strong>Un document de r&#233;vision justifi&#233;e</strong>, pr&#233;sentant et argumentant les modifications apport&#233;es au design de la formation &#224; la suite des r&#233;troactions re&#231;ues.</div>
+          </div>
+          <div class="livrable-item">
+            <div class="livrable-num">3</div>
+            <div class="livrable-txt"><strong>Le module de formation</strong>, accessible via le lien suivant&#160;: <a href="https://share.articulate.com/prUPecPEC7nCF9cx18WZ" target="_blank" rel="noopener">Consulter le module &#8599;</a></div>
+          </div>
+        </div>
+        <div class="refs">
+          <strong>R&#233;f&#233;rence</strong><br>
+          Biggs, J. (1996). Enhancing teaching through constructive alignment. <em>Higher Education, 32</em>(3), 347&#8211;364.
+        </div>
+      </div>
+
+      <!-- PDF -->
+      <div class="pdf-card">
+        <div class="pdf-card-head">
+          <span class="pdf-card-label">&#128196; Document du projet &#8212; Prototype de formation mobile</span>
+        </div>
+        <object data="Prototype_de_formation_mobile.pdf" type="application/pdf" class="pdf-embed">
+          <p style="padding:2rem;text-align:center;color:var(--txt-secondary)">
+            Votre navigateur ne peut pas afficher le PDF directement.<br><br>
+            <a href="Prototype_de_formation_mobile.pdf" download class="btn-dl">&#11015; T&#233;l&#233;charger le document</a>
+          </p>
+        </object>
+        <div class="pdf-action">
+          <a href="Prototype_de_formation_mobile.pdf" download class="btn-dl">&#11015; T&#233;l&#233;charger le document (PDF)</a>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- SIDEBAR -->
+    <aside class="side-col">
+      <div class="side-card">
+        <div class="side-titre">Informations</div>
+        <div class="side-item"><div class="side-dot"></div><span>Cours TEN-7015 &#8212; D&#233;veloppement des syst&#232;mes de formation</span></div>
+        <div class="side-item"><div class="side-dot"></div><span>Universit&#233; Laval &#183; Facult&#233; des sciences de l&#8217;&#233;ducation</span></div>
+        <div class="side-item"><div class="side-dot"></div><span>&#201;quipe de 5&#160;: Aimond Julm&#233;us, Aline Laure Kenou Tatiotsop, Lili-Rose Charest, Steve Edgar Feze Feugang, Sylviane Neunreuther</span></div>
+        <div class="side-item"><div class="side-dot"></div><span>Avril 2026</span></div>
+        <div class="side-item"><div class="side-dot"></div><span>Module&#160;: <a href="https://share.articulate.com/prUPecPEC7nCF9cx18WZ" target="_blank" rel="noopener" style="color:var(--accent)">Consulter &#8599;</a></span></div>
+      </div>
+      <div class="side-card">
+        <div class="side-titre">Autres projets TEN-7015</div>
+        <nav class="nav-projet">
+          <a href="vlog-autoformation.html">Vlog d&#8217;autoformation</a>
+          <a href="prototype-formation-mobile.html" class="current">Prototype de formation mobile</a>
+          <a href="atelier-adobe-illustrator.html">Atelier Adobe Illustrator</a>
+        </nav>
+      </div>
+      <a href="projetAccueil.html" class="btn-retour">&#8592; Retour aux projets</a>
+    </aside>
+  </div>
+
+</main>
+
+<footer class="site-footer">
+  <span class="foot-copy">&copy; 2025 Steve Edgar Feze Feugang. Tous droits r&#233;serv&#233;s.</span>
+  <div class="foot-links">
+    <a href="https://www.linkedin.com/in/stevefeze" target="_blank" rel="noopener">LinkedIn</a>
+    <a href="https://github.com/Rute23" target="_blank" rel="noopener">GitHub</a>
+    <a href="mailto:stevefeze@outlook.com">Courriel</a>
+  </div>
+</footer>
+
+<script>
+var hamburger=document.querySelector('.hamburger'),menuToggle=document.querySelector('.menu-toggle'),overlay=document.querySelector('.overlay'),closeBtn=document.querySelector('.close-btn');
+hamburger.addEventListener('click',function(){menuToggle.classList.add('open');overlay.classList.add('show');hamburger.setAttribute('aria-expanded','true')});
+function fermerMenu(){menuToggle.classList.remove('open');overlay.classList.remove('show');hamburger.setAttribute('aria-expanded','false')}
+closeBtn.addEventListener('click',fermerMenu);overlay.addEventListener('click',fermerMenu);
+menuToggle.querySelectorAll('a').forEach(function(l){l.addEventListener('click',fermerMenu)});
+</script>
+</body>
+</html>

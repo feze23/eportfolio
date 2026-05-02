@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vlog d'autoformation &#8212; Steve Edgar Feze</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg-page:#F4F7FB;--bg-card:#FFFFFF;--bg-accent:#EBF3FC;--txt-primary:#1C2B3A;--txt-secondary:#4A6070;--txt-muted:#8A9DB0;--accent:#3B7EC8;--accent-dark:#2A6097;--accent-light:#C5DCF5;--border-light:#DDE8F2;--border-medium:#B8CDE0;--shadow-sm:0 1px 4px rgba(59,126,200,0.07);--shadow-md:0 4px 16px rgba(59,126,200,0.10);--font:'Inter','Segoe UI',system-ui,sans-serif;--radius-sm:8px;--radius-md:12px;--radius-lg:18px;--radius-pill:999px}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--font);font-size:15px;line-height:1.85;color:var(--txt-primary);background:var(--bg-page);-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+
+.site-header{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 2.5rem;height:68px;background:rgba(255,255,255,0.92);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--border-light);box-shadow:var(--shadow-sm)}
+.logo{font-size:15px;font-weight:500;color:var(--txt-primary);letter-spacing:-.01em}
+.logo em{color:var(--accent);font-style:normal}
+.main-nav ul{display:flex;gap:2rem;list-style:none}
+.main-nav a{font-size:13px;font-weight:500;color:var(--txt-secondary);padding-bottom:3px;border-bottom:2px solid transparent;transition:color .2s,border-color .2s}
+.main-nav a:hover,.main-nav a.active{color:var(--accent);border-color:var(--accent)}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px}
+.hamburger span{display:block;width:24px;height:2px;background:var(--txt-primary);border-radius:2px}
+.menu-toggle{display:none;position:fixed;top:0;right:0;width:75%;max-width:300px;height:100vh;background:var(--bg-card);border-left:1px solid var(--border-light);z-index:200;flex-direction:column;padding:2rem 1.5rem;gap:1.5rem;box-shadow:-4px 0 24px rgba(0,0,0,.08);transform:translateX(100%);transition:transform .3s ease}
+.menu-toggle.open{display:flex;transform:translateX(0)}
+.menu-toggle ul{list-style:none;display:flex;flex-direction:column;gap:1.4rem;margin-top:2rem}
+.menu-toggle a{font-size:17px;font-weight:500;color:var(--txt-primary);transition:color .2s}
+.menu-toggle a:hover{color:var(--accent)}
+.close-btn{align-self:flex-end;font-size:2rem;cursor:pointer;background:none;border:none;color:var(--txt-secondary);line-height:1}
+.overlay{display:none;position:fixed;inset:0;background:rgba(28,43,58,.35);z-index:150;backdrop-filter:blur(2px)}
+.overlay.show{display:block}
+
+.breadcrumb{max-width:1100px;margin:1.8rem auto 0;padding:0 2.5rem;font-size:13px;color:var(--txt-muted);display:flex;align-items:center;gap:.5rem}
+.breadcrumb a{color:var(--accent);transition:opacity .2s}
+.breadcrumb a:hover{opacity:.7}
+
+.page-hero{max-width:1100px;margin:1.2rem auto 0;padding:0 2.5rem 2rem;border-bottom:1px solid var(--border-light)}
+.hero-tag{display:inline-flex;align-items:center;gap:7px;font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#2A7032;background:#E6F5E9;border:1px solid #A8D5AD;padding:4px 14px;border-radius:var(--radius-pill);margin-bottom:1rem}
+.page-hero h1{font-size:clamp(1.4rem,3vw,1.9rem);font-weight:500;color:var(--txt-primary);letter-spacing:-.02em;line-height:1.2;margin-bottom:.5rem}
+.hero-meta{display:flex;flex-wrap:wrap;gap:1rem;font-size:13px;color:var(--txt-muted);margin-top:.8rem}
+
+.page-layout{max-width:1100px;margin:2rem auto;padding:0 2.5rem 3rem;display:grid;grid-template-columns:1fr 300px;gap:2.5rem;align-items:start}
+.main-col{display:flex;flex-direction:column;gap:1.4rem}
+
+/* Video embed */
+.video-card{background:var(--bg-card);border-radius:var(--radius-lg);border:1px solid var(--border-light);overflow:hidden;box-shadow:var(--shadow-md)}
+.video-card-head{padding:1rem 1.4rem;border-bottom:1px solid var(--border-light);display:flex;align-items:center;gap:.6rem}
+.video-card-label{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
+.video-ratio{position:relative;padding-bottom:56.25%;height:0;overflow:hidden;background:#000}
+.video-ratio iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:none}
+.video-action{padding:.9rem 1.4rem;border-top:1px solid var(--border-light)}
+.btn-yt{display:inline-flex;align-items:center;gap:7px;padding:9px 18px;border-radius:var(--radius-sm);background:#FF0000;color:#fff;font-size:13px;font-weight:500;font-family:var(--font);transition:background .2s;text-decoration:none}
+.btn-yt:hover{background:#cc0000}
+
+/* Sections */
+.section-card{background:var(--bg-card);border-radius:var(--radius-lg);border:1px solid var(--border-light);padding:1.6rem 1.8rem;box-shadow:var(--shadow-sm)}
+.section-card h2{font-size:16px;font-weight:600;color:var(--txt-primary);margin-bottom:1rem;padding-bottom:.6rem;border-bottom:2px solid #E6F5E9}
+.section-card h3{font-size:14px;font-weight:600;color:var(--accent-dark);margin:1.2rem 0 .5rem}
+.section-card p{font-size:14px;color:var(--txt-secondary);line-height:1.9;margin-bottom:.8rem}
+.section-card p:last-child{margin-bottom:0}
+.section-card ul{padding-left:1.2rem;margin-bottom:.8rem}
+.section-card li{font-size:14px;color:var(--txt-secondary);line-height:1.8;margin-bottom:.3rem}
+
+.skills-wrap{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.8rem}
+.skill{font-size:11px;padding:3px 10px;border-radius:4px;background:#E6F5E9;color:#2A7032;font-weight:500;border:1px solid #A8D5AD}
+
+/* Refs */
+.refs{font-size:12px;color:var(--txt-muted);line-height:1.7;padding-top:.8rem;border-top:1px solid var(--border-light);margin-top:.8rem}
+.refs a{color:var(--accent)}
+
+/* Sidebar */
+.side-col{display:flex;flex-direction:column;gap:1.2rem;position:sticky;top:84px}
+.side-card{background:var(--bg-card);border-radius:var(--radius-lg);border:1px solid var(--border-light);padding:1.2rem 1.4rem;box-shadow:var(--shadow-sm)}
+.side-titre{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:.9rem}
+.side-item{display:flex;align-items:flex-start;gap:.5rem;margin-bottom:.6rem;font-size:13px;color:var(--txt-secondary)}
+.side-dot{width:6px;height:6px;border-radius:50%;background:var(--accent);flex-shrink:0;margin-top:.4rem}
+.nav-projet{display:flex;flex-direction:column;gap:.5rem}
+.nav-projet a{padding:.55rem .8rem;border-radius:var(--radius-sm);font-size:13px;color:var(--txt-secondary);transition:all .2s;border:1px solid var(--border-light);display:block}
+.nav-projet a:hover{background:var(--bg-accent);color:var(--accent);border-color:var(--accent-light)}
+.nav-projet a.current{background:var(--bg-accent);color:var(--accent);border-color:var(--accent);font-weight:600}
+.btn-retour{display:inline-flex;align-items:center;justify-content:center;gap:.45rem;padding:.6rem 1.1rem;border-radius:var(--radius-sm);font-size:13px;font-weight:500;font-family:var(--font);background:var(--bg-card);color:var(--accent);border:1.5px solid var(--accent);cursor:pointer;transition:all .2s;text-decoration:none;width:100%}
+.btn-retour:hover{background:var(--accent);color:#fff}
+
+.site-footer{background:var(--bg-card);border-top:1px solid var(--border-light);padding:1.4rem 2.5rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.6rem}
+.foot-copy{font-size:11px;color:var(--txt-muted)}
+.foot-links{display:flex;gap:1.8rem}
+.foot-links a{font-size:11px;color:var(--txt-muted);transition:color .2s}
+.foot-links a:hover{color:var(--accent)}
+
+@media(max-width:900px){.site-header{padding:0 1.5rem}.main-nav{display:none}.hamburger{display:flex}.page-layout{grid-template-columns:1fr}.side-col{position:static}}
+@media(max-width:640px){.breadcrumb,.page-hero,.page-layout{padding-left:1.2rem;padding-right:1.2rem}.page-layout{padding-bottom:2rem}}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <a href="index.html" class="logo">SF &#8212; <em>e-portfolio</em></a>
+  <nav class="main-nav" aria-label="Navigation principale">
+    <ul>
+      <li><a href="index.html">Accueil</a></li>
+      <li><a href="apropos.html">&#192; propos de moi</a></li>
+      <li><a href="projetAccueil.html" class="active">Mes projets</a></li>
+      <li><a href="cv.html">CV</a></li>
+    </ul>
+  </nav>
+  <button class="hamburger" aria-label="Ouvrir le menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+</header>
+
+<div class="overlay"></div>
+<div class="menu-toggle">
+  <button class="close-btn" aria-label="Fermer le menu">&#215;</button>
+  <ul>
+    <li><a href="index.html">Accueil</a></li>
+    <li><a href="apropos.html">&#192; propos de moi</a></li>
+    <li><a href="projetAccueil.html">Mes projets</a></li>
+    <li><a href="cv.html">CV</a></li>
+  </ul>
+</div>
+
+<main>
+
+  <nav class="breadcrumb" aria-label="Fil d'Ariane">
+    <a href="projetAccueil.html">&#8592; Mes projets</a>
+    <span>/</span>
+    <span>D&#233;veloppement des syst&#232;mes de formation</span>
+    <span>/</span>
+    <span>Vlog d&#8217;autoformation</span>
+  </nav>
+
+  <div class="page-hero">
+    <span class="hero-tag">D&#233;veloppement des syst&#232;mes de formation &#183; TEN-7015</span>
+    <h1>Vlog d&#8217;autoformation&#160;: Exploration de trois outils de conception p&#233;dagogique</h1>
+    <div class="hero-meta">
+      <span>&#128100; Travail individuel</span>
+      <span>&#128218; Cours TEN-7015 &#183; Universit&#233; Laval</span>
+      <span>&#128197; 2025&#8211;2026</span>
+    </div>
+  </div>
+
+  <div class="page-layout">
+    <div class="main-col">
+
+      <!-- VIDEO -->
+      <div class="video-card">
+        <div class="video-card-head">
+          <span class="video-card-label">&#127916; Capsule vid&#233;o &#8212; Vlog d&#8217;autoformation</span>
+        </div>
+        <div class="video-ratio">
+          <iframe
+            src="https://www.youtube.com/embed/crwdJrWDP0I"
+            title="Vlog d'autoformation &#8212; Articulate Rise, Storyline et NotebookLM"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen>
+          </iframe>
+        </div>
+        <div class="video-action">
+          <a href="https://www.youtube.com/watch?v=crwdJrWDP0I" target="_blank" rel="noopener" class="btn-yt">
+            &#9654; Ouvrir sur YouTube
+          </a>
+        </div>
+      </div>
+
+      <!-- CONTEXTE -->
+      <div class="section-card">
+        <h2>Contexte et objectif</h2>
+        <p>Cette activit&#233; consistait &#224; produire un vlog de 15 &#224; 20 minutes documentant l&#8217;exp&#233;rimentation de trois logiciels de cr&#233;ation et de d&#233;veloppement de contenu p&#233;dagogique, en appuyant la d&#233;marche sur des artefacts concrets. J&#8217;ai choisi d&#8217;explorer Articulate Rise, Articulate Storyline et NotebookLM, des outils pour lesquels je disposais d&#233;j&#224; d&#8217;une connaissance pr&#233;alable, certes approximative, mais suffisante pour amorcer une d&#233;marche d&#8217;autoformation structur&#233;e.</p>
+        <div class="skills-wrap">
+          <span class="skill">Articulate Rise</span>
+          <span class="skill">Articulate Storyline</span>
+          <span class="skill">NotebookLM</span>
+          <span class="skill">Autoformation</span>
+          <span class="skill">Vlog r&#233;flexif</span>
+          <span class="skill">TEN-7015</span>
+        </div>
+      </div>
+
+      <!-- DÉFIS -->
+      <div class="section-card">
+        <h2>D&#233;fis rencontr&#233;s et d&#233;marches de r&#233;solution</h2>
+
+        <h3>1. Coh&#233;rence des artefacts produits</h3>
+        <p>Le premier d&#233;fi a &#233;t&#233; de d&#233;terminer quels artefacts produire avec ces trois outils, tout en assurant leur coh&#233;rence. Plut&#244;t que de les traiter de mani&#232;re isol&#233;e, j&#8217;ai opt&#233; pour le d&#233;veloppement d&#8217;une microformation, ce qui m&#8217;a permis non seulement d&#8217;explorer chaque outil, mais aussi de les mobiliser de fa&#231;on compl&#233;mentaire dans la cr&#233;ation d&#8217;activit&#233;s d&#8217;apprentissage int&#233;gr&#233;es.</p>
+
+        <h3>2. Exploration d&#8217;Articulate Rise</h3>
+        <p>J&#8217;ai utilis&#233; Articulate Rise pour structurer la microformation en blocs et y int&#233;grer des activit&#233;s interactives. J&#8217;ai rapidement constat&#233; que cet outil se distingue par son intuitivit&#233; et sa flexibilit&#233;&#160;: il permet de construire une formation compl&#232;te &#224; partir de blocs pr&#233;con&#231;us, facilement importables et personnalisables.</p>
+        <p>Rise propose des blocs vari&#233;s favorisant la diffusion et l&#8217;absorption des contenus &#8212; textes, images, audio et vid&#233;o. Ce qui a particuli&#232;rement retenu mon attention est sa capacit&#233; &#224; soutenir, par sa simplicit&#233; m&#234;me, deux principes fondamentaux en design p&#233;dagogique&#160;:</p>
+        <ul>
+          <li>Le <strong>double encodage</strong>, reconnu pour optimiser la r&#233;tention des apprentissages (Paivio, 1991&#160;; Mayer, 2009)&#160;;</li>
+          <li>La <strong>conception universelle des apprentissages (CUA)</strong>, garantissant l&#8217;accessibilit&#233; des contenus pour tous les apprenants (CAST, 2018).</li>
+        </ul>
+        <p>Cependant, Rise pr&#233;sentait une limite&#160;: il ne permettait pas facilement de proposer des activit&#233;s de mise en situation &#224; travers un parcours interactif guid&#233;. C&#8217;est pourquoi j&#8217;ai compl&#233;t&#233; la formation avec un artefact d&#233;velopp&#233; sur Articulate Storyline.</p>
+
+        <h3>3. Exploration d&#8217;Articulate Storyline</h3>
+        <p>Bien que la page d&#8217;accueil de Storyline soit moins intuitive &#224; premi&#232;re vue, la prise en main s&#8217;est av&#233;r&#233;e rapide, le logiciel fonctionnant sur un principe similaire aux diapositives PowerPoint. Sa principale valeur ajout&#233;e r&#233;side dans ses <strong>fonctionnalit&#233;s d&#8217;interaction et de branchement</strong> entre diapositives, rendues possibles gr&#226;ce &#224; des d&#233;clencheurs permettant de d&#233;finir des structures conditionnelles particuli&#232;rement adapt&#233;es &#224; la cr&#233;ation de mises en situation sc&#233;naris&#233;es.</p>
+        <p>La principale difficult&#233; rencontr&#233;e a &#233;t&#233; la gestion des objets sur le plan de travail, que j&#8217;ai trouv&#233;e complexe jusqu&#8217;&#224; ce qu&#8217;un tutoriel m&#8217;apprenne que ces objets fonctionnent comme des calques. Cette d&#233;couverte a consid&#233;rablement facilit&#233; mon travail. L&#8217;artefact ainsi produit a ensuite &#233;t&#233; import&#233; dans la structure Rise.</p>
+
+        <h3>4. Exploration de NotebookLM</h3>
+        <p>J&#8217;ai utilis&#233; NotebookLM pour produire une capsule vid&#233;o. N&#8217;ayant pas rencontr&#233; de difficult&#233;s techniques majeures &#8212; cet outil m&#8217;&#233;tant d&#233;j&#224; familier &#224; travers des projets ant&#233;rieurs &#8212; j&#8217;ai surtout port&#233; mon attention sur un enjeu de fond&#160;: NotebookLM est un outil d&#8217;intelligence artificielle g&#233;n&#233;rative, et &#224; ce titre, il peut produire des r&#233;sultats inexacts ou incomplets.</p>
+        <p>En tant que concepteur p&#233;dagogique, il est donc imp&#233;ratif de v&#233;rifier syst&#233;matiquement les contenus g&#233;n&#233;r&#233;s avant toute int&#233;gration dans une formation. Cela dit, comparativement &#224; d&#8217;autres outils d&#8217;IA, NotebookLM offre un avantage notable&#160;: il permet &#224; l&#8217;utilisateur de contr&#244;ler la base de connaissances utilis&#233;e par le mod&#232;le, r&#233;duisant ainsi les risques de d&#233;rive et am&#233;liorant la fiabilit&#233; des r&#233;sultats produits.</p>
+
+        <h3>5. Montage de la capsule vid&#233;o de pr&#233;sentation</h3>
+        <p>Le dernier d&#233;fi a &#233;t&#233; le montage de la capsule vid&#233;o de pr&#233;sentation, dans le respect des contraintes de dur&#233;e d&#233;finies dans les consignes. Des contraintes techniques li&#233;es &#224; mon ordinateur m&#8217;ont amen&#233; &#224; adopter une solution alternative&#160;: l&#8217;enregistrement via une r&#233;union Zoom cr&#233;&#233;e &#224; cet effet, ce qui s&#8217;est r&#233;v&#233;l&#233; une approche simple, fonctionnelle et facilement reproductible.</p>
+      </div>
+
+      <!-- RÉSULTATS -->
+      <div class="section-card">
+        <h2>R&#233;sultats</h2>
+        <p>&#192; l&#8217;issue de cette d&#233;marche d&#8217;exploration, j&#8217;ai produit trois artefacts compl&#233;mentaires, r&#233;unis autour d&#8217;un objectif commun&#160;: une microformation coh&#233;rente et fonctionnelle. Ces artefacts ont ensuite &#233;t&#233; pr&#233;sent&#233;s dans une capsule vid&#233;o documentant mon processus d&#8217;autoformation et les apprentissages r&#233;alis&#233;s tout au long de l&#8217;activit&#233;.</p>
+
+        <div class="refs">
+          <strong>R&#233;f&#233;rences</strong><br>
+          CAST. (2018). <em>Universal Design for Learning guidelines version 2.2</em>. <a href="http://udlguidelines.cast.org" target="_blank" rel="noopener">http://udlguidelines.cast.org</a><br>
+          Mayer, R. E. (2009). <em>Multimedia learning</em> (2&#232; &#233;d.). Cambridge University Press.<br>
+          Paivio, A. (1991). Dual coding theory: Retrospect and current status. <em>Canadian Journal of Psychology, 45</em>(3), 255&#8211;287.
+        </div>
+      </div>
+
+    </div>
+
+    <!-- SIDEBAR -->
+    <aside class="side-col">
+      <div class="side-card">
+        <div class="side-titre">Informations</div>
+        <div class="side-item"><div class="side-dot"></div><span>Cours TEN-7015 &#8212; D&#233;veloppement des syst&#232;mes de formation</span></div>
+        <div class="side-item"><div class="side-dot"></div><span>Universit&#233; Laval &#183; Facult&#233; des sciences de l&#8217;&#233;ducation</span></div>
+        <div class="side-item"><div class="side-dot"></div><span>Travail individuel</span></div>
+        <div class="side-item"><div class="side-dot"></div><span>Vlog de 15 &#224; 20 minutes</span></div>
+        <div class="side-item"><div class="side-dot"></div><span>Outils explor&#233;s&#160;: Articulate Rise, Storyline, NotebookLM</span></div>
+      </div>
+      <div class="side-card">
+        <div class="side-titre">Autres projets TEN-7015</div>
+        <nav class="nav-projet">
+          <a href="vlog-autoformation.html" class="current">Vlog d&#8217;autoformation</a>
+          <a href="prototype-formation-mobile.html">Prototype de formation mobile</a>
+          <a href="atelier-adobe-illustrator.html">Atelier Adobe Illustrator</a>
+        </nav>
+      </div>
+      <a href="projetAccueil.html" class="btn-retour">&#8592; Retour aux projets</a>
+    </aside>
+  </div>
+
+</main>
+
+<footer class="site-footer">
+  <span class="foot-copy">&copy; 2025 Steve Edgar Feze Feugang. Tous droits r&#233;serv&#233;s.</span>
+  <div class="foot-links">
+    <a href="https://www.linkedin.com/in/stevefeze" target="_blank" rel="noopener">LinkedIn</a>
+    <a href="https://github.com/Rute23" target="_blank" rel="noopener">GitHub</a>
+    <a href="mailto:stevefeze@outlook.com">Courriel</a>
+  </div>
+</footer>
+
+<script>
+var hamburger=document.querySelector('.hamburger'),menuToggle=document.querySelector('.menu-toggle'),overlay=document.querySelector('.overlay'),closeBtn=document.querySelector('.close-btn');
+hamburger.addEventListener('click',function(){menuToggle.classList.add('open');overlay.classList.add('show');hamburger.setAttribute('aria-expanded','true')});
+function fermerMenu(){menuToggle.classList.remove('open');overlay.classList.remove('show');hamburger.setAttribute('aria-expanded','false')}
+closeBtn.addEventListener('click',fermerMenu);overlay.addEventListener('click',fermerMenu);
+menuToggle.querySelectorAll('a').forEach(function(l){l.addEventListener('click',fermerMenu)});
+</script>
+</body>
+</html>

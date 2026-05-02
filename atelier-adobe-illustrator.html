@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Atelier Adobe Illustrator &#8212; Steve Edgar Feze</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg-page:#F4F7FB;--bg-card:#FFFFFF;--bg-accent:#EBF3FC;--txt-primary:#1C2B3A;--txt-secondary:#4A6070;--txt-muted:#8A9DB0;--accent:#3B7EC8;--accent-dark:#2A6097;--accent-light:#C5DCF5;--border-light:#DDE8F2;--border-medium:#B8CDE0;--shadow-sm:0 1px 4px rgba(59,126,200,0.07);--shadow-md:0 4px 16px rgba(59,126,200,0.10);--font:'Inter','Segoe UI',system-ui,sans-serif;--radius-sm:8px;--radius-md:12px;--radius-lg:18px;--radius-pill:999px}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--font);font-size:15px;line-height:1.85;color:var(--txt-primary);background:var(--bg-page);-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+.site-header{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 2.5rem;height:68px;background:rgba(255,255,255,0.92);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--border-light);box-shadow:var(--shadow-sm)}
+.logo{font-size:15px;font-weight:500;color:var(--txt-primary);letter-spacing:-.01em}
+.logo em{color:var(--accent);font-style:normal}
+.main-nav ul{display:flex;gap:2rem;list-style:none}
+.main-nav a{font-size:13px;font-weight:500;color:var(--txt-secondary);padding-bottom:3px;border-bottom:2px solid transparent;transition:color .2s,border-color .2s}
+.main-nav a:hover,.main-nav a.active{color:var(--accent);border-color:var(--accent)}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px}
+.hamburger span{display:block;width:24px;height:2px;background:var(--txt-primary);border-radius:2px}
+.menu-toggle{display:none;position:fixed;top:0;right:0;width:75%;max-width:300px;height:100vh;background:var(--bg-card);border-left:1px solid var(--border-light);z-index:200;flex-direction:column;padding:2rem 1.5rem;gap:1.5rem;box-shadow:-4px 0 24px rgba(0,0,0,.08);transform:translateX(100%);transition:transform .3s ease}
+.menu-toggle.open{display:flex;transform:translateX(0)}
+.menu-toggle ul{list-style:none;display:flex;flex-direction:column;gap:1.4rem;margin-top:2rem}
+.menu-toggle a{font-size:17px;font-weight:500;color:var(--txt-primary);transition:color .2s}
+.menu-toggle a:hover{color:var(--accent)}
+.close-btn{align-self:flex-end;font-size:2rem;cursor:pointer;background:none;border:none;color:var(--txt-secondary);line-height:1}
+.overlay{display:none;position:fixed;inset:0;background:rgba(28,43,58,.35);z-index:150;backdrop-filter:blur(2px)}
+.overlay.show{display:block}
+.breadcrumb{max-width:1100px;margin:1.8rem auto 0;padding:0 2.5rem;font-size:13px;color:var(--txt-muted);display:flex;align-items:center;gap:.5rem}
+.breadcrumb a{color:var(--accent);transition:opacity .2s}
+.breadcrumb a:hover{opacity:.7}
+.page-hero{max-width:1100px;margin:1.2rem auto 0;padding:0 2.5rem 2rem;border-bottom:1px solid var(--border-light)}
+.hero-tag{display:inline-flex;align-items:center;gap:7px;font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#2A7032;background:#E6F5E9;border:1px solid #A8D5AD;padding:4px 14px;border-radius:var(--radius-pill);margin-bottom:1rem}
+.page-hero h1{font-size:clamp(1.4rem,3vw,1.9rem);font-weight:500;color:var(--txt-primary);letter-spacing:-.02em;line-height:1.2;margin-bottom:.5rem}
+.hero-meta{display:flex;flex-wrap:wrap;gap:1rem;font-size:13px;color:var(--txt-muted);margin-top:.8rem}
+.page-layout{max-width:1100px;margin:2rem auto;padding:0 2.5rem 3rem;display:grid;grid-template-columns:1fr 300px;gap:2.5rem;align-items:start}
+.main-col{display:flex;flex-direction:column;gap:1.4rem}
+.section-card{background:var(--bg-card);border-radius:var(--radius-lg);border:1px solid var(--border-light);padding:1.6rem 1.8rem;box-shadow:var(--shadow-sm)}
+.section-card h2{font-size:16px;font-weight:600;color:var(--txt-primary);margin-bottom:1rem;padding-bottom:.6rem;border-bottom:2px solid #E6F5E9}
+.section-card h3{font-size:14px;font-weight:600;color:var(--accent-dark);margin:1.2rem 0 .5rem}
+.section-card p{font-size:14px;color:var(--txt-secondary);line-height:1.9;margin-bottom:.8rem}
+.section-card p:last-child{margin-bottom:0}
+.section-card ul{padding-left:1.2rem;margin-bottom:.8rem}
+.section-card li{font-size:14px;color:var(--txt-secondary);line-height:1.8;margin-bottom:.3rem}
+.skills-wrap{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.8rem}
+.skill{font-size:11px;padding:3px 10px;border-radius:4px;background:#E6F5E9;color:#2A7032;font-weight:500;border:1px solid #A8D5AD}
+.refs{font-size:12px;color:var(--txt-muted);line-height:1.7;padding-top:.8rem;border-top:1px solid var(--border-light);margin-top:.8rem}
+
+/* Activités résultats */
+.activite-grid{display:flex;flex-direction:column;gap:.8rem;margin-top:.8rem}
+.activite-item{display:flex;align-items:flex-start;gap:.8rem;padding:1rem 1.1rem;background:var(--bg-page);border:1px solid var(--border-light);border-radius:var(--radius-md)}
+.activite-icone{font-size:20px;flex-shrink:0;margin-top:2px}
+.activite-txt{font-size:13px;color:var(--txt-secondary);line-height:1.7}
+.activite-txt strong{color:var(--txt-primary)}
+
+/* Vidéo SharePoint — lien externe */
+.video-card{background:var(--bg-card);border-radius:var(--radius-lg);border:1px solid var(--border-light);overflow:hidden;box-shadow:var(--shadow-md)}
+.video-card-head{padding:1rem 1.4rem;border-bottom:1px solid var(--border-light)}
+.video-card-label{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
+.video-card-desc{font-size:13px;color:var(--txt-secondary);margin-top:.4rem;line-height:1.6}
+.video-action{padding:1.2rem 1.4rem;display:flex;flex-direction:column;gap:.6rem}
+.btn-sharepoint{display:inline-flex;align-items:center;gap:8px;padding:12px 22px;border-radius:var(--radius-sm);background:var(--accent);color:#fff;font-size:14px;font-weight:500;font-family:var(--font);transition:background .2s;text-decoration:none}
+.btn-sharepoint:hover{background:var(--accent-dark)}
+.video-note{font-size:12px;color:var(--txt-muted);line-height:1.6;padding:.8rem 1rem;background:var(--bg-page);border-radius:var(--radius-sm);border:1px solid var(--border-light)}
+
+.side-col{display:flex;flex-direction:column;gap:1.2rem;position:sticky;top:84px}
+.side-card{background:var(--bg-card);border-radius:var(--radius-lg);border:1px solid var(--border-light);padding:1.2rem 1.4rem;box-shadow:var(--shadow-sm)}
+.side-titre{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:.9rem}
+.side-item{display:flex;align-items:flex-start;gap:.5rem;margin-bottom:.6rem;font-size:13px;color:var(--txt-secondary)}
+.side-dot{width:6px;height:6px;border-radius:50%;background:var(--accent);flex-shrink:0;margin-top:.4rem}
+.nav-projet{display:flex;flex-direction:column;gap:.5rem}
+.nav-projet a{padding:.55rem .8rem;border-radius:var(--radius-sm);font-size:13px;color:var(--txt-secondary);transition:all .2s;border:1px solid var(--border-light);display:block}
+.nav-projet a:hover{background:var(--bg-accent);color:var(--accent);border-color:var(--accent-light)}
+.nav-projet a.current{background:var(--bg-accent);color:var(--accent);border-color:var(--accent);font-weight:600}
+.btn-retour{display:inline-flex;align-items:center;justify-content:center;gap:.45rem;padding:.6rem 1.1rem;border-radius:var(--radius-sm);font-size:13px;font-weight:500;font-family:var(--font);background:var(--bg-card);color:var(--accent);border:1.5px solid var(--accent);cursor:pointer;transition:all .2s;text-decoration:none;width:100%}
+.btn-retour:hover{background:var(--accent);color:#fff}
+.site-footer{background:var(--bg-card);border-top:1px solid var(--border-light);padding:1.4rem 2.5rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.6rem}
+.foot-copy{font-size:11px;color:var(--txt-muted)}
+.foot-links{display:flex;gap:1.8rem}
+.foot-links a{font-size:11px;color:var(--txt-muted);transition:color .2s}
+.foot-links a:hover{color:var(--accent)}
+@media(max-width:900px){.site-header{padding:0 1.5rem}.main-nav{display:none}.hamburger{display:flex}.page-layout{grid-template-columns:1fr}.side-col{position:static}}
+@media(max-width:640px){.breadcrumb,.page-hero,.page-layout{padding-left:1.2rem;padding-right:1.2rem}.page-layout{padding-bottom:2rem}}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <a href="index.html" class="logo">SF &#8212; <em>e-portfolio</em></a>
+  <nav class="main-nav" aria-label="Navigation principale">
+    <ul>
+      <li><a href="index.html">Accueil</a></li>
+      <li><a href="apropos.html">&#192; propos de moi</a></li>
+      <li><a href="projetAccueil.html" class="active">Mes projets</a></li>
+      <li><a href="cv.html">CV</a></li>
+    </ul>
+  </nav>
+  <button class="hamburger" aria-label="Ouvrir le menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+</header>
+
+<div class="overlay"></div>
+<div class="menu-toggle">
+  <button class="close-btn" aria-label="Fermer le menu">&#215;</button>
+  <ul>
+    <li><a href="index.html">Accueil</a></li>
+    <li><a href="apropos.html">&#192; propos de moi</a></li>
+    <li><a href="projetAccueil.html">Mes projets</a></li>
+    <li><a href="cv.html">CV</a></li>
+  </ul>
+</div>
+
+<main>
+
+  <nav class="breadcrumb" aria-label="Fil d'Ariane">
+    <a href="projetAccueil.html">&#8592; Mes projets</a>
+    <span>/</span>
+    <span>D&#233;veloppement des syst&#232;mes de formation</span>
+    <span>/</span>
+    <span>Atelier Adobe Illustrator</span>
+  </nav>
+
+  <div class="page-hero">
+    <span class="hero-tag">D&#233;veloppement des syst&#232;mes de formation &#183; TEN-7015</span>
+    <h1>Conception et facilitation d&#8217;un atelier&#160;: Adobe Illustrator</h1>
+    <div class="hero-meta">
+      <span>&#128101; Travail en &#233;quipe &#183; 5 participants</span>
+      <span>&#128218; Cours TEN-7015 &#183; Universit&#233; Laval</span>
+      <span>&#128197; 2025&#8211;2026</span>
+    </div>
+  </div>
+
+  <div class="page-layout">
+    <div class="main-col">
+
+      <!-- VIDÉO -->
+      <div class="video-card">
+        <div class="video-card-head">
+          <div class="video-card-label">&#127916; Enregistrement de l&#8217;atelier</div>
+          <p class="video-card-desc">L&#8217;atelier est h&#233;berg&#233; sur SharePoint (Universit&#233; Laval). Cliquez sur le bouton ci-dessous pour visionner la vid&#233;o.</p>
+        </div>
+        <div class="video-action">
+          <a href="https://ulavaldti-my.sharepoint.com/:v:/g/personal/syneu1_ulaval_ca/IQDXI4snr0u5Savag3HQqaQtAag0JuFnguKulgrjutUab_o?e=4SKPB4"
+             target="_blank" rel="noopener" class="btn-sharepoint">
+            &#9654;&#65039; Visionner l&#8217;atelier Adobe Illustrator &#8599;
+          </a>
+          <div class="video-note">
+            &#128274; Cette vid&#233;o est h&#233;berg&#233;e sur la plateforme SharePoint de l&#8217;Universit&#233; Laval. Un acc&#232;s institutionnel peut &#234;tre requis pour la visionner.
+          </div>
+        </div>
+      </div>
+
+      <!-- CONTEXTE -->
+      <div class="section-card">
+        <h2>Contexte</h2>
+        <p>Dans le cadre de la d&#233;couverte des outils de design de la suite Adobe Captivate, notre &#233;quipe de cinq personnes a con&#231;u et anim&#233; un atelier centr&#233; sur Adobe Illustrator. L&#8217;objectif &#233;tait double&#160;: explorer nous-m&#234;mes les potentialit&#233;s du logiciel, puis les faire d&#233;couvrir &#224; nos coll&#232;gues en mettant en lumi&#232;re la valeur ajout&#233;e de ses fonctionnalit&#233;s pour la conception d&#8217;interfaces de modules de formation en ligne.</p>
+        <div class="skills-wrap">
+          <span class="skill">Adobe Illustrator</span>
+          <span class="skill">Facilitation</span>
+          <span class="skill">Design p&#233;dagogique</span>
+          <span class="skill">Classe invers&#233;e</span>
+          <span class="skill">Andragogie</span>
+          <span class="skill">Formation en ligne</span>
+          <span class="skill">TEN-7015</span>
+        </div>
+      </div>
+
+      <!-- DÉFIS -->
+      <div class="section-card">
+        <h2>D&#233;fis rencontr&#233;s et d&#233;marches de r&#233;solution</h2>
+
+        <h3>1. Prise en main du logiciel</h3>
+        <p>Les outils de la suite Adobe ne faisaient pas partie de mes premiers choix pour les projets de design, en raison d&#8217;une interface que je percevais comme peu intuitive et difficile &#224; appr&#233;hender. Face &#224; ce d&#233;fi, ma premi&#232;re d&#233;marche a &#233;t&#233; de consulter des tutoriels YouTube destin&#233;s aux d&#233;butants, ce qui m&#8217;a permis de d&#233;couvrir les capacit&#233;s fondamentales du logiciel.</p>
+        <p>C&#8217;est au cours de cette exploration que j&#8217;ai identifi&#233; une fonctionnalit&#233; &#224; forte valeur ajout&#233;e pour le design p&#233;dagogique&#160;: la <strong>vectorisation d&#8217;images</strong>. En effet, dans le d&#233;veloppement de contenus, j&#8217;ai r&#233;guli&#232;rement recours &#224; des images pour illustrer des textes ou enrichir des activit&#233;s interactives. Or, le probl&#232;me de la d&#233;gradation de la qualit&#233; lors de l&#8217;agrandissement &#8212; images floues et peu lisibles &#8212; est r&#233;current. La vectorisation offre pr&#233;cis&#233;ment une solution &#224; ce probl&#232;me, ce qui a d&#233;clench&#233; mon int&#233;r&#234;t et ma motivation &#224; approfondir l&#8217;exploration de l&#8217;outil.</p>
+
+        <h3>2. Conception d&#8217;un atelier engageant et pertinent</h3>
+        <p>Le second d&#233;fi r&#233;sidait dans la conception m&#234;me de l&#8217;atelier&#160;: il fallait qu&#8217;il soit &#224; la fois engageant, suffisamment interactif, et ancr&#233; dans des situations authentiques. Conscients des attentes &#233;lev&#233;es de notre public, nous avons suivi une d&#233;marche rigoureuse&#160;:</p>
+        <ul>
+          <li>D&#233;finir clairement les objectifs d&#8217;apprentissage de l&#8217;atelier&#160;;</li>
+          <li>Choisir une strat&#233;gie p&#233;dagogique adapt&#233;e, en nous appuyant sur les principes de l&#8217;andragogie &#8212; notamment l&#8217;importance de proposer des activit&#233;s en lien avec le champ d&#8217;int&#233;r&#234;t et les besoins r&#233;els du public adulte (Knowles, 1980)&#160;;</li>
+          <li>Adopter l&#8217;approche de la <strong>classe invers&#233;e</strong>, afin de permettre aux participants de d&#233;couvrir les contenus en amont et de consacrer l&#8217;atelier majoritairement &#224; la pratique.</li>
+        </ul>
+
+        <h3>3. Animation de la session synchrone en ligne</h3>
+        <p>Le troisi&#232;me d&#233;fi, et le plus d&#233;licat &#224; mes yeux, concernait l&#8217;animation en ligne en mode synchrone. Il s&#8217;agissait pour moi, dans la section de l&#8217;atelier qui m&#8217;&#233;tait assign&#233;e, d&#8217;amener les participants &#224; s&#8217;engager dans une activit&#233; pratique en autonomie, alors que j&#8217;&#233;tais moi-m&#234;me en phase de d&#233;couverte du logiciel.</p>
+        <p>Pour relever ce d&#233;fi, j&#8217;ai con&#231;u une activit&#233; directement ancr&#233;e dans notre champ d&#8217;expertise commun&#160;: la conception p&#233;dagogique, et plus pr&#233;cis&#233;ment la r&#233;troaction imm&#233;diate dans les quiz asynchrones en ligne. Les participants &#233;taient invit&#233;s &#224; cr&#233;er une ic&#244;ne de r&#233;troaction positive, puis &#224; la transformer en ic&#244;ne de r&#233;troaction n&#233;gative.</p>
+        <p>Cette exp&#233;rience m&#8217;a permis de prendre conscience que la r&#233;ussite d&#8217;une activit&#233; de formation ne repose pas sur sa complexit&#233;, mais sur plusieurs facteurs cl&#233;s&#160;:</p>
+        <ul>
+          <li>Sa coh&#233;rence avec la zone proximale de d&#233;veloppement du public cible (Vygotski, 1978)&#160;;</li>
+          <li>Son authenticit&#233; et son ancrage dans des situations r&#233;elles&#160;;</li>
+          <li>La clart&#233; des objectifs, des consignes et des actions de guidage propos&#233;es.</li>
+        </ul>
+      </div>
+
+      <!-- RÉSULTATS -->
+      <div class="section-card">
+        <h2>R&#233;sultats</h2>
+        <p>&#192; l&#8217;issue de la conception, l&#8217;atelier final comprenait trois activit&#233;s compl&#233;mentaires&#160;:</p>
+        <div class="activite-grid">
+          <div class="activite-item">
+            <div class="activite-icone">&#127909;</div>
+            <div class="activite-txt"><strong>Activit&#233; d&#233;monstrative</strong> &#8212; permettant aux participants de d&#233;couvrir Adobe Illustrator de mani&#232;re guid&#233;e.</div>
+          </div>
+          <div class="activite-item">
+            <div class="activite-icone">&#9997;&#65039;</div>
+            <div class="activite-txt"><strong>Activit&#233; pratique en autonomie</strong> &#8212; invitant les participants &#224; appliquer ce qu&#8217;ils avaient observ&#233; lors de la d&#233;monstration.</div>
+          </div>
+          <div class="activite-item">
+            <div class="activite-icone">&#9878;&#65039;</div>
+            <div class="activite-txt"><strong>Activit&#233; interactive sur les droits d&#8217;auteur et l&#8217;&#233;thique</strong> &#8212; sensibilisant notre public aux enjeux l&#233;gaux et d&#233;ontologiques li&#233;s &#224; l&#8217;utilisation des ressources visuelles.</div>
+          </div>
+        </div>
+        <div class="refs">
+          <strong>R&#233;f&#233;rences</strong><br>
+          Knowles, M. S. (1980). <em>The modern practice of adult education&#160;: From pedagogy to andragogy</em>. Cambridge Adult Education.<br>
+          Vygotski, L. S. (1978). <em>Mind in society&#160;: The development of higher psychological processes</em>. Harvard University Press.
+        </div>
+      </div>
+
+    </div>
+
+    <!-- SIDEBAR -->
+    <aside class="side-col">
+      <div class="side-card">
+        <div class="side-titre">Informations</div>
+        <div class="side-item"><div class="side-dot"></div><span>Cours TEN-7015 &#8212; D&#233;veloppement des syst&#232;mes de formation</span></div>
+        <div class="side-item"><div class="side-dot"></div><span>Universit&#233; Laval &#183; Facult&#233; des sciences de l&#8217;&#233;ducation</span></div>
+        <div class="side-item"><div class="side-dot"></div><span>Travail en &#233;quipe &#183; 5 participants</span></div>
+        <div class="side-item"><div class="side-dot"></div><span>Atelier synchrone en ligne &#183; 75 minutes</span></div>
+        <div class="side-item"><div class="side-dot"></div><span>Outil&#160;: Adobe Illustrator</span></div>
+      </div>
+      <div class="side-card">
+        <div class="side-titre">Autres projets TEN-7015</div>
+        <nav class="nav-projet">
+          <a href="vlog-autoformation.html">Vlog d&#8217;autoformation</a>
+          <a href="prototype-formation-mobile.html">Prototype de formation mobile</a>
+          <a href="atelier-adobe-illustrator.html" class="current">Atelier Adobe Illustrator</a>
+        </nav>
+      </div>
+      <a href="projetAccueil.html" class="btn-retour">&#8592; Retour aux projets</a>
+    </aside>
+  </div>
+
+</main>
+
+<footer class="site-footer">
+  <span class="foot-copy">&copy; 2025 Steve Edgar Feze Feugang. Tous droits r&#233;serv&#233;s.</span>
+  <div class="foot-links">
+    <a href="https://www.linkedin.com/in/stevefeze" target="_blank" rel="noopener">LinkedIn</a>
+    <a href="https://github.com/Rute23" target="_blank" rel="noopener">GitHub</a>
+    <a href="mailto:stevefeze@outlook.com">Courriel</a>
+  </div>
+</footer>
+
+<script>
+var hamburger=document.querySelector('.hamburger'),menuToggle=document.querySelector('.menu-toggle'),overlay=document.querySelector('.overlay'),closeBtn=document.querySelector('.close-btn');
+hamburger.addEventListener('click',function(){menuToggle.classList.add('open');overlay.classList.add('show');hamburger.setAttribute('aria-expanded','true')});
+function fermerMenu(){menuToggle.classList.remove('open');overlay.classList.remove('show');hamburger.setAttribute('aria-expanded','false')}
+closeBtn.addEventListener('click',fermerMenu);overlay.addEventListener('click',fermerMenu);
+menuToggle.querySelectorAll('a').forEach(function(l){l.addEventListener('click',fermerMenu)});
+</script>
+</body>
+</html>
