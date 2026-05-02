@@ -38,8 +38,8 @@
   --font           : 'Inter', 'Segoe UI', system-ui, sans-serif;
   --size-xs        : 0.72rem;   /* labels, méta, badges */
   --size-sm        : 0.88rem;   /* texte secondaire, nav */
-  --size-base      : 1.05rem;   /* corps de texte principal */
-  --size-md        : 1.1rem;    /* sous-titres, labels forts */
+  --size-base      : 1.1rem;   /* corps de texte principal */
+  --size-md        : 1.25rem;    /* sous-titres, labels forts */
   --size-lg        : 1.5rem;    /* titres de section h2 */
   --size-xl        : 2rem;      /* titres de page h1 moyens */
   --size-2xl       : clamp(1.8rem, 3.5vw, 2.5rem); /* h1 hero */
