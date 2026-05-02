@@ -1,129 +1,302 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Accueil</title>
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="eportfolio.css">
-  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>E-portfolio r&#233;flexif &#8212; Steve Edgar Feze</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg-page:#F4F7FB;--bg-card:#FFFFFF;--bg-accent:#EBF3FC;
+  --txt-primary:#1C2B3A;--txt-secondary:#4A6070;--txt-muted:#8A9DB0;
+  --accent:#3B7EC8;--accent-dark:#2A6097;--accent-light:#C5DCF5;
+  --border-light:#DDE8F2;--border-medium:#B8CDE0;
+  --shadow-sm:0 1px 4px rgba(59,126,200,0.07);
+  --shadow-md:0 4px 16px rgba(59,126,200,0.10);
+  --font:'Inter','Segoe UI',system-ui,sans-serif;
+  --radius-sm:8px;--radius-md:12px;--radius-lg:18px;--radius-pill:999px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--font);font-size:15px;line-height:1.85;color:var(--txt-primary);background:var(--bg-page);-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+
+/* HEADER */
+.site-header{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 2.5rem;height:68px;background:rgba(255,255,255,0.92);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--border-light);box-shadow:var(--shadow-sm)}
+.logo{font-size:15px;font-weight:500;color:var(--txt-primary);letter-spacing:-.01em}
+.logo em{color:var(--accent);font-style:normal}
+.main-nav ul{display:flex;gap:2rem;list-style:none}
+.main-nav a{font-size:13px;font-weight:500;color:var(--txt-secondary);padding-bottom:3px;border-bottom:2px solid transparent;transition:color .2s,border-color .2s}
+.main-nav a:hover,.main-nav a.active{color:var(--accent);border-color:var(--accent)}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px}
+.hamburger span{display:block;width:24px;height:2px;background:var(--txt-primary);border-radius:2px}
+.menu-toggle{display:none;position:fixed;top:0;right:0;width:75%;max-width:300px;height:100vh;background:var(--bg-card);border-left:1px solid var(--border-light);z-index:200;flex-direction:column;padding:2rem 1.5rem;gap:1.5rem;box-shadow:-4px 0 24px rgba(0,0,0,.08);transform:translateX(100%);transition:transform .3s ease}
+.menu-toggle.open{display:flex;transform:translateX(0)}
+.menu-toggle ul{list-style:none;display:flex;flex-direction:column;gap:1.4rem;margin-top:2rem}
+.menu-toggle a{font-size:17px;font-weight:500;color:var(--txt-primary);transition:color .2s}
+.menu-toggle a:hover{color:var(--accent)}
+.close-btn{align-self:flex-end;font-size:2rem;cursor:pointer;background:none;border:none;color:var(--txt-secondary);line-height:1}
+.overlay{display:none;position:fixed;inset:0;background:rgba(28,43,58,.35);z-index:150;backdrop-filter:blur(2px)}
+.overlay.show{display:block}
+
+/* BREADCRUMB */
+.breadcrumb{max-width:1100px;margin:1.8rem auto 0;padding:0 2.5rem;font-size:13px;color:var(--txt-muted);display:flex;align-items:center;gap:.5rem}
+.breadcrumb a{color:var(--accent);transition:opacity .2s}
+.breadcrumb a:hover{opacity:.7}
+
+/* HERO */
+.page-hero{max-width:1100px;margin:1.2rem auto 0;padding:0 2.5rem 2rem;border-bottom:1px solid var(--border-light)}
+.hero-tag{display:inline-flex;align-items:center;gap:7px;font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#2A6097;background:#EBF3FC;border:1px solid #C5DCF5;padding:4px 14px;border-radius:var(--radius-pill);margin-bottom:1rem}
+.page-hero h1{font-size:clamp(1.4rem,3vw,1.9rem);font-weight:500;color:var(--txt-primary);letter-spacing:-.02em;line-height:1.2;margin-bottom:.5rem}
+.hero-meta{display:flex;flex-wrap:wrap;gap:1rem;font-size:13px;color:var(--txt-muted);margin-top:.8rem}
+
+/* LAYOUT */
+.page-layout{max-width:1100px;margin:2rem auto;padding:0 2.5rem 3rem;display:grid;grid-template-columns:1fr 300px;gap:2.5rem;align-items:start}
+.main-col{display:flex;flex-direction:column;gap:1.4rem}
+
+/* SECTION CARD */
+.section-card{background:var(--bg-card);border-radius:var(--radius-lg);border:1px solid var(--border-light);padding:1.6rem 1.8rem;box-shadow:var(--shadow-sm)}
+.section-card h2{font-size:16px;font-weight:600;color:var(--txt-primary);margin-bottom:1rem;padding-bottom:.6rem;border-bottom:2px solid var(--bg-accent)}
+.section-card p{font-size:14px;color:var(--txt-secondary);line-height:1.9;margin-bottom:.8rem}
+.section-card p:last-child{margin-bottom:0}
+
+/* OUTILS PILLS */
+.outils-wrap{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:.8rem}
+.outil-pill{display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:500;padding:5px 12px;border-radius:var(--radius-pill);background:var(--bg-accent);color:var(--accent);border:1px solid var(--accent-light)}
+
+/* DÉFIS liste visuelle */
+.defi-list{display:flex;flex-direction:column;gap:.8rem;margin-top:.8rem}
+.defi-item{display:flex;align-items:flex-start;gap:.8rem;padding:1rem 1.1rem;background:var(--bg-page);border:1px solid var(--border-light);border-radius:var(--radius-md)}
+.defi-icone{font-size:18px;flex-shrink:0;margin-top:2px}
+.defi-txt{font-size:13px;color:var(--txt-secondary);line-height:1.75}
+.defi-txt strong{color:var(--txt-primary)}
+
+/* LIEN LIVE */
+.live-card{background:var(--bg-card);border-radius:var(--radius-lg);border:2px solid var(--accent-light);padding:1.4rem 1.6rem;box-shadow:var(--shadow-sm);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem}
+.live-card-txt{font-size:14px;color:var(--txt-secondary);line-height:1.7}
+.live-card-txt strong{display:block;font-size:15px;color:var(--txt-primary);margin-bottom:.3rem}
+.btn-live{display:inline-flex;align-items:center;gap:7px;padding:10px 20px;border-radius:var(--radius-sm);background:var(--accent);color:#fff;font-size:13px;font-weight:500;font-family:var(--font);transition:background .2s;white-space:nowrap}
+.btn-live:hover{background:var(--accent-dark)}
+
+/* SIDEBAR */
+.side-col{display:flex;flex-direction:column;gap:1.2rem;position:sticky;top:84px}
+.side-card{background:var(--bg-card);border-radius:var(--radius-lg);border:1px solid var(--border-light);padding:1.2rem 1.4rem;box-shadow:var(--shadow-sm)}
+.side-titre{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:.9rem}
+.side-item{display:flex;align-items:flex-start;gap:.5rem;margin-bottom:.6rem;font-size:13px;color:var(--txt-secondary)}
+.side-dot{width:6px;height:6px;border-radius:50%;background:var(--accent);flex-shrink:0;margin-top:.4rem}
+.nav-projet{display:flex;flex-direction:column;gap:.5rem}
+.nav-projet a{padding:.55rem .8rem;border-radius:var(--radius-sm);font-size:13px;color:var(--txt-secondary);transition:all .2s;border:1px solid var(--border-light);display:block}
+.nav-projet a:hover{background:var(--bg-accent);color:var(--accent);border-color:var(--accent-light)}
+.nav-projet a.current{background:var(--bg-accent);color:var(--accent);border-color:var(--accent);font-weight:600}
+.btn-retour{display:inline-flex;align-items:center;justify-content:center;gap:.45rem;padding:.6rem 1.1rem;border-radius:var(--radius-sm);font-size:13px;font-weight:500;font-family:var(--font);background:var(--bg-card);color:var(--accent);border:1.5px solid var(--accent);cursor:pointer;transition:all .2s;text-decoration:none;width:100%}
+.btn-retour:hover{background:var(--accent);color:#fff}
+
+/* FOOTER */
+.site-footer{background:var(--bg-card);border-top:1px solid var(--border-light);padding:1.4rem 2.5rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.6rem}
+.foot-copy{font-size:11px;color:var(--txt-muted)}
+.foot-links{display:flex;gap:1.8rem}
+.foot-links a{font-size:11px;color:var(--txt-muted);transition:color .2s}
+.foot-links a:hover{color:var(--accent)}
+
+/* RESPONSIVE */
+@media(max-width:900px){.site-header{padding:0 1.5rem}.main-nav{display:none}.hamburger{display:flex}.page-layout{grid-template-columns:1fr}.side-col{position:static}}
+@media(max-width:640px){.breadcrumb,.page-hero,.page-layout{padding-left:1.2rem;padding-right:1.2rem}.page-layout{padding-bottom:2rem}.live-card{flex-direction:column}.btn-live{width:100%;justify-content:center}}
+</style>
 </head>
 <body>
-  
+
+<!-- HEADER -->
 <header class="site-header">
-  <a href="index.html">
-    <div class="logo">
-    <p>Bienvenu dans mon e-portfolio</p>
-  </div>
-  </a>
-  <nav class="main-nav">
-    <ul >
+  <a href="index.html" class="logo">SF &#8212; <em>e-portfolio</em></a>
+  <nav class="main-nav" aria-label="Navigation principale">
+    <ul>
       <li><a href="index.html">Accueil</a></li>
-      <li><a href="apropos.html" >À propos de moi</a></li>
-      <li class="projetMenu, active" ><a href="projetAccueil.htmll">Mes projets</a></li>
+      <li><a href="apropos.html">&#192; propos de moi</a></li>
+      <li><a href="projetAccueil.html" class="active">Mes projets</a></li>
       <li><a href="cv.html">CV</a></li>
     </ul>
   </nav>
-  <div class="hamburger">
-    <span></span>
-    <span></span>
-    <span></span>
-  </div>
-  <div class="menu-toggle">
-    <div class="close-btn">&times;</div>
-    <ul>
-      <li><a href="index.html">Accueil</a></li>
-      <li><a href="apropos.html">À propos de moi</a></li>
-      <li><a href="projetAccueil.html">Mes projets</a></li>
-      <li><a href="cv.html">CV</a></li>
-    </ul>
-  </div>
+  <button class="hamburger" aria-label="Ouvrir le menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
 </header>
-<div class="overlay"></div>
-<h1 style="margin-left:30px">Mon projet e-portfolio</h1>
-<main>
-    <div class="col-left">
-        <section data-aos="fade-up">
-      <h2>Description du projet</h2>
-      <p>
-        Ce projet de ePortfolio a été conçu comme un CV vivant, permettant de mettre en valeur mon parcours académique et profesionnelle, mes compétences, ma vision en technopédagogie et mes réalisations clés. 
-        Le ePortfolio est structuré de manière à offrir une navigation fluide, une hiérarchie visuelle claire et une expérience interactive agréable, autant pour les recruteurs que pour les collaborateurs potentiels.
-      </p>
-        </section>
-        <section data-aos="fade-up" data-aos-delay="200">
-        <h2>Outils utilisés</h2>
-        <p>
-          Pour concevoir ce projet, j’ai utilisé HTML5, CSS3 (Flexbox, Grid), JavaScript léger pour les interactions, ainsi que la bibliothèque AOS (Animate On Scroll) pour les animations. 
-          La conception a été faite en suivant les principes UX/UI, avec un accent particulier sur la responsivité mobile. Les images ont été générées par ChatGPT suite à
-          Une description littérale détaillée sous forme de prompts ou d'instruction. Le code est hébergé sur GitHub Pages.
-        </p>
-      </section>
-    </div>
-   
-    <div class="col-right">
-    <section data-aos="fade-up" data-aos-delay="100">
-      <h2>Défis rencontrés</h2>
-      <p>
-        Les principaux défis ont été de concevoir une structure responsive, 
-        d'assurer la cohérence visuelle entre les sections, d'intégrer des animations sans alourdir la performance, 
-        et de proposer une interface qui respecte les principes d'accessibilité et d'expérience utilisateur.
-         Un autre défi majeur a été le choix des outils : j'ai d'abord exploré plusieurs CMS comme WordPress, 
-         Google Sites et même Wix. Toutefois, ces solutions ne permettaient pas d’atteindre le niveau de personnalisation 
-         et de précision visuelle que je recherchais. C’est pourquoi j’ai finalement opté pour une programmation complète à partir de zéro.
-          Par ailleurs, la présentation synthétique de mes différents projets académiques constituait aussi un défi : il s’agissait de structurer
-           l’information de manière claire, hiérarchisée et engageante, sans surcharger la navigation. Enfin, la gestion des médias, l'équilibre entre contenu et design, ainsi que l’optimisation du chargement ont également été des enjeux techniques importants.
-      </p>
-    </section>
-    </div>
-    
 
-    
-  </main>
-  
-<footer class="site-footer" style="height: 100px;">
-  <p>&copy; 2025 Steve Edgar Feze Feugang. Tous droits réservés.</p>
+<div class="overlay"></div>
+<div class="menu-toggle">
+  <button class="close-btn" aria-label="Fermer le menu">&#215;</button>
+  <ul>
+    <li><a href="index.html">Accueil</a></li>
+    <li><a href="apropos.html">&#192; propos de moi</a></li>
+    <li><a href="projetAccueil.html">Mes projets</a></li>
+    <li><a href="cv.html">CV</a></li>
+  </ul>
+</div>
+
+<main>
+
+  <!-- BREADCRUMB -->
+  <nav class="breadcrumb" aria-label="Fil d'Ariane">
+    <a href="projetAccueil.html">&#8592; Mes projets</a>
+    <span>/</span>
+    <span>Approche syst&#233;mique</span>
+    <span>/</span>
+    <span>E-portfolio r&#233;flexif</span>
+  </nav>
+
+  <!-- HERO -->
+  <div class="page-hero">
+    <span class="hero-tag">Approche syst&#233;mique</span>
+    <h1>Mon projet e-portfolio</h1>
+    <div class="hero-meta">
+      <span>&#128100; Travail individuel</span>
+      <span>&#128218; Ma&#238;trise en technologie &#233;ducative &#183; Universit&#233; Laval</span>
+      <span>&#128187; H&#233;berg&#233; sur GitHub Pages</span>
+    </div>
+  </div>
+
+  <!-- LAYOUT -->
+  <div class="page-layout">
+    <div class="main-col">
+
+      <!-- LIEN LIVE -->
+      <div class="live-card">
+        <div class="live-card-txt">
+          <strong>&#127758; Site en ligne</strong>
+          Ce portfolio est consultable en direct sur GitHub Pages.
+        </div>
+        <a href="https://feze23.github.io/eportfolio/index.html" target="_blank" rel="noopener" class="btn-live">
+          &#8599; Visiter le site
+        </a>
+      </div>
+
+      <!-- DESCRIPTION -->
+      <div class="section-card">
+        <h2>Description du projet</h2>
+        <p>Ce projet de e-portfolio a &#233;t&#233; con&#231;u comme un CV vivant, permettant de mettre en valeur mon parcours acad&#233;mique et professionnel, mes comp&#233;tences, ma vision en technop&#233;dagogie et mes r&#233;alisations cl&#233;s.</p>
+        <p>Le e-portfolio est structur&#233; de mani&#232;re &#224; offrir une navigation fluide, une hi&#233;rarchie visuelle claire et une exp&#233;rience interactive agr&#233;able, autant pour les recruteurs que pour les collaborateurs potentiels.</p>
+      </div>
+
+      <!-- OUTILS -->
+      <div class="section-card">
+        <h2>Outils utilis&#233;s</h2>
+        <p>Pour concevoir ce projet, j&#8217;ai utilis&#233; HTML5, CSS3 (Flexbox, Grid) et JavaScript l&#233;ger pour les interactions. La conception a &#233;t&#233; faite en suivant les principes UX/UI, avec un accent particulier sur la responsivit&#233; mobile. Les images ont &#233;t&#233; g&#233;n&#233;r&#233;es par ChatGPT &#224; partir de descriptions d&#233;taill&#233;es sous forme de prompts. Le code est h&#233;berg&#233; sur GitHub Pages.</p>
+        <div class="outils-wrap">
+          <span class="outil-pill">&#128196; HTML5</span>
+          <span class="outil-pill">&#127912; CSS3 (Flexbox &amp; Grid)</span>
+          <span class="outil-pill">&#128187; JavaScript</span>
+          <span class="outil-pill">&#128279; GitHub Pages</span>
+          <span class="outil-pill">&#129302; ChatGPT (images)</span>
+          <span class="outil-pill">&#9881;&#65039; UX / UI</span>
+        </div>
+      </div>
+
+      <!-- DÉFIS -->
+      <div class="section-card">
+        <h2>D&#233;fis rencontr&#233;s</h2>
+        <div class="defi-list">
+          <div class="defi-item">
+            <div class="defi-icone">&#128241;</div>
+            <div class="defi-txt"><strong>Conception responsive</strong> &#8212; Assurer une mise en page fluide et coh&#233;rente sur tous les formats d&#8217;&#233;cran, du mobile au bureau, sans sacrifier la lisibilit&#233; ni l&#8217;ergonomie.</div>
+          </div>
+          <div class="defi-item">
+            <div class="defi-icone">&#127775;</div>
+            <div class="defi-txt"><strong>Coh&#233;rence visuelle</strong> &#8212; Maintenir une identit&#233; graphique uniforme entre les diff&#233;rentes sections et pages, tout en rendant chaque partie distincte et lisible.</div>
+          </div>
+          <div class="defi-item">
+            <div class="defi-icone">&#128268;</div>
+            <div class="defi-txt"><strong>Choix des outils</strong> &#8212; Apr&#232;s avoir explor&#233; plusieurs CMS (WordPress, Google Sites, Wix), j&#8217;ai opt&#233; pour une programmation compl&#232;te &#224; partir de z&#233;ro afin d&#8217;atteindre le niveau de personnalisation et de pr&#233;cision visuelle recherch&#233;.</div>
+          </div>
+          <div class="defi-item">
+            <div class="defi-icone">&#128200;</div>
+            <div class="defi-txt"><strong>Pr&#233;sentation synth&#233;tique des projets</strong> &#8212; Structurer l&#8217;information de mani&#232;re claire, hi&#233;rarchis&#233;e et engageante, sans surcharger la navigation ni noyer le visiteur.</div>
+          </div>
+          <div class="defi-item">
+            <div class="defi-icone">&#9881;&#65039;</div>
+            <div class="defi-txt"><strong>Gestion des m&#233;dias et performances</strong> &#8212; &#201;quilibrer contenu, design et temps de chargement, tout en respectant les principes d&#8217;accessibilit&#233; et d&#8217;exp&#233;rience utilisateur.</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- SIDEBAR -->
+    <aside class="side-col">
+      <div class="side-card">
+        <div class="side-titre">Informations</div>
+        <div class="side-item"><div class="side-dot"></div><span>Travail individuel</span></div>
+        <div class="side-item"><div class="side-dot"></div><span>Ma&#238;trise en technologie &#233;ducative &#183; Universit&#233; Laval</span></div>
+        <div class="side-item"><div class="side-dot"></div><span>Technologies&#160;: HTML5, CSS3, JavaScript</span></div>
+        <div class="side-item"><div class="side-dot"></div><span>H&#233;bergement&#160;: GitHub Pages</span></div>
+        <div class="side-item"><div class="side-dot"></div>
+          <span>
+            Voir le site&#160;:
+            <a href="https://feze23.github.io/eportfolio/index.html" target="_blank" rel="noopener" style="color:var(--accent);font-weight:500">
+              feze23.github.io &#8599;
+            </a>
+          </span>
+        </div>
+      </div>
+
+      <div class="side-card">
+        <div class="side-titre">Autres projets &#8212; Approche syst&#233;mique</div>
+        <nav class="nav-projet">
+          <a href="planDirecteur.html">Plan directeur &#8212; YWCA</a>
+          <a href="RapportAnalyse.html">Rapport d&#8217;analyse de besoins</a>
+          <a href="solutionPotentielles.html">Conception de solutions potentielles</a>
+          <a href="portfolio.html" class="current">E-portfolio r&#233;flexif</a>
+        </nav>
+      </div>
+
+      <a href="projetAccueil.html" class="btn-retour">&#8592; Retour aux projets</a>
+    </aside>
+
+  </div>
+</main>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <span class="foot-copy">&copy; 2025 Steve Edgar Feze Feugang. Tous droits r&#233;serv&#233;s.</span>
+  <div class="foot-links">
+    <a href="https://www.linkedin.com/in/stevefeze" target="_blank" rel="noopener">LinkedIn</a>
+    <a href="https://github.com/Rute23" target="_blank" rel="noopener">GitHub</a>
+    <a href="mailto:stevefeze@outlook.com">Courriel</a>
+  </div>
 </footer>
 
-  <script src="assets/js/main.js"></script>
-  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-  <script>
-    AOS.init();
-</script>
 <script>
-  // Met à jour automatiquement le lien actif dans le menu
-  document.addEventListener("DOMContentLoaded", () => {
-    const links = document.querySelectorAll(".main-nav a");
-    const currentURL = window.location.pathname;
+var hamburger  = document.querySelector('.hamburger');
+var menuToggle = document.querySelector('.menu-toggle');
+var overlay    = document.querySelector('.overlay');
+var closeBtn   = document.querySelector('.close-btn');
 
-    links.forEach(link => {
-      if (link.getAttribute("href") === currentURL || currentURL.endsWith(link.getAttribute("href"))) {
-        link.classList.add("active");
-      }
-    });
-  });
+hamburger.addEventListener('click', function() {
+  menuToggle.classList.add('open');
+  overlay.classList.add('show');
+  hamburger.setAttribute('aria-expanded', 'true');
+});
+
+function fermerMenu() {
+  menuToggle.classList.remove('open');
+  overlay.classList.remove('show');
+  hamburger.setAttribute('aria-expanded', 'false');
+}
+
+closeBtn.addEventListener('click', fermerMenu);
+overlay.addEventListener('click', fermerMenu);
+menuToggle.querySelectorAll('a').forEach(function(l) {
+  l.addEventListener('click', fermerMenu);
+});
+
+// Lien actif automatique
+document.querySelectorAll('.main-nav a').forEach(function(link) {
+  if (window.location.pathname.endsWith(link.getAttribute('href'))) {
+    document.querySelectorAll('.main-nav a').forEach(function(l) { l.classList.remove('active'); });
+    link.classList.add('active');
+  }
+});
 </script>
-<script>
-  const hamburger = document.querySelector('.hamburger');
-  const menuToggle = document.querySelector('.menu-toggle');
-  const overlay = document.querySelector('.overlay');
-  const closeBtn = document.querySelector('.close-btn');
-
-  hamburger.addEventListener('click', () => {
-    menuToggle.classList.add('open');
-    overlay.classList.add('show');
-  });
-
-  closeBtn.addEventListener('click', () => {
-    menuToggle.classList.remove('open');
-    overlay.classList.remove('show');
-  });
-
-  overlay.addEventListener('click', () => {
-    menuToggle.classList.remove('open');
-    overlay.classList.remove('show');
-  });
-</script>
-
 
 </body>
 </html>
